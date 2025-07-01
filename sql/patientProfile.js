@@ -413,6 +413,57 @@ exports.education_insert_sql = async (
 };
 
 
+exports.appointments_Insert_sql = async (
+  patientId,
+    appointmentDate,
+    statusId,
+    userLogId,
+    utcOffset
+) => {
+  try {
+    // Define procedure parameters matching the stored procedure input
+    const procedureParameters = [
+      patientId,
+    appointmentDate,
+    statusId,
+    userLogId,
+    utcOffset
+    ];
+
+    // Output parameters as defined in the procedure
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "appointmentNo"
+    ];
+
+    const procedureName = "appointments_Insert";
+
+    // Execute the stored procedure
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    console.log("result:", result);
+
+    const { responseStatus, outputMessage } = result.outputValues;
+
+    if (responseStatus === "failed") {
+      return { responseStatus, outputMessage };
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
 
 exports.product_insertUpdate_sql = async (
   tenant,
@@ -1120,6 +1171,54 @@ exports.getPatientUniversityByPatientId_sql = async (
 
 
 
+exports.patientAppointments_Search_sql = async (
+    patientId,
+    appointmentNo,
+      appointmentDateStart,
+      appointmentDateEnd,
+      statusId,
+      skip,
+      limit,
+      userLogId,
+      utcOffset,
+      pageName,
+) => {
+  try {
+
+    const procedureParameters = [
+      appointmentNo,
+      appointmentDateStart,
+      appointmentDateEnd,
+      patientId,
+      statusId,
+      skip,
+      limit,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "totalRows",
+    ];
+    const procedureName = "Appointments_Search";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage,totalRows } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      throw { message: outputMessage };
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 exports.getProductTypes_drp_sql = async (

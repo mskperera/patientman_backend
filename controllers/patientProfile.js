@@ -18,7 +18,9 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      personal_information_insert_update_sql,
      family_information_insert_update_sql,
      medical_information_insert_update_sql,
-     education_insert_sql} = require('../sql/patientProfile');
+     education_insert_sql,
+     patientAppointments_Search_sql,
+     appointments_Insert_sql} = require('../sql/patientProfile');
 
 exports.patientRegistration_Add_ctrl =async (req, res) => {
   const {
@@ -734,79 +736,37 @@ if(result.error){
 }
 };
 
-exports.product_Update =async (req, res) => {
-
-  const { productId } = req.params;
 
 
+exports.appointmentsAdd_ctrl =async (req, res) => {
   const {
-    storeIdList,
-    productNo,
-    isProductNoAutoGenerate,
-    productName,
-    categoryIdList,
-    variationProductList,
-    comboProductDetailList,
-    measurementUnitId,
-    productTypeId,
-    isNotForSelling,
-    imgUrl,
-    isUnique,
-    isStockTracked,
-    isProductItem,
-    brandId,
-    unitCost,unitPrice,taxPerc,
-    sku,
-    barcode,
-    reorderLevel,
-    isExpiringProduct
+   patientId,
+    appointmentDate,
+    statusId
   } = req.body;
 
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
-  const tableId=productId;
-  const saveType="U";
-  const promptBeforeContinue=false;
-  
+console.log('body:',req.body);
+  const userLogId=1;//req.authUser.userLogId;
+     const utcOffset='5:30';
 
   try {
-  const result=  await productUpdate_srv(
-    tenant,
-    tableId,
-    storeIdList,
-    productNo,
-   isProductNoAutoGenerate,
-    productName,
-    categoryIdList,
-    variationProductList,
-    comboProductDetailList,
-    measurementUnitId,
-    productTypeId,
-    isNotForSelling,
-    imgUrl,
-    isUnique,
-    isStockTracked,
-    isProductItem,
-    brandId,
-    unitCost,unitPrice,taxPerc,
-    sku,
-    barcode,
-    reorderLevel,
-    isExpiringProduct,
-    userLogId
-    );
+  const result=  await appointments_Insert_sql(
+   patientId,
+    appointmentDate,
+    statusId,
+    userLogId,
+    utcOffset);
 
 
-    if(result.error){
-      return res.status(422).json({
-        error:result.error
-      });
-  }
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
 
       res.json(result);
  
+
 } catch (err) {
   console.log('Errori: ',err)
   return res.status(400).json({ 
@@ -818,9 +778,6 @@ exports.product_Update =async (req, res) => {
   });
 }
 };
-
-
-
 
 
 
@@ -1134,72 +1091,32 @@ exports.getPatientUniversity_ctrl = async (req, res) => {
 
 
 
-
-
-exports.getProductsPosMenu =async (req, res) => {
-  const {productId,productNo, productName, barcode,sku,brandId,storeId,productTypeIds,
-    categoryId,measurementUnitId,allSearchableFields,searchByKeyword,limit,skip } = req.body;
-  const tenant=req.tenant;
+exports.patientAppointments_Search_ctrl =async (req, res) => {
+   console.log('products_Select',req.body);
+  const {    patientId,
+    appointmentNo,
+      appointmentDateStart,
+      appointmentDateEnd,
+      statusId,
+      skip,
+      limit
+    } = req.body;
   const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
+  const userLogId=1;//req.authUser.userLogId;
   const pageName='p';
 
   try {
-  const result= await product_select_pos_menu_sql(tenant,productId,  productNo, productName,
-    sku,barcode,brandId,storeId,productTypeIds,categoryId,measurementUnitId,
-    allSearchableFields,searchByKeyword,
-    skip,limit, userLogId,utcOffset,pageName);
-      res.json(result);
+  const result= await patientAppointments_Search_sql(patientId,
+    appointmentNo,
+      appointmentDateStart,
+      appointmentDateEnd,
+      statusId,
+      skip,
+      limit,
+      userLogId,
+      utcOffset,
+      pageName,);
 
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name,
-      stack: err.stack
-    }
-  });
-}
-};
-
-exports.getVariationProductDetails_ctrl =async (req, res) => {
-  const {productId,storeId } = req.body;
-  const tenant=req.tenant;
-
-  try {
-  const result= await getVariationProductDetails_sql(tenant,productId,storeId);
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name,
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-
-exports.getProductsAllVariations =async (req, res) => {
-  // console.log('products_Select',req.body);
-  const {productId,productNo, productName, barcode,sku,brandId,storeId,productTypeIds,
-    categoryId,measurementUnitId,allSearchableFields,searchByKeyword,limit,skip } = req.body;
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
-
-  try {
-  const result= await Product_Select_all_variations_sql(tenant,productId,  productNo, productName,
-    sku,barcode,brandId,storeId,productTypeIds,categoryId,measurementUnitId,
-    allSearchableFields,searchByKeyword,
-    skip,limit, userLogId,utcOffset,pageName);
-   // console.log('products_Select result',result.results);
       res.json(result);
 
 } catch (err) {
@@ -1213,6 +1130,11 @@ exports.getProductsAllVariations =async (req, res) => {
   });
 }
 };
+
+
+
+
+
 
 
 exports.product_delete =async (req, res) => {

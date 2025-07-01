@@ -20,7 +20,9 @@ const {
   familyInformation_Update_ctrl,
   medicalInformation_Add_ctrl,
   medicalInformation_Update_ctrl,
-  education_Add_ctrl
+  education_Add_ctrl,
+  patientAppointments_Search_ctrl,
+  appointmentsAdd_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -57,6 +59,9 @@ router.post(
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   patientRegistration_Search_ctrl
 );
+
+
+
 
 router.get(
   '/patient/basicInfo/:patientId',
@@ -198,6 +203,24 @@ router.post(
   education_Add_ctrl
 );
 
+
+
+
+
+router.post(
+  '/patientAppointments/get',
+// requireSignin,
+ //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  patientAppointments_Search_ctrl
+);
+
+
+router.post(
+  '/appointment',
+// requireSignin,
+ //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  appointmentsAdd_ctrl
+);
 
 // router.post(
 //   '/product/getProductsPosMenu',
