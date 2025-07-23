@@ -20,7 +20,42 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      medical_information_insert_update_sql,
      education_insert_sql,
      patientAppointments_Search_sql,
-     appointments_Insert_sql} = require('../sql/patientProfile');
+     appointments_Insert_sql,
+     getProfileTabDetailsByPatientId_sql,
+     education_insert_update,
+     drp_university_subjects_sql,
+     drp_al_subjects_sql,
+     drp_al_stream_sql,
+     drp_ol_subjects_sql,
+     insert_subject_sql,
+     drp_institutions_sql} = require('../sql/patientProfile');
+
+
+
+     exports.getProfileTabDetailsByPatientId_ctrl =async (req, res) => {
+
+  const {patientId} = req.params;
+  const utcOffset='5:30';
+  const userLogId=1;//req.authUser.userLogId;
+  const pageName='p';
+
+  try {
+  const result= await getProfileTabDetailsByPatientId_sql(patientId,userLogId,utcOffset,pageName);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
 
 exports.patientRegistration_Add_ctrl =async (req, res) => {
   const {
@@ -36,6 +71,7 @@ exports.patientRegistration_Add_ctrl =async (req, res) => {
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       utcOffset,
       pageName,
       isConfirm
@@ -59,6 +95,7 @@ console.log('body:',req.body);
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       "I",
       userLogId,
       utcOffset,
@@ -104,6 +141,7 @@ exports.patientRegistration_Update_ctrl =async (req, res) => {
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       utcOffset,
       pageName,
       isConfirm
@@ -127,6 +165,7 @@ console.log('body:',req.body);
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       "U",
       userLogId,
       utcOffset,
@@ -177,12 +216,12 @@ exports.personalInformation_Add_ctrl =async (req, res) => {
   occupationTrained,
   occupation,
   occupationFullTime,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
+const  utcOffset= '5:30';
   const userLogId=1;//req.authUser.userLogId;
 
   try {
@@ -253,12 +292,12 @@ exports.personalInformation_Update_ctrl =async (req, res) => {
   occupationTrained,
   occupation,
   occupationFullTime,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
+const utcOffset= '5:30';
   const userLogId=1;//req.authUser.userLogId;
 
   try {
@@ -345,13 +384,13 @@ exports.familyInformation_Add_ctrl =async (req, res) => {
   maleRelativesHospitalized,
   femaleRelativesDisturbed,
   femaleRelativesHospitalized,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
   const userLogId=1;//req.authUser.userLogId;
+  const utcOffset= '5:30';
 
   try {
   const result=  await family_information_insert_update_sql(
@@ -448,13 +487,13 @@ exports.familyInformation_Update_ctrl =async (req, res) => {
   maleRelativesHospitalized,
   femaleRelativesDisturbed,
   femaleRelativesHospitalized,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
   const userLogId=1;//req.authUser.userLogId;
+  const utcOffset= '5:30';
 
   try {
   const result=  await family_information_insert_update_sql(
@@ -536,13 +575,13 @@ exports.medicalInformation_Add_ctrl =async (req, res) => {
   antidepressantsCount,
   psychotherapyType,
   additionalInfo,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
   const userLogId=1;//req.authUser.userLogId;
+ const utcOffset= '5:30';
 
   try {
   const result=  await medical_information_insert_update_sql(
@@ -609,14 +648,13 @@ exports.medicalInformation_Update_ctrl =async (req, res) => {
   antidepressantsCount,
   psychotherapyType,
   additionalInfo,
-  utcOffset,
   pageName,
   isConfirm
   } = req.body;
 
 console.log('body:',req.body);
   const userLogId=1;//req.authUser.userLogId;
-
+const utcOffset= '5:30';
   try {
   const result=  await medical_information_insert_update_sql(
     patientId,
@@ -672,47 +710,46 @@ exports.education_Add_ctrl =async (req, res) => {
   isScholarship,
   scholarshipMarks,
   schoolAdmitted,
-  scholarshipResult,
+  isScholarshipPassed,
   scholarshipRemark,
   isOL,
   olSubjects,
   olRemark,
   isAL,
-  alStreamId,
+  alStreamName,
   alSubjects,
   alRemark,
   isUniversity,
   universitySubjects,
-  universityRemark,
-  utcOffset,
-  isConfirm
+  universityRemark
   } = req.body;
 
 console.log('body:',req.body);
   const userLogId=1;//req.authUser.userLogId;
+   const utcOffset= '5:30';
 
   try {
-  const result=  await education_insert_sql(
+  const result=  await education_insert_update(
   patientId,
   educationYears,
   isScholarship,
   scholarshipMarks,
   schoolAdmitted,
-  scholarshipResult,
+  isScholarshipPassed,
   scholarshipRemark,
   isOL,
   olSubjects,
   olRemark,
   isAL,
-  alStreamId,
+  alStreamName,
   alSubjects,
   alRemark,
   isUniversity,
   universitySubjects,
   universityRemark,
   userLogId,
-  utcOffset,
-  isConfirm);
+  "I",
+  utcOffset);
 
 
 if(result.error){
@@ -730,6 +767,176 @@ if(result.error){
     error: {
       message: err.message,
       name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+exports.education_Update_ctrl =async (req, res) => {
+
+  const {patientId}=req.params;
+  const {
+  //patientId,
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark
+  } = req.body;
+
+console.log('body:',req.body);
+  const userLogId=1;//req.authUser.userLogId;
+   const utcOffset= '5:30';
+
+  try {
+  const result=  await education_insert_update(
+  patientId,
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark,
+  userLogId,
+  "U",
+  utcOffset);
+
+
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
+
+      res.json(result);
+ 
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+
+
+exports.getUniversitySubjects_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_university_subjects_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+exports.getALStreams_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_al_stream_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+exports.getALSubjects_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_al_subjects_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+exports.getOLSubjects_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_ol_subjects_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
       stack: err.stack
     }
   });
@@ -1132,24 +1339,28 @@ exports.patientAppointments_Search_ctrl =async (req, res) => {
 };
 
 
+exports.subjectAdd_ctrl =async (req, res) => {
+  const {
+   subjectName,
+    subjectType
+  } = req.body;
 
+console.log('body:',req.body);
+  const userLogId=1;//req.authUser.userLogId;
+     const utcOffset='5:30';
 
-
-
-
-exports.product_delete =async (req, res) => {
-  const { productId, isConfirm } = req.query;
-
-  const _isConfirm = JSON.parse(isConfirm);
-
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
-  console.log('product_delete: ',_isConfirm)
   try {
-  const result=  await product_delete(tenant,productId, userLogId,utcOffset,pageName,_isConfirm);
-  res.json(result);
+  const result=await insert_subject_sql(subjectName,subjectType);
+
+
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
+
+      res.json(result);
+ 
 
 } catch (err) {
   console.log('Errori: ',err)
@@ -1163,16 +1374,15 @@ exports.product_delete =async (req, res) => {
 }
 };
 
-exports.getProductTypes_drp =async (req, res) => {
+
+exports.getInstitutions_drp_ctrl =async (req, res) => {
 
   const { } = req.body;
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
+  const userLogId=1;
+
 
   try {
-  const result= await getProductTypes_drp_sql(tenant, userLogId,utcOffset,pageName);
+  const result= await drp_institutions_sql(userLogId);
 
       res.json(result);
 
@@ -1181,128 +1391,7 @@ exports.getProductTypes_drp =async (req, res) => {
   return res.status(400).json({ 
     error: {
       message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-exports.getProductExtraDetails =async (req, res) => {
-
-  const {productId} = req.query;
-  const tenant=req.tenant;
-
-  try {
-  const result= await product_select_extraDetails_sql(tenant,productId);
-   // console.log('products_Select result',result.results);
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-exports.getProductAvailaleStores =async (req, res) => {
-
-  const {productId,variationProductId} = req.body;
-  const tenant=req.tenant;
-
-  try {
-  const result= await product_availaleStores_select_sql(tenant,productId,variationProductId);
-    console.log('getProductAvailaleStores result',productId,result);
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-exports.getNonSerializedItems =async (req, res) => {
-
-  const {productId,variationProductId} = req.body;
-  const tenant=req.tenant;
-
-  try {
-  const result= await product_nonSerializedItemsSelect_sql(tenant,productId,variationProductId);
-   // console.log('products_Select result',result.results);
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-
-exports.getStores_ctrl =async (req, res) => {
-
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
-
-  try {
-  const result= await drp_stores_select_sql(tenant, userLogId,utcOffset,pageName);
-
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
-
-
-exports.getVariationTypes_drp =async (req, res) => {
-
-  const { } = req.body;
-  const tenant=req.tenant;
-  const utcOffset='5:30';
-  const userLogId=req.authUser.userLogId;
-  const pageName='p';
-
-  try {
-  const result= await getVariationTypes_drp_sql(tenant, userLogId,utcOffset,pageName);
-
-      res.json(result);
-
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
+      name: err.name,
       stack: err.stack
     }
   });

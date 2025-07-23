@@ -3,6 +3,25 @@ const { executeStoredProcedureWithOutputParamsByPool } = require("../mysql/sql_e
 
 
 
+exports.getProfileTabDetailsByPatientId_sql = async (patientId,userLogID,utcOffset,pageName) => {
+  try {
+
+    const procedureParameters = [patientId,userLogID,utcOffset,pageName];
+    const procedureOutputParameters = ["isBasicInfo","isPersonalInfo","isFamilyInfo","isMedicalInfo","isEducationInfo","ResponseStatus","OutputMessage"];
+    const procedureName = "getProfileTabDetailsByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    //const { isBasicInfo,isPersonalInfo,isFamilyInfo,isMedicalInfo,isEducationInfo } = result.outputValues;
+    return result.outputValues;
+  } catch (error) {
+    throw error;
+  }
+};
+
 exports.patient_registration_insert_update_sql = async (
   patientId,
    lastName,
@@ -17,6 +36,7 @@ exports.patient_registration_insert_update_sql = async (
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       saveType,
       userLogId,
       utcOffset,
@@ -40,6 +60,7 @@ exports.patient_registration_insert_update_sql = async (
       permanentAddress,
       referralSource,
       referralPartyPresent,
+      patientTypeId,
       saveType,
       userLogId,
       utcOffset,
@@ -68,9 +89,9 @@ exports.patient_registration_insert_update_sql = async (
   
     
     // Check for failure
-    if (responseStatus === 'failed') {
-      return {responseStatus, outputMessage};
-    }
+    // if (responseStatus === 'failed') {
+    //   return {responseStatus, outputMessage};
+    // }
     
     return result;
   } catch (error) {
@@ -105,6 +126,7 @@ exports.personal_information_insert_update_sql = async (
 ) => {
   try {
     // Define procedure parameters matching the stored procedure input
+    console.log('assets:',assets);
     const procedureParameters = [
       patientId,
       maritalStatus,
@@ -113,8 +135,8 @@ exports.personal_information_insert_update_sql = async (
       femaleChildrenAges,
       religiosity,
       thingsLiked,
-      assets,
-      badPoints,
+      assets ? JSON.stringify(assets):null, 
+      badPoints ? JSON.stringify(badPoints):null, 
       socialDifficulties,
       loveSexDifficulties,
       schoolWorkDifficulties,
@@ -212,9 +234,9 @@ exports.family_information_insert_update_sql = async (
       fatherOccupation,
       motherReligion,
       fatherReligion,
-      raisedBy,
-      motherDescription,
-      fatherDescription,
+      raisedBy ? JSON.stringify(raisedBy):null, 
+         motherDescription ? JSON.stringify(motherDescription):null, 
+            fatherDescription ? JSON.stringify(fatherDescription):null, 
       parentalSeparationAge,
       parentalDivorceAge,
       motherDivorceCount,
@@ -343,13 +365,13 @@ exports.medical_information_insert_update_sql = async (
   }
 };
 
-exports.education_insert_sql = async (
+exports.education_insert_update = async (
   patientId,
   educationYears,
   isScholarship,
   scholarshipMarks,
   schoolAdmitted,
-  scholarshipResult,
+  isScholarshipPassed,
   scholarshipRemark,
   isOL,
   olSubjects,
@@ -362,8 +384,8 @@ exports.education_insert_sql = async (
   universitySubjects,
   universityRemark,
   userLogId,
-  utcOffset,
-  isConfirm
+  saveType,
+  utcOffset
 ) => {
   try {
     // Convert arrays to JSON strings
@@ -377,7 +399,7 @@ exports.education_insert_sql = async (
       isScholarship,
       scholarshipMarks,
       schoolAdmitted,
-      scholarshipResult,
+      isScholarshipPassed,
       scholarshipRemark,
       isOL,
       olSubjects_json,
@@ -390,27 +412,123 @@ exports.education_insert_sql = async (
       universitySubjects_json,
       universityRemark,
       userLogId,
+      saveType,
       utcOffset
     ];
     const procedureOutputParameters = ["responseStatus", "outputMessage", "educationInfoId"];
-    const procedureName = "Education_Insert";
+    const procedureName = "education_insert_update";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
       procedureParameters,
       procedureOutputParameters
     );
 
-    const { responseStatus, outputMessage } = result.outputValues;
-    console.log('outputValues:', result);
-    if (responseStatus === "failed") {
-      return { responseStatus, outputMessage };
-    }
+  
+ 
 
     return result;
   } catch (error) {
     throw error;
   }
 };
+
+
+
+
+
+
+
+exports.drp_university_subjects_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_university_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+exports.drp_al_stream_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_al_stream_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.drp_al_subjects_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_al_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+exports.drp_ol_subjects_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_ol_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 
 exports.appointments_Insert_sql = async (
@@ -459,255 +577,6 @@ exports.appointments_Insert_sql = async (
     throw error;
   }
 };
-
-
-
-
-
-
-exports.product_insertUpdate_sql = async (
-  tenant,
-  tableId,
-  storeIdList,
-  productNo,
-  isProductNoAutoGenerate,
-  productName,
-  categoryIdList,
-  variationProductList,
-  comboProductDetailList,
-  measurementUnitId,
-  productTypeId,
-  isNotForSelling,
-  imgUrl,
-  isUnique,
-isStockTracked,
-isProductItem,
-  brandId,
-  unitCost,
-      unitPrice,
-      taxPerc,
-  sku,
-  barcode,
-  reorderLevel,
-  isExpiringProduct,
-  saveType,
-  userLogId,
-  utcOffset,
-  pageName,
-  isConfirm
-) => {
-  try {
-
-    const categoryIdList_json=JSON.stringify(categoryIdList);
-    const variationProductList_json=JSON.stringify(variationProductList);
-    const comboProductDetailList_json=JSON.stringify(comboProductDetailList);
-    const storeIdList_json=JSON.stringify(storeIdList);
-console.log('saveType',saveType);
-    
-    const {pool}=tenant;
-    const procedureParameters = [
-      tableId,
-      storeIdList_json,
-      productNo,
-      isProductNoAutoGenerate,
-      productName,
-      categoryIdList_json,
-      variationProductList_json,
-      comboProductDetailList_json,
-      measurementUnitId,
-      productTypeId,
-      isNotForSelling,
-      imgUrl,
-      isUnique,
-      isStockTracked,
-      isProductItem,
-      brandId,
-       unitCost,
-      unitPrice,
-      taxPerc,
-      sku,
-      barcode,
-      reorderLevel,
-      isExpiringProduct,
-      saveType,
-      userLogId,
-      utcOffset,
-      pageName,
-      isConfirm
-    ];
-    const procedureOutputParameters = ["responseStatus","outputMessage","productId"];
-    const procedureName = "Product_Insert_Update";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    const { responseStatus, outputMessage } = result.outputValues;
-    console.log('outputValues:', result);
-    if (responseStatus === SP_STATUS.failed) {
-      throw { message: outputMessage };
-    }
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.product_delete = async (
-  tenant,
-  productId,
-  userLogId,
-  utcOffset,
-  pageName,
-  isConfirm
-) => {
-  try {
-    const {pool}=tenant;
-    const procedureParameters = [
-      productId,
-      userLogId,
-      utcOffset,
-      pageName,
-      isConfirm,
-    ];
-    const procedureOutputParameters = ["responseStatus", "outputMessage"];
-    const procedureName = "Product_Delete";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    const { responseStatus, outputMessage } = result.outputValues;
-    if (responseStatus === SP_STATUS.failed) {
-      throw { message: outputMessage };
-    }
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.get_DC_ProductIdByProductId = async (tenant,productId) => {
-  try {
-    const {pool}=tenant;
-    const procedureParameters = [productId];
-    const procedureOutputParameters = ["dc_ProductId"];
-    const procedureName = "get_DC_ProductIdByProductId";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    const { dc_ProductId } = result.outputValues;
-    return dc_ProductId;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.product_select_pos_menu_sql = async (
-  tenant,
-  productId,
-  productNo,
-  productName,
-  sku,
-  barcode,
-  brandId,
-  storeId,
-  productTypeIds,
-  productCategoryId,
-  measurementUnitId,
-  allSearchableFields=null,
-  searchByKeyword,
-  skip,
-  limit,
-  userLogId,
-  utcOffset,
-  pageName,
-  promptBeforeContinue
-) => {
-  const { pool } = tenant;
-  try {
-    const procedureParameters = [
-      productId,
-      productNo,
-      productName,
-      sku,
-      barcode,
-      productCategoryId,
-      brandId,
-      storeId,
-      productTypeIds ? JSON.stringify(productTypeIds):null, // Convert array to JSON string
-      measurementUnitId,
-      allSearchableFields,
-      searchByKeyword,
-      skip,
-      limit,
-      userLogId,
-      utcOffset,
-      pageName,
-    ];
-    const procedureOutputParameters = [
-      "responseStatus",
-      "outputMessage",
-      "totalRows",
-    ];
-    const procedureName = "Product_Select_pos_menu";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    const { responseStatus, outputMessage } = result.outputValues;
-    if (responseStatus === SP_STATUS.failed) {
-      throw { message: outputMessage };
-    }
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
-
-exports.getVariationProductDetails_sql = async (
-  tenant,
-  productId,
-  storeId,
-) => {
-  const { pool } = tenant;
-  try {
-    const procedureParameters = [
-      productId,
-      storeId
-    ];
-    const procedureOutputParameters = [
-    ];
-    const procedureName = "getVariationProductDetails";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
-
-
-
 
 
 
@@ -1103,10 +972,8 @@ exports.getPatientALByPatientId_sql = async (
     const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
 
     return {
-      enabled: row.enabled,
-      subjects: parsedSubjects,
-      streamName:row.streamName,
-      remark: row.remark,
+    ...row,
+      subjects: parsedSubjects
     };
   }
   else{
@@ -1144,24 +1011,20 @@ exports.getPatientUniversityByPatientId_sql = async (
     );
 
     const { responseStatus, outputMessage } = result.outputValues;
-     if (responseStatus === SP_STATUS.failed) {
-      return { responseStatus, outputMessage };
-    }
+    //  if (responseStatus === SP_STATUS.failed) {
+    //   return { responseStatus, outputMessage };
+    // }
 
      const row = result.results[0][0];
 
-     if(row){
+    // if(row){
     const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
 
-    return {
-      enabled: row.enabled,
-      subjects: parsedSubjects,
-      remark: row.remark,
-    };
-  }
-  else{
-    return null;
-  }
+    return {...row, subjects: parsedSubjects};
+  //}
+  // else{
+  //   return null;
+  // }
     
   } catch (error) {
     throw error;
@@ -1250,6 +1113,67 @@ exports.getProductTypes_drp_sql = async (
     if (responseStatus === SP_STATUS.failed) {
       throw { message: outputMessage };
     }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.insert_subject_sql = async (
+ subjectName,
+    subjectType
+) => {
+  try {
+
+    // Define procedure parameters matching the stored procedure input
+    const procedureParameters = [
+    subjectName,
+    subjectType,
+    ];
+
+    // Output parameters as defined in the procedure
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "outputSubjectId"
+    ];
+
+    const procedureName = "insert_subject";
+
+    // Execute the stored procedure
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    console.log("result:", result);
+
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+exports.drp_institutions_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_institution_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
 
     return result;
   } catch (error) {
