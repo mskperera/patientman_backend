@@ -35,6 +35,7 @@ exports.patient_registration_insert_update_sql = async (
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       saveType,
@@ -59,6 +60,7 @@ exports.patient_registration_insert_update_sql = async (
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       saveType,
@@ -170,11 +172,6 @@ exports.personal_information_insert_update_sql = async (
 
     console.log("result:", result);
 
-    const { responseStatus, outputMessage } = result.outputValues;
-
-    if (responseStatus === "failed") {
-      return { responseStatus, outputMessage };
-    }
 
     return result;
   } catch (error) {
@@ -278,11 +275,6 @@ exports.family_information_insert_update_sql = async (
 
     console.log("SP result:", result);
 
-    const { responseStatus, outputMessage } = result.outputValues;
-
-    if (responseStatus === "failed") {
-      return { responseStatus, outputMessage };
-    }
 
     return result;
   } catch (error) {
@@ -353,11 +345,7 @@ exports.medical_information_insert_update_sql = async (
 
     console.log("SP result:", result);
 
-    const { responseStatus, outputMessage } = result.outputValues;
 
-    if (responseStatus === "failed") {
-      return { responseStatus, outputMessage };
-    }
 
     return result;
   } catch (error) {
@@ -1016,15 +1004,15 @@ exports.getPatientUniversityByPatientId_sql = async (
     // }
 
      const row = result.results[0][0];
-
-    // if(row){
+console.log('getPatientUniversityByPatientId_sql',row);
+     if(row){
     const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
 
     return {...row, subjects: parsedSubjects};
-  //}
-  // else{
-  //   return null;
-  // }
+  }
+   else{
+     return null;
+   }
     
   } catch (error) {
     throw error;
@@ -1169,6 +1157,74 @@ exports.drp_institutions_sql = async (
     ];
     const procedureOutputParameters = [];
     const procedureName = "drp_institution_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.drp_good_points_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_good_points_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.drp_bad_points_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_bad_points_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.drp_occupations_sql = async (
+  userLogId,
+) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_occupations_select";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
       procedureParameters,

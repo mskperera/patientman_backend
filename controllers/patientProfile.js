@@ -28,7 +28,10 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      drp_al_stream_sql,
      drp_ol_subjects_sql,
      insert_subject_sql,
-     drp_institutions_sql} = require('../sql/patientProfile');
+     drp_institutions_sql,
+     drp_bad_points_sql,
+     drp_good_points_sql,
+     drp_occupations_sql} = require('../sql/patientProfile');
 
 
 
@@ -70,6 +73,7 @@ exports.patientRegistration_Add_ctrl =async (req, res) => {
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       utcOffset,
@@ -94,6 +98,7 @@ console.log('body:',req.body);
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       "I",
@@ -140,6 +145,7 @@ exports.patientRegistration_Update_ctrl =async (req, res) => {
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       utcOffset,
@@ -164,6 +170,7 @@ console.log('body:',req.body);
       businessPhone,
       permanentAddress,
       referralSource,
+      referralSourceOther,
       referralPartyPresent,
       patientTypeId,
       "U",
@@ -1397,3 +1404,75 @@ exports.getInstitutions_drp_ctrl =async (req, res) => {
   });
 }
 };
+
+
+
+exports.getBadPoints_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_bad_points_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+
+exports.getGoodPoints_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_good_points_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+
+exports.getOccupations_drp_ctrl =async (req, res) => {
+
+  const { } = req.body;
+  const userLogId=1;
+
+
+  try {
+  const result= await drp_occupations_sql(userLogId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
+      stack: err.stack
+    }
+  });
+}
+};
+

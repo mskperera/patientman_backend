@@ -30,7 +30,10 @@ const {
   getALStreams_drp_ctrl,
   getOLSubjects_drp_ctrl,
   subjectAdd_ctrl,
-  getInstitutions_drp_ctrl
+  getInstitutions_drp_ctrl,
+  getGoodPoints_drp_ctrl,
+  getBadPoints_drp_ctrl,
+  getOccupations_drp_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -277,7 +280,21 @@ router.get(
   getInstitutions_drp_ctrl
 );
 
+router.get(
+  '/dropdown/goodPoints',
+  getGoodPoints_drp_ctrl
+);
 
+
+router.get(
+  '/dropdown/badPoints',
+  getBadPoints_drp_ctrl
+);
+
+router.get(
+  '/dropdown/occupations',
+  getOccupations_drp_ctrl
+);
 
 module.exports = router;
 
