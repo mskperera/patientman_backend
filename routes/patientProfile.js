@@ -33,7 +33,23 @@ const {
   getInstitutions_drp_ctrl,
   getGoodPoints_drp_ctrl,
   getBadPoints_drp_ctrl,
-  getOccupations_drp_ctrl
+  getOccupations_drp_ctrl,
+  getRaisedBy_drp_ctrl,
+  getReligions_drp_ctrl,
+  getTypesOfPerson_drp_ctrl,
+  getSocialDifficulties_drp_ctrl,
+  getEdexcelIGCSESubjects_drp_ctrl,
+  getCambridgeIGCSESubjects_drp_ctrl,
+  getEdexcelALSubjects_drp_ctrl,
+  getCambridgeALSubjects_drp_ctrl,
+  getEdexcelALStreams_drp_ctrl,
+  getCambridgeALStreams_drp_ctrl,
+  getPatientEdexcelIGCSE_ctrl,
+  getPatientCambridgeIGCSE_ctrl,
+  getPatientEdexcelAL_ctrl,
+  getPatientCambridgeAL_ctrl,
+  familyPatientRegistration_Add_ctrl,
+  familyPatientRegistration_Update_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -170,6 +186,19 @@ router.put(
   patientRegistration_Update_ctrl
 );
 
+router.post(
+  '/patient/familyPatientRegistration',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
+  familyPatientRegistration_Add_ctrl
+);
+
+router.put(
+  '/patient/familyPatientRegistration/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
+  familyPatientRegistration_Update_ctrl
+);
 
 router.post(
   '/patient/personalInformation',
@@ -295,6 +324,66 @@ router.get(
   '/dropdown/occupations',
   getOccupations_drp_ctrl
 );
+
+router.get('/dropdown/raisedby', getRaisedBy_drp_ctrl);
+
+router.get('/dropdown/religions', getReligions_drp_ctrl);
+
+router.get('/dropdown/typesofperson', getTypesOfPerson_drp_ctrl);
+
+
+router.get('/dropdown/socialdifficulties', getSocialDifficulties_drp_ctrl);
+
+// Route for Edexcel IGCSE subjects dropdown
+router.get('/dropdown/edexceligcsesubjects', getEdexcelIGCSESubjects_drp_ctrl);
+
+// Route for Cambridge IGCSE subjects dropdown
+router.get('/dropdown/cambridgeigcsesubjects', getCambridgeIGCSESubjects_drp_ctrl);
+
+// Route for Edexcel A-Level subjects dropdown
+router.get('/dropdown/edexcelalsubjects', getEdexcelALSubjects_drp_ctrl);
+
+// Route for Cambridge A-Level subjects dropdown
+router.get('/dropdown/cambridgealsubjects', getCambridgeALSubjects_drp_ctrl);
+
+router.get('/dropdown/edexcelalstreams', getEdexcelALStreams_drp_ctrl);
+router.get('/dropdown/cambridgealstreams', getCambridgeALStreams_drp_ctrl);
+
+
+
+// Route for Edexcel IGCSE qualifications
+router.get(
+  '/patient/edexceligcse/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getPatientEdexcelIGCSE_ctrl
+);
+
+// Route for Cambridge IGCSE qualifications
+router.get(
+  '/patient/cambridgeigcse/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getPatientCambridgeIGCSE_ctrl
+);
+
+// Route for Edexcel A-Level qualifications
+router.get(
+  '/patient/edexcelal/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getPatientEdexcelAL_ctrl
+);
+
+// Route for Cambridge A-Level qualifications
+router.get(
+  '/patient/cambridgeal/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getPatientCambridgeAL_ctrl
+);
+
+
 
 module.exports = router;
 

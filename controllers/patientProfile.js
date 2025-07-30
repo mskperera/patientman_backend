@@ -31,7 +31,22 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      drp_institutions_sql,
      drp_bad_points_sql,
      drp_good_points_sql,
-     drp_occupations_sql} = require('../sql/patientProfile');
+     drp_occupations_sql,
+     drp_raised_by_sql,
+     drp_types_of_person_sql,
+     drp_religions_sql,
+     drp_social_difficulties_sql,
+     drp_edexcel_igcse_subjects_sql,
+     drp_cambridge_igcse_subjects_sql,
+     drp_edexcel_al_subjects_sql,
+     drp_cambridge_al_subjects_sql,
+     drp_edexcel_al_streams_sql,
+     drp_cambridge_al_streams_sql,
+     getPatientEdexcelIGCSEByPatientId_sql,
+     getPatientCambridgeIGCSEByPatientId_sql,
+     getPatientEdexcelALByPatientId_sql,
+     getPatientCambridgeALByPatientId_sql,
+     family_patient_registration_insert_update_sql} = require('../sql/patientProfile');
 
 
 
@@ -202,7 +217,182 @@ if(result.error){
 };
 
 
+exports.familyPatientRegistration_Add_ctrl = async (req, res) => {
+  const {
+    husbandFirstName,
+    husbandLastName,
+    husbandMiddleName,
+    husbandDateOfBirth,
+    husbandAge,
+    husbandGender,
+    husbandEmail,
+    husbandHomePhone,
+    husbandMobilePhone,
+    husbandPermanentAddress,
+    wifeFirstName,
+    wifeLastName,
+    wifeMiddleName,
+    wifeDateOfBirth,
+    wifeAge,
+    wifeGender,
+    wifeEmail,
+    wifeHomePhone,
+    wifeMobilePhone,
+    wifePermanentAddress,
+    referralSource,
+    referralSourceOther,
+    referralPartyPresent,
+    patientTypeId,
+    utcOffset,
+    pageName,
+    isConfirm
+  } = req.body;
 
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    const result = await family_patient_registration_insert_update_sql(
+      null,
+      husbandFirstName,
+      husbandLastName,
+      husbandMiddleName,
+      husbandDateOfBirth,
+      husbandAge,
+      husbandGender,
+      husbandEmail,
+      husbandHomePhone,
+      husbandMobilePhone,
+      husbandPermanentAddress,
+      wifeFirstName,
+      wifeLastName,
+      wifeMiddleName,
+      wifeDateOfBirth,
+      wifeAge,
+      wifeGender,
+      wifeEmail,
+      wifeHomePhone,
+      wifeMobilePhone,
+      wifePermanentAddress,
+      referralSource,
+      referralSourceOther,
+      referralPartyPresent,
+      patientTypeId,
+      "I",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.familyPatientRegistration_Update_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const {
+    husbandFirstName,
+    husbandLastName,
+    husbandMiddleName,
+    husbandDateOfBirth,
+    husbandAge,
+    husbandGender,
+    husbandEmail,
+    husbandHomePhone,
+    husbandMobilePhone,
+    husbandPermanentAddress,
+    wifeFirstName,
+    wifeLastName,
+    wifeMiddleName,
+    wifeDateOfBirth,
+    wifeAge,
+    wifeGender,
+    wifeEmail,
+    wifeHomePhone,
+    wifeMobilePhone,
+    wifePermanentAddress,
+    referralSource,
+    referralSourceOther,
+    referralPartyPresent,
+    patientTypeId,
+    utcOffset,
+    pageName,
+    isConfirm
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    const result = await family_patient_registration_insert_update_sql(
+      patientId,
+      husbandFirstName,
+      husbandLastName,
+      husbandMiddleName,
+      husbandDateOfBirth,
+      husbandAge,
+      husbandGender,
+      husbandEmail,
+      husbandHomePhone,
+      husbandMobilePhone,
+      husbandPermanentAddress,
+      wifeFirstName,
+      wifeLastName,
+      wifeMiddleName,
+      wifeDateOfBirth,
+      wifeAge,
+      wifeGender,
+      wifeEmail,
+      wifeHomePhone,
+      wifeMobilePhone,
+      wifePermanentAddress,
+      referralSource,
+      referralSourceOther,
+      referralPartyPresent,
+      patientTypeId,
+      "U",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
 
 exports.personalInformation_Add_ctrl =async (req, res) => {
   const {
@@ -710,150 +900,341 @@ if(result.error){
 
 
 
-exports.education_Add_ctrl =async (req, res) => {
-  const {
-  patientId,
-  educationYears,
-  isScholarship,
-  scholarshipMarks,
-  schoolAdmitted,
-  isScholarshipPassed,
-  scholarshipRemark,
-  isOL,
-  olSubjects,
-  olRemark,
-  isAL,
-  alStreamName,
-  alSubjects,
-  alRemark,
-  isUniversity,
-  universitySubjects,
-  universityRemark
-  } = req.body;
+// exports.education_Add_ctrl =async (req, res) => {
+//   const {
+//   patientId,
+//   educationYears,
+//   isScholarship,
+//   scholarshipMarks,
+//   schoolAdmitted,
+//   isScholarshipPassed,
+//   scholarshipRemark,
+//   isOL,
+//   olSubjects,
+//   olRemark,
+//   isAL,
+//   alStreamName,
+//   alSubjects,
+//   alRemark,
+//   isUniversity,
+//   universitySubjects,
+//   universityRemark
+//   } = req.body;
 
-console.log('body:',req.body);
-  const userLogId=1;//req.authUser.userLogId;
-   const utcOffset= '5:30';
+// console.log('body:',req.body);
+//   const userLogId=1;//req.authUser.userLogId;
+//    const utcOffset= '5:30';
 
-  try {
-  const result=  await education_insert_update(
-  patientId,
-  educationYears,
-  isScholarship,
-  scholarshipMarks,
-  schoolAdmitted,
-  isScholarshipPassed,
-  scholarshipRemark,
-  isOL,
-  olSubjects,
-  olRemark,
-  isAL,
-  alStreamName,
-  alSubjects,
-  alRemark,
-  isUniversity,
-  universitySubjects,
-  universityRemark,
-  userLogId,
-  "I",
-  utcOffset);
+//   try {
+//   const result=  await education_insert_update(
+//   patientId,
+//   educationYears,
+//   isScholarship,
+//   scholarshipMarks,
+//   schoolAdmitted,
+//   isScholarshipPassed,
+//   scholarshipRemark,
+//   isOL,
+//   olSubjects,
+//   olRemark,
+//   isAL,
+//   alStreamName,
+//   alSubjects,
+//   alRemark,
+//   isUniversity,
+//   universitySubjects,
+//   universityRemark,
+//   userLogId,
+//   "I",
+//   utcOffset);
 
 
-if(result.error){
-    return res.status(422).json({
-      error:result.error
-    });
-}
+// if(result.error){
+//     return res.status(422).json({
+//       error:result.error
+//     });
+// }
 
-      res.json(result);
+//       res.json(result);
  
 
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
-    }
-  });
-}
-};
+// } catch (err) {
+//   console.log('Errori: ',err)
+//   return res.status(400).json({ 
+//     error: {
+//       message: err.message,
+//       name: err.name, // include other properties if needed
+//       stack: err.stack
+//     }
+//   });
+// }
+// };
 
-exports.education_Update_ctrl =async (req, res) => {
+// exports.education_Update_ctrl =async (req, res) => {
 
-  const {patientId}=req.params;
-  const {
-  //patientId,
-  educationYears,
-  isScholarship,
-  scholarshipMarks,
-  schoolAdmitted,
-  isScholarshipPassed,
-  scholarshipRemark,
-  isOL,
-  olSubjects,
-  olRemark,
-  isAL,
-  alStreamName,
-  alSubjects,
-  alRemark,
-  isUniversity,
-  universitySubjects,
-  universityRemark
-  } = req.body;
+//   const {patientId}=req.params;
+//   const {
+//   //patientId,
+//   educationYears,
+//   isScholarship,
+//   scholarshipMarks,
+//   schoolAdmitted,
+//   isScholarshipPassed,
+//   scholarshipRemark,
+//   isOL,
+//   olSubjects,
+//   olRemark,
+//   isAL,
+//   alStreamName,
+//   alSubjects,
+//   alRemark,
+//   isUniversity,
+//   universitySubjects,
+//   universityRemark
+//   } = req.body;
 
-console.log('body:',req.body);
-  const userLogId=1;//req.authUser.userLogId;
-   const utcOffset= '5:30';
+// console.log('body:',req.body);
+//   const userLogId=1;//req.authUser.userLogId;
+//    const utcOffset= '5:30';
 
-  try {
-  const result=  await education_insert_update(
-  patientId,
-  educationYears,
-  isScholarship,
-  scholarshipMarks,
-  schoolAdmitted,
-  isScholarshipPassed,
-  scholarshipRemark,
-  isOL,
-  olSubjects,
-  olRemark,
-  isAL,
-  alStreamName,
-  alSubjects,
-  alRemark,
-  isUniversity,
-  universitySubjects,
-  universityRemark,
-  userLogId,
-  "U",
-  utcOffset);
+//   try {
+//   const result=  await education_insert_update(
+//   patientId,
+//   educationYears,
+//   isScholarship,
+//   scholarshipMarks,
+//   schoolAdmitted,
+//   isScholarshipPassed,
+//   scholarshipRemark,
+//   isOL,
+//   olSubjects,
+//   olRemark,
+//   isAL,
+//   alStreamName,
+//   alSubjects,
+//   alRemark,
+//   isUniversity,
+//   universitySubjects,
+//   universityRemark,
+//   userLogId,
+//   "U",
+//   utcOffset);
 
 
-if(result.error){
-    return res.status(422).json({
-      error:result.error
-    });
-}
+// if(result.error){
+//     return res.status(422).json({
+//       error:result.error
+//     });
+// }
 
-      res.json(result);
+//       res.json(result);
  
 
-} catch (err) {
-  console.log('Errori: ',err)
-  return res.status(400).json({ 
-    error: {
-      message: err.message,
-      name: err.name, // include other properties if needed
-      stack: err.stack
+// } catch (err) {
+//   console.log('Errori: ',err)
+//   return res.status(400).json({ 
+//     error: {
+//       message: err.message,
+//       name: err.name, // include other properties if needed
+//       stack: err.stack
+//     }
+//   });
+// }
+// };
+
+
+
+exports.education_Add_ctrl = async (req, res) => {
+  const {
+    patientId,
+    educationYears,
+    isScholarship,
+    scholarshipMarks,
+    schoolAdmitted,
+    isScholarshipPassed,
+    scholarshipRemark,
+    isOL,
+    olSubjects,
+    olRemark,
+    isAL,
+    alStreamName,
+    alSubjects,
+    alRemark,
+    isUniversity,
+    universitySubjects,
+    universityRemark,
+    isEdexcelIGCSE,
+    edexcelIGCSESubjects,
+    edexcelIGCSERemark,
+    isCambridgeIGCSE,
+    cambridgeIGCSESubjects,
+    cambridgeIGCSERemark,
+    isEdexcelAL,
+    edexcelALStreamName,
+    edexcelALSubjects,
+    edexcelALRemark,
+    isCambridgeAL,
+    cambridgeALStreamName,
+    cambridgeALSubjects,
+    cambridgeALRemark
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+  const utcOffset = '5:30';
+
+  try {
+    const result = await education_insert_update(
+      patientId,
+      educationYears,
+      isScholarship,
+      scholarshipMarks,
+      schoolAdmitted,
+      isScholarshipPassed,
+      scholarshipRemark,
+      isOL,
+      olSubjects,
+      olRemark,
+      isAL,
+      alStreamName,
+      alSubjects,
+      alRemark,
+      isUniversity,
+      universitySubjects,
+      universityRemark,
+      isEdexcelIGCSE,
+      edexcelIGCSESubjects,
+      edexcelIGCSERemark,
+      isCambridgeIGCSE,
+      cambridgeIGCSESubjects,
+      cambridgeIGCSERemark,
+      isEdexcelAL,
+      edexcelALStreamName,
+      edexcelALSubjects,
+      edexcelALRemark,
+      isCambridgeAL,
+      cambridgeALStreamName,
+      cambridgeALSubjects,
+      cambridgeALRemark,
+      userLogId,
+      "I",
+      utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
     }
-  });
-}
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
 };
 
+exports.education_Update_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const {
+    educationYears,
+    isScholarship,
+    scholarshipMarks,
+    schoolAdmitted,
+    isScholarshipPassed,
+    scholarshipRemark,
+    isOL,
+    olSubjects,
+    olRemark,
+    isAL,
+    alStreamName,
+    alSubjects,
+    alRemark,
+    isUniversity,
+    universitySubjects,
+    universityRemark,
+    isEdexcelIGCSE,
+    edexcelIGCSESubjects,
+    edexcelIGCSERemark,
+    isCambridgeIGCSE,
+    cambridgeIGCSESubjects,
+    cambridgeIGCSERemark,
+    isEdexcelAL,
+    edexcelALStreamName,
+    edexcelALSubjects,
+    edexcelALRemark,
+    isCambridgeAL,
+    cambridgeALStreamName,
+    cambridgeALSubjects,
+    cambridgeALRemark
+  } = req.body;
 
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+  const utcOffset = '5:30';
 
+  try {
+    const result = await education_insert_update(
+      patientId,
+      educationYears,
+      isScholarship,
+      scholarshipMarks,
+      schoolAdmitted,
+      isScholarshipPassed,
+      scholarshipRemark,
+      isOL,
+      olSubjects,
+      olRemark,
+      isAL,
+      alStreamName,
+      alSubjects,
+      alRemark,
+      isUniversity,
+      universitySubjects,
+      universityRemark,
+      isEdexcelIGCSE,
+      edexcelIGCSESubjects,
+      edexcelIGCSERemark,
+      isCambridgeIGCSE,
+      cambridgeIGCSESubjects,
+      cambridgeIGCSERemark,
+      isEdexcelAL,
+      edexcelALStreamName,
+      edexcelALSubjects,
+      edexcelALRemark,
+      isCambridgeAL,
+      cambridgeALStreamName,
+      cambridgeALSubjects,
+      cambridgeALRemark,
+      userLogId,
+      "U",
+      utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
 
 exports.getUniversitySubjects_drp_ctrl =async (req, res) => {
 
@@ -1476,3 +1857,297 @@ exports.getOccupations_drp_ctrl =async (req, res) => {
 }
 };
 
+
+exports.getRaisedBy_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // or get from req.body / req.user if needed
+
+  try {
+    const result = await drp_raised_by_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.getReligions_drp_ctrl = async (req, res) => {
+  const userLogId = 1;
+
+  try {
+    const result = await drp_religions_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.getTypesOfPerson_drp_ctrl = async (req, res) => {
+  const userLogId = 1;
+
+  try {
+    const result = await drp_types_of_person_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.getSocialDifficulties_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_social_difficulties_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+
+
+
+// Controller for Edexcel IGCSE subjects dropdown
+exports.getEdexcelIGCSESubjects_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_edexcel_igcse_subjects_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+// Controller for Cambridge IGCSE subjects dropdown
+exports.getCambridgeIGCSESubjects_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_cambridge_igcse_subjects_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+// Controller for Edexcel A-Level subjects dropdown
+exports.getEdexcelALSubjects_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_edexcel_al_subjects_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+// Controller for Cambridge A-Level subjects dropdown
+exports.getCambridgeALSubjects_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_cambridge_al_subjects_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.getEdexcelALStreams_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_edexcel_al_streams_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.getCambridgeALStreams_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
+  try {
+    const result = await drp_cambridge_al_streams_sql(userLogId);
+    res.json(result);
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+
+
+// Controller for Edexcel IGCSE qualifications
+exports.getPatientEdexcelIGCSE_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+  const pageName = 'p';
+
+  try {
+    const result = await getPatientEdexcelIGCSEByPatientId_sql(
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack,
+      },
+    });
+  }
+};
+
+// Controller for Cambridge IGCSE qualifications
+exports.getPatientCambridgeIGCSE_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+  const pageName = 'p';
+
+  try {
+    const result = await getPatientCambridgeIGCSEByPatientId_sql(
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack,
+      },
+    });
+  }
+};
+
+// Controller for Edexcel A-Level qualifications
+exports.getPatientEdexcelAL_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+  const pageName = 'p';
+
+  try {
+    const result = await getPatientEdexcelALByPatientId_sql(
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack,
+      },
+    });
+  }
+};
+
+// Controller for Cambridge A-Level qualifications
+exports.getPatientCambridgeAL_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+  const pageName = 'p';
+
+  try {
+    const result = await getPatientCambridgeALByPatientId_sql(
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack,
+      },
+    });
+  }
+};

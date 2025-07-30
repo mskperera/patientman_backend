@@ -101,6 +101,99 @@ exports.patient_registration_insert_update_sql = async (
   }
 };
 
+exports.family_patient_registration_insert_update_sql = async (
+  patientId,
+  husbandFirstName,
+  husbandLastName,
+  husbandMiddleName,
+  husbandDateOfBirth,
+  husbandAge,
+  husbandGender,
+  husbandEmail,
+  husbandHomePhone,
+  husbandMobilePhone,
+  husbandPermanentAddress,
+  wifeFirstName,
+  wifeLastName,
+  wifeMiddleName,
+  wifeDateOfBirth,
+  wifeAge,
+  wifeGender,
+  wifeEmail,
+  wifeHomePhone,
+  wifeMobilePhone,
+  wifePermanentAddress,
+  referralSource,
+  referralSourceOther,
+  referralPartyPresent,
+  patientTypeId,
+  saveType,
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm
+) => {
+  try {
+    
+    // Define procedure parameters matching the SP
+    const procedureParameters = [
+      patientId,
+      husbandFirstName,
+      husbandLastName,
+      husbandMiddleName,
+      husbandDateOfBirth,
+      husbandAge,
+      husbandGender,
+      husbandEmail,
+      husbandHomePhone,
+      husbandMobilePhone,
+      husbandPermanentAddress,
+      wifeFirstName,
+      wifeLastName,
+      wifeMiddleName,
+      wifeDateOfBirth,
+      wifeAge,
+      wifeGender,
+      wifeEmail,
+      wifeHomePhone,
+      wifeMobilePhone,
+      wifePermanentAddress,
+      referralSource,
+      referralSourceOther,
+      referralPartyPresent,
+      patientTypeId,
+      saveType,
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    ];
+    
+    // Define output parameters matching the SP
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "patientNo",
+      "outputPatientId"
+    ];
+    
+    const procedureName = "family_patient_registration_insert_update";
+    
+    // Execute the stored procedure
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    
+    console.log('result:', result);
+    const { responseStatus, outputMessage } = result.outputValues;
+    
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 exports.personal_information_insert_update_sql = async (
   patientId,
@@ -139,7 +232,7 @@ exports.personal_information_insert_update_sql = async (
       thingsLiked,
       assets ? JSON.stringify(assets):null, 
       badPoints ? JSON.stringify(badPoints):null, 
-      socialDifficulties,
+       socialDifficulties ? JSON.stringify(socialDifficulties):null, 
       loveSexDifficulties,
       schoolWorkDifficulties,
       lifeGoals,
@@ -353,6 +446,76 @@ exports.medical_information_insert_update_sql = async (
   }
 };
 
+// exports.education_insert_update = async (
+//   patientId,
+//   educationYears,
+//   isScholarship,
+//   scholarshipMarks,
+//   schoolAdmitted,
+//   isScholarshipPassed,
+//   scholarshipRemark,
+//   isOL,
+//   olSubjects,
+//   olRemark,
+//   isAL,
+//   alStreamId,
+//   alSubjects,
+//   alRemark,
+//   isUniversity,
+//   universitySubjects,
+//   universityRemark,
+//   userLogId,
+//   saveType,
+//   utcOffset
+// ) => {
+//   try {
+//     // Convert arrays to JSON strings
+//     const olSubjects_json = JSON.stringify(olSubjects || []);
+//     const alSubjects_json = JSON.stringify(alSubjects || []);
+//     const universitySubjects_json = JSON.stringify(universitySubjects || []);
+
+//     const procedureParameters = [
+//       patientId,
+//       educationYears,
+//       isScholarship,
+//       scholarshipMarks,
+//       schoolAdmitted,
+//       isScholarshipPassed,
+//       scholarshipRemark,
+//       isOL,
+//       olSubjects_json,
+//       olRemark,
+//       isAL,
+//       alStreamId,
+//       alSubjects_json,
+//       alRemark,
+//       isUniversity,
+//       universitySubjects_json,
+//       universityRemark,
+//       userLogId,
+//       saveType,
+//       utcOffset
+//     ];
+//     const procedureOutputParameters = ["responseStatus", "outputMessage", "educationInfoId"];
+//     const procedureName = "education_insert_update";
+//     const result = await executeStoredProcedureWithOutputParamsByPool(
+//       procedureName,
+//       procedureParameters,
+//       procedureOutputParameters
+//     );
+
+  
+ 
+
+//     return result;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+
+
+
 exports.education_insert_update = async (
   patientId,
   educationYears,
@@ -365,12 +528,26 @@ exports.education_insert_update = async (
   olSubjects,
   olRemark,
   isAL,
-  alStreamId,
+  alStreamName,
   alSubjects,
   alRemark,
   isUniversity,
   universitySubjects,
   universityRemark,
+  isEdexcelIGCSE,
+  edexcelIGCSESubjects,
+  edexcelIGCSERemark,
+  isCambridgeIGCSE,
+  cambridgeIGCSESubjects,
+  cambridgeIGCSERemark,
+  isEdexcelAL,
+  edexcelALStreamName,
+  edexcelALSubjects,
+  edexcelALRemark,
+  isCambridgeAL,
+  cambridgeALStreamName,
+  cambridgeALSubjects,
+  cambridgeALRemark,
   userLogId,
   saveType,
   utcOffset
@@ -380,6 +557,10 @@ exports.education_insert_update = async (
     const olSubjects_json = JSON.stringify(olSubjects || []);
     const alSubjects_json = JSON.stringify(alSubjects || []);
     const universitySubjects_json = JSON.stringify(universitySubjects || []);
+    const edexcelIGCSESubjects_json = JSON.stringify(edexcelIGCSESubjects || []);
+    const cambridgeIGCSESubjects_json = JSON.stringify(cambridgeIGCSESubjects || []);
+    const edexcelALSubjects_json = JSON.stringify(edexcelALSubjects || []);
+    const cambridgeALSubjects_json = JSON.stringify(cambridgeALSubjects || []);
 
     const procedureParameters = [
       patientId,
@@ -393,12 +574,26 @@ exports.education_insert_update = async (
       olSubjects_json,
       olRemark,
       isAL,
-      alStreamId,
+      alStreamName,
       alSubjects_json,
       alRemark,
       isUniversity,
       universitySubjects_json,
       universityRemark,
+      isEdexcelIGCSE,
+      edexcelIGCSESubjects_json,
+      edexcelIGCSERemark,
+      isCambridgeIGCSE,
+      cambridgeIGCSESubjects_json,
+      cambridgeIGCSERemark,
+      isEdexcelAL,
+      edexcelALStreamName,
+      edexcelALSubjects_json,
+      edexcelALRemark,
+      isCambridgeAL,
+      cambridgeALStreamName,
+      cambridgeALSubjects_json,
+      cambridgeALRemark,
       userLogId,
       saveType,
       utcOffset
@@ -411,17 +606,11 @@ exports.education_insert_update = async (
       procedureOutputParameters
     );
 
-  
- 
-
     return result;
   } catch (error) {
     throw error;
   }
 };
-
-
-
 
 
 
@@ -1232,6 +1421,381 @@ exports.drp_occupations_sql = async (
     );
 
     return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.drp_raised_by_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_raised_by_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.drp_religions_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_religions_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.drp_types_of_person_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_types_of_person_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.drp_social_difficulties_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_social_difficulties_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+// Function to call stored procedure for Edexcel IGCSE subjects dropdown
+exports.drp_edexcel_igcse_subjects_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_edexcel_igcse_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Cambridge IGCSE subjects dropdown
+exports.drp_cambridge_igcse_subjects_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_cambridge_igcse_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Edexcel A-Level subjects dropdown
+exports.drp_edexcel_al_subjects_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_edexcel_al_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Cambridge A-Level subjects dropdown
+exports.drp_cambridge_al_subjects_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_cambridge_al_subjects_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.drp_edexcel_al_streams_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_edexcel_al_streams_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.drp_cambridge_al_streams_sql = async (userLogId) => {
+  try {
+    const procedureParameters = [userLogId];
+    const procedureOutputParameters = [];
+    const procedureName = "drp_cambridge_al_streams_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+// Function to call stored procedure for Edexcel IGCSE qualifications
+exports.getPatientEdexcelIGCSEByPatientId_sql = async (
+  patientId,
+  userLogId,
+  utcOffset,
+  pageName,
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage"
+    ];
+    const procedureName = "patientEdexcelIGCSEByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      return { responseStatus, outputMessage };
+    }
+
+    const row = result.results[0][0];
+    console.log('getPatientEdexcelIGCSEByPatientId_sql', row);
+
+     if(row){
+    const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
+
+    return {
+    ...row,
+      subjects: parsedSubjects
+    };
+  }
+  else{
+    return null;
+  }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Cambridge IGCSE qualifications
+exports.getPatientCambridgeIGCSEByPatientId_sql = async (
+  patientId,
+  userLogId,
+  utcOffset,
+  pageName,
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage"
+    ];
+    const procedureName = "patientCambridgeIGCSEByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      return { responseStatus, outputMessage };
+    }
+
+    const row = result.results[0][0];
+    console.log('getPatientCambridgeIGCSEByPatientId_sql', row);
+
+     if(row){
+    const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
+
+    return {
+    ...row,
+      subjects: parsedSubjects
+    };
+  }
+  else{
+    return null;
+  }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Edexcel A-Level qualifications
+exports.getPatientEdexcelALByPatientId_sql = async (
+  patientId,
+  userLogId,
+  utcOffset,
+  pageName,
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage"
+    ];
+    const procedureName = "patientEdexcelALByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      return { responseStatus, outputMessage };
+    }
+
+    const row = result.results[0][0];
+    console.log('getPatientEdexcelALByPatientId_sql', row);
+
+   if(row){
+    const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
+
+    return {
+    ...row,
+      subjects: parsedSubjects
+    };
+  }
+  else{
+    return null;
+  }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to call stored procedure for Cambridge A-Level qualifications
+exports.getPatientCambridgeALByPatientId_sql = async (
+  patientId,
+  userLogId,
+  utcOffset,
+  pageName,
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage"
+    ];
+    const procedureName = "patientCambridgeALByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      return { responseStatus, outputMessage };
+    }
+
+    const row = result.results[0][0];
+    console.log('getPatientCambridgeALByPatientId_sql', row);
+
+  
+     if(row){
+    const parsedSubjects = row.subjects ? JSON.parse(row.subjects) : [];
+
+    return {
+    ...row,
+      subjects: parsedSubjects
+    };
+  }
+  else{
+    return null;
+  }
   } catch (error) {
     throw error;
   }
