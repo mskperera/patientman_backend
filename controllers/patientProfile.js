@@ -46,7 +46,13 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      getPatientCambridgeIGCSEByPatientId_sql,
      getPatientEdexcelALByPatientId_sql,
      getPatientCambridgeALByPatientId_sql,
-     family_patient_registration_insert_update_sql} = require('../sql/patientProfile');
+     family_patient_registration_insert_update_sql,
+     personal_information_family_insert_update_sql,
+     personal_information_child_insert_update_sql,
+     drp_aces_sql,
+     medical_information_family_insert_update_sql,
+     getPatientInternationalCurriculumByPatientId_sql,
+     education_insert_update_family} = require('../sql/patientProfile');
 
 
 
@@ -394,6 +400,168 @@ exports.familyPatientRegistration_Update_ctrl = async (req, res) => {
   }
 };
 
+exports.medical_information_family_add_ctrl = async (req, res) => {
+  const {
+    patientId,
+  physicalAilmentsHusband,
+  physicalAilmentsWife,
+  mainComplaintsHusband,
+  mainComplaintsWife,
+  worseConditionsHusband,
+  worseConditionsWife,
+  improvedConditionsHusband,
+  improvedConditionsWife,
+  isHistoryOfPsychiatricTreatmentsHusband,
+  isHistoryOfPsychiatricTreatmentsWife,
+  isPsychiatricHospitalizationHusband,
+  isPsychiatricHospitalizationWife,
+  historyOfMentalIllnessHusband,
+  historyOfMentalIllnessWife,
+  historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+  historyOfACESHusband,
+  historyOfACESWife,
+  additionalInfoHusband,
+  additionalInfoWife,
+  utcOffset,
+  pageName,
+  isConfirm
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    const result = await medical_information_family_insert_update_sql(
+      patientId,
+  physicalAilmentsHusband,
+  physicalAilmentsWife,
+  mainComplaintsHusband,
+  mainComplaintsWife,
+  worseConditionsHusband,
+  worseConditionsWife,
+  improvedConditionsHusband,
+  improvedConditionsWife,
+  isHistoryOfPsychiatricTreatmentsHusband,
+  isHistoryOfPsychiatricTreatmentsWife,
+  isPsychiatricHospitalizationHusband,
+  isPsychiatricHospitalizationWife,
+  historyOfMentalIllnessHusband,
+  historyOfMentalIllnessWife,
+  historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+  historyOfACESHusband,
+  historyOfACESWife,
+  additionalInfoHusband,
+  additionalInfoWife,
+  'I',
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.medical_information_family_update_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const {
+  physicalAilmentsHusband,
+  physicalAilmentsWife,
+  mainComplaintsHusband,
+  mainComplaintsWife,
+  worseConditionsHusband,
+  worseConditionsWife,
+  improvedConditionsHusband,
+  improvedConditionsWife,
+  isHistoryOfPsychiatricTreatmentsHusband,
+  isHistoryOfPsychiatricTreatmentsWife,
+  isPsychiatricHospitalizationHusband,
+  isPsychiatricHospitalizationWife,
+  historyOfMentalIllnessHusband,
+  historyOfMentalIllnessWife,
+  historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+  historyOfACESHusband,
+  historyOfACESWife,
+  additionalInfoHusband,
+  additionalInfoWife,
+  utcOffset,
+  pageName,
+  isConfirm
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    const result = await medical_information_family_insert_update_sql(
+  patientId,
+  physicalAilmentsHusband,
+  physicalAilmentsWife,
+  mainComplaintsHusband,
+  mainComplaintsWife,
+  worseConditionsHusband,
+  worseConditionsWife,
+  improvedConditionsHusband,
+  improvedConditionsWife,
+  isHistoryOfPsychiatricTreatmentsHusband,
+  isHistoryOfPsychiatricTreatmentsWife,
+  isPsychiatricHospitalizationHusband,
+  isPsychiatricHospitalizationWife,
+  historyOfMentalIllnessHusband,
+  historyOfMentalIllnessWife,
+  historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+  historyOfACESHusband,
+  historyOfACESWife,
+  additionalInfoHusband,
+  additionalInfoWife,
+  "U",
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({ 
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
 exports.personalInformation_Add_ctrl =async (req, res) => {
   const {
     patientId,
@@ -545,6 +713,370 @@ if(result.error){
 };
 
 
+
+
+
+
+
+exports.personalInformationChild_Add_ctrl =async (req, res) => {
+  const {
+    patientId,
+  maritalStatus,
+  yearsMarried,
+  maleChildrenAges,
+  femaleChildrenAges,
+  religiosity,
+  thingsLiked,
+  assets,
+  badPoints,
+  socialDifficulties,
+  loveSexDifficulties,
+  schoolWorkDifficulties,
+  lifeGoals,
+  thingsToChange,
+  occupationTrained,
+  occupation,
+  occupationFullTime,
+  pageName,
+  isConfirm
+  } = req.body;
+
+console.log('body:',req.body);
+const  utcOffset= '5:30';
+  const userLogId=1;//req.authUser.userLogId;
+
+  try {
+  const result=  await personal_information_child_insert_update_sql(
+    patientId,
+  maritalStatus,
+  yearsMarried,
+  maleChildrenAges,
+  femaleChildrenAges,
+  religiosity,
+  thingsLiked,
+  assets,
+  badPoints,
+  socialDifficulties,
+  loveSexDifficulties,
+  schoolWorkDifficulties,
+  lifeGoals,
+  thingsToChange,
+  occupationTrained,
+  occupation,
+  occupationFullTime,
+  "I",
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm);
+
+
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
+
+      res.json(result);
+ 
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+exports.personalInformationChild_Update_ctrl =async (req, res) => {
+
+  const {patientId}=req.params;
+  const {
+  maritalStatus,
+  yearsMarried,
+  maleChildrenAges,
+  femaleChildrenAges,
+  religiosity,
+  thingsLiked,
+  assets,
+  badPoints,
+  socialDifficulties,
+  loveSexDifficulties,
+  schoolWorkDifficulties,
+  lifeGoals,
+  thingsToChange,
+  occupationTrained,
+  occupation,
+  occupationFullTime,
+  pageName,
+  isConfirm
+  } = req.body;
+
+console.log('body:',req.body);
+const utcOffset= '5:30';
+  const userLogId=1;//req.authUser.userLogId;
+
+  try {
+  const result=  await personal_information_child_insert_update_sql(
+    patientId,
+  maritalStatus,
+  yearsMarried,
+  maleChildrenAges,
+  femaleChildrenAges,
+  religiosity,
+  thingsLiked,
+  assets,
+  badPoints,
+  socialDifficulties,
+  loveSexDifficulties,
+  schoolWorkDifficulties,
+  lifeGoals,
+  thingsToChange,
+  occupationTrained,
+  occupation,
+  occupationFullTime,
+  "U",
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm);
+
+
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
+
+      res.json(result);
+ 
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+
+
+
+
+
+
+
+
+
+exports.personalInformationFamily_Add_ctrl = async (req, res) => {
+  const {
+    patientId,
+    maritalStatusHusband,
+    yearsMarriedHusband,
+    maleChildrenAges,
+    femaleChildrenAges,
+    religiosity,
+    thingsLiked,
+    assets,
+    badPoints,
+    socialDifficulties,
+    loveSexDifficulties,
+    schoolWorkDifficulties,
+    lifeGoals,
+    thingsToChange,
+    occupationTrainedHusband,
+    occupationHusband,
+    occupationFullTimeHusband,
+    pageName,
+    isConfirm,
+    maritalStatusWife,
+    yearsMarriedWife,
+    occupationTrainedWife,
+    occupationWife,
+    occupationFullTimeWife // Added optional wife fields
+  } = req.body;
+
+  console.log('body:', req.body);
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    // Validate patient type (only family patients with patientTypeId = 3)
+    // const patientTypeId = await getPatientTypeId(patientId);
+    // if (patientTypeId !== 3) {
+    //   return res.status(400).json({
+    //     error: {
+    //       message: 'This endpoint is only for family patients (patientTypeId = 3).'
+    //     }
+    //   });
+    // }
+
+    // Validate required fields for family patients
+   
+
+    const result = await personal_information_family_insert_update_sql(
+      patientId,
+      maritalStatusHusband,
+      yearsMarriedHusband,
+      maritalStatusWife,
+      yearsMarriedWife,
+      maleChildrenAges,
+      femaleChildrenAges,
+      religiosity,
+      thingsLiked,
+      assets,
+      badPoints,
+      socialDifficulties,
+      loveSexDifficulties,
+      schoolWorkDifficulties,
+      lifeGoals,
+      thingsToChange,
+      occupationTrainedHusband,
+      occupationHusband,
+      occupationFullTimeHusband,
+      occupationTrainedWife,
+      occupationWife,
+      occupationFullTimeWife,
+      "I",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Errori: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.personalInformationFamily_Update_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const {
+    maritalStatusHusband,
+    yearsMarriedHusband,
+    maleChildrenAges,
+    femaleChildrenAges,
+    religiosity,
+    thingsLiked,
+    assets,
+    badPoints,
+    socialDifficulties,
+    loveSexDifficulties,
+    schoolWorkDifficulties,
+    lifeGoals,
+    thingsToChange,
+    occupationTrainedHusband,
+    occupationHusband,
+    occupationFullTimeHusband,
+    pageName,
+    isConfirm,
+    maritalStatusWife,
+    yearsMarriedWife,
+    occupationTrainedWife,
+    occupationWife,
+    occupationFullTimeWife // Added optional wife fields
+  } = req.body;
+
+  console.log('body:', req.body);
+  const utcOffset = '5:30';
+  const userLogId = 1; // req.authUser.userLogId;
+
+  try {
+    // Validate patient type (only family patients with patientTypeId = 3)
+    // const patientTypeId = await getPatientTypeId(patientId);
+    // if (patientTypeId !== 3) {
+    //   return res.status(400).json({
+    //     error: {
+    //       message: 'This endpoint is only for family patients (patientTypeId = 3).'
+    //     }
+    //   });
+    // }
+
+    // Validate required fields for family patients
+  
+ 
+ 
+
+    const result = await personal_information_family_insert_update_sql(
+      patientId,
+      maritalStatusHusband,
+      yearsMarriedHusband,
+      maritalStatusWife,
+      yearsMarriedWife,
+      maleChildrenAges,
+      femaleChildrenAges,
+      religiosity,
+      thingsLiked,
+      assets,
+      badPoints,
+      socialDifficulties,
+      loveSexDifficulties,
+      schoolWorkDifficulties,
+      lifeGoals,
+      thingsToChange,
+      occupationTrainedHusband,
+      occupationHusband,
+      occupationFullTimeHusband,
+      occupationTrainedWife,
+      occupationWife,
+      occupationFullTimeWife,
+      "U",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Errori: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+// Helper function to get patientTypeId (assumed to be implemented elsewhere)
+async function getPatientTypeId(patientId) {
+  const [rows] = await pool.query('SELECT patientTypeId FROM patient_registration WHERE patientId = ?', [patientId]);
+  return rows[0]?.patientTypeId || null;
+}
 
 
 
@@ -1046,37 +1578,26 @@ if(result.error){
 
 exports.education_Add_ctrl = async (req, res) => {
   const {
-    patientId,
-    educationYears,
-    isScholarship,
-    scholarshipMarks,
-    schoolAdmitted,
-    isScholarshipPassed,
-    scholarshipRemark,
-    isOL,
-    olSubjects,
-    olRemark,
-    isAL,
-    alStreamName,
-    alSubjects,
-    alRemark,
-    isUniversity,
-    universitySubjects,
-    universityRemark,
-    isEdexcelIGCSE,
-    edexcelIGCSESubjects,
-    edexcelIGCSERemark,
-    isCambridgeIGCSE,
-    cambridgeIGCSESubjects,
-    cambridgeIGCSERemark,
-    isEdexcelAL,
-    edexcelALStreamName,
-    edexcelALSubjects,
-    edexcelALRemark,
-    isCambridgeAL,
-    cambridgeALStreamName,
-    cambridgeALSubjects,
-    cambridgeALRemark
+  patientId,
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark,
+  isInternationalCurriculum,
+  isEdexcel,
+  isCambridge
   } = req.body;
 
   console.log('body:', req.body);
@@ -1085,38 +1606,27 @@ exports.education_Add_ctrl = async (req, res) => {
 
   try {
     const result = await education_insert_update(
-      patientId,
-      educationYears,
-      isScholarship,
-      scholarshipMarks,
-      schoolAdmitted,
-      isScholarshipPassed,
-      scholarshipRemark,
-      isOL,
-      olSubjects,
-      olRemark,
-      isAL,
-      alStreamName,
-      alSubjects,
-      alRemark,
-      isUniversity,
-      universitySubjects,
-      universityRemark,
-      isEdexcelIGCSE,
-      edexcelIGCSESubjects,
-      edexcelIGCSERemark,
-      isCambridgeIGCSE,
-      cambridgeIGCSESubjects,
-      cambridgeIGCSERemark,
-      isEdexcelAL,
-      edexcelALStreamName,
-      edexcelALSubjects,
-      edexcelALRemark,
-      isCambridgeAL,
-      cambridgeALStreamName,
-      cambridgeALSubjects,
-      cambridgeALRemark,
-      userLogId,
+   patientId,
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark,
+  isInternationalCurriculum,
+  isEdexcel,
+  isCambridge,
+  userLogId,
       "I",
       utcOffset
     );
@@ -1143,36 +1653,25 @@ exports.education_Add_ctrl = async (req, res) => {
 exports.education_Update_ctrl = async (req, res) => {
   const { patientId } = req.params;
   const {
-    educationYears,
-    isScholarship,
-    scholarshipMarks,
-    schoolAdmitted,
-    isScholarshipPassed,
-    scholarshipRemark,
-    isOL,
-    olSubjects,
-    olRemark,
-    isAL,
-    alStreamName,
-    alSubjects,
-    alRemark,
-    isUniversity,
-    universitySubjects,
-    universityRemark,
-    isEdexcelIGCSE,
-    edexcelIGCSESubjects,
-    edexcelIGCSERemark,
-    isCambridgeIGCSE,
-    cambridgeIGCSESubjects,
-    cambridgeIGCSERemark,
-    isEdexcelAL,
-    edexcelALStreamName,
-    edexcelALSubjects,
-    edexcelALRemark,
-    isCambridgeAL,
-    cambridgeALStreamName,
-    cambridgeALSubjects,
-    cambridgeALRemark
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark,
+  isInternationalCurriculum,
+  isEdexcel,
+  isCambridge
   } = req.body;
 
   console.log('body:', req.body);
@@ -1181,37 +1680,199 @@ exports.education_Update_ctrl = async (req, res) => {
 
   try {
     const result = await education_insert_update(
+    patientId,
+  educationYears,
+  isScholarship,
+  scholarshipMarks,
+  schoolAdmitted,
+  isScholarshipPassed,
+  scholarshipRemark,
+  isOL,
+  olSubjects,
+  olRemark,
+  isAL,
+  alStreamName,
+  alSubjects,
+  alRemark,
+  isUniversity,
+  universitySubjects,
+  universityRemark,
+  isInternationalCurriculum,
+  isEdexcel,
+  isCambridge,
+  userLogId,
+      "U",
+      utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+
+exports.education_Add_family_ctrl = async (req, res) => {
+  const {
+    patientId,
+    educationYearsHusband,
+    isOLHusband,
+    isOLPassedHusband,
+    olRemarkHusband,
+    isALHusband,
+    alStreamNameHusband,
+    alRemarkHusband,
+    isUniversityHusband,
+    universitySubjectsHusband,
+    universityRemarkHusband,
+    isEdexcelHusband,
+    isCambridgeHusband,
+    educationYearsWife,
+    isScholarshipWife,
+    isOLWife,
+    isOLPassedWife,
+    olRemarkWife,
+    isALWife,
+    alStreamNameWife,
+    alRemarkWife,
+    isUniversityWife,
+    universitySubjectsWife,
+    universityRemarkWife,
+    isEdexcelWife,
+    isCambridgeWife
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+  const utcOffset = '5:30';
+
+  try {
+    const result = await education_insert_update_family(
       patientId,
-      educationYears,
-      isScholarship,
-      scholarshipMarks,
-      schoolAdmitted,
-      isScholarshipPassed,
-      scholarshipRemark,
-      isOL,
-      olSubjects,
-      olRemark,
-      isAL,
-      alStreamName,
-      alSubjects,
-      alRemark,
-      isUniversity,
-      universitySubjects,
-      universityRemark,
-      isEdexcelIGCSE,
-      edexcelIGCSESubjects,
-      edexcelIGCSERemark,
-      isCambridgeIGCSE,
-      cambridgeIGCSESubjects,
-      cambridgeIGCSERemark,
-      isEdexcelAL,
-      edexcelALStreamName,
-      edexcelALSubjects,
-      edexcelALRemark,
-      isCambridgeAL,
-      cambridgeALStreamName,
-      cambridgeALSubjects,
-      cambridgeALRemark,
+      educationYearsHusband,
+      isOLHusband,
+      isOLPassedHusband,
+      olRemarkHusband,
+      isALHusband,
+      alStreamNameHusband,
+      alRemarkHusband,
+      isUniversityHusband,
+      universitySubjectsHusband,
+      universityRemarkHusband,
+      isEdexcelHusband,
+      isCambridgeHusband,
+      educationYearsWife,
+      isScholarshipWife,
+      isOLWife,
+      isOLPassedWife,
+      olRemarkWife,
+      isALWife,
+      alStreamNameWife,
+      alRemarkWife,
+      isUniversityWife,
+      universitySubjectsWife,
+      universityRemarkWife,
+      isEdexcelWife,
+      isCambridgeWife,
+      userLogId,
+      "I",
+      utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error: ', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+exports.education_Update_family_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const {
+    educationYearsHusband,
+    isOLHusband,
+    isOLPassedHusband,
+    olRemarkHusband,
+    isALHusband,
+    alStreamNameHusband,
+    alRemarkHusband,
+    isUniversityHusband,
+    universitySubjectsHusband,
+    universityRemarkHusband,
+    isEdexcelHusband,
+    isCambridgeHusband,
+    educationYearsWife,
+    isScholarshipWife,
+    isOLWife,
+    isOLPassedWife,
+    olRemarkWife,
+    isALWife,
+    alStreamNameWife,
+    alRemarkWife,
+    isUniversityWife,
+    universitySubjectsWife,
+    universityRemarkWife,
+    isEdexcelWife,
+    isCambridgeWife
+  } = req.body;
+
+  console.log('body:', req.body);
+  const userLogId = 1; // req.authUser.userLogId;
+  const utcOffset = '5:30';
+
+  try {
+    const result = await education_insert_update_family(
+      patientId,
+      educationYearsHusband,
+      isOLHusband,
+      isOLPassedHusband,
+      olRemarkHusband,
+      isALHusband,
+      alStreamNameHusband,
+      alRemarkHusband,
+      isUniversityHusband,
+      universitySubjectsHusband,
+      universityRemarkHusband,
+      isEdexcelHusband,
+      isCambridgeHusband,
+      educationYearsWife,
+      isScholarshipWife,
+      isOLWife,
+      isOLPassedWife,
+      olRemarkWife,
+      isALWife,
+      alStreamNameWife,
+      alRemarkWife,
+      isUniversityWife,
+      universitySubjectsWife,
+      universityRemarkWife,
+      isEdexcelWife,
+      isCambridgeWife,
       userLogId,
       "U",
       utcOffset
@@ -1931,124 +2592,15 @@ exports.getSocialDifficulties_drp_ctrl = async (req, res) => {
 
 
 
-
-// Controller for Edexcel IGCSE subjects dropdown
-exports.getEdexcelIGCSESubjects_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_edexcel_igcse_subjects_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-// Controller for Cambridge IGCSE subjects dropdown
-exports.getCambridgeIGCSESubjects_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_cambridge_igcse_subjects_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-// Controller for Edexcel A-Level subjects dropdown
-exports.getEdexcelALSubjects_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_edexcel_al_subjects_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-// Controller for Cambridge A-Level subjects dropdown
-exports.getCambridgeALSubjects_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_cambridge_al_subjects_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-exports.getEdexcelALStreams_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_edexcel_al_streams_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-exports.getCambridgeALStreams_drp_ctrl = async (req, res) => {
-  const userLogId = 1; // Static or dynamic if needed
-  try {
-    const result = await drp_cambridge_al_streams_sql(userLogId);
-    res.json(result);
-  } catch (err) {
-    console.error('Error:', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack
-      }
-    });
-  }
-};
-
-
-
-// Controller for Edexcel IGCSE qualifications
-exports.getPatientEdexcelIGCSE_ctrl = async (req, res) => {
+// Controller for International Curriculum qualifications
+exports.getPatientInternationalCurriculum_ctrl = async (req, res) => {
   const { patientId } = req.params;
   const utcOffset = '5:30';
   const userLogId = 1; // req.authUser.userLogId;
   const pageName = 'p';
 
   try {
-    const result = await getPatientEdexcelIGCSEByPatientId_sql(
+    const result = await getPatientInternationalCurriculumByPatientId_sql(
       patientId,
       userLogId,
       utcOffset,
@@ -2068,86 +2620,21 @@ exports.getPatientEdexcelIGCSE_ctrl = async (req, res) => {
   }
 };
 
-// Controller for Cambridge IGCSE qualifications
-exports.getPatientCambridgeIGCSE_ctrl = async (req, res) => {
-  const { patientId } = req.params;
-  const utcOffset = '5:30';
-  const userLogId = 1; // req.authUser.userLogId;
-  const pageName = 'p';
 
+
+exports.getACES_drp_ctrl = async (req, res) => {
+  const userLogId = 1; // Static or dynamic if needed
   try {
-    const result = await getPatientCambridgeIGCSEByPatientId_sql(
-      patientId,
-      userLogId,
-      utcOffset,
-      pageName,
-    );
-
+    const result = await drp_aces_sql(userLogId);
     res.json(result);
   } catch (err) {
-    console.log('Error: ', err);
+    console.error('Error:', err);
     return res.status(400).json({
       error: {
         message: err.message,
         name: err.name,
-        stack: err.stack,
-      },
-    });
-  }
-};
-
-// Controller for Edexcel A-Level qualifications
-exports.getPatientEdexcelAL_ctrl = async (req, res) => {
-  const { patientId } = req.params;
-  const utcOffset = '5:30';
-  const userLogId = 1; // req.authUser.userLogId;
-  const pageName = 'p';
-
-  try {
-    const result = await getPatientEdexcelALByPatientId_sql(
-      patientId,
-      userLogId,
-      utcOffset,
-      pageName,
-    );
-
-    res.json(result);
-  } catch (err) {
-    console.log('Error: ', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack,
-      },
-    });
-  }
-};
-
-// Controller for Cambridge A-Level qualifications
-exports.getPatientCambridgeAL_ctrl = async (req, res) => {
-  const { patientId } = req.params;
-  const utcOffset = '5:30';
-  const userLogId = 1; // req.authUser.userLogId;
-  const pageName = 'p';
-
-  try {
-    const result = await getPatientCambridgeALByPatientId_sql(
-      patientId,
-      userLogId,
-      utcOffset,
-      pageName,
-    );
-
-    res.json(result);
-  } catch (err) {
-    console.log('Error: ', err);
-    return res.status(400).json({
-      error: {
-        message: err.message,
-        name: err.name,
-        stack: err.stack,
-      },
+        stack: err.stack
+      }
     });
   }
 };
