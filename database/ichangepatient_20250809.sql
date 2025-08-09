@@ -260,7 +260,7 @@ CREATE TABLE `education_al` (
   KEY `subjectId` (`subjectId`),
   CONSTRAINT `education_al_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information` (`educationInfoId`),
   CONSTRAINT `education_al_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `al_subjects` (`subjectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,7 +307,8 @@ INSERT INTO `education_al` VALUES
 (88,58,3,'B',2025,'2025-08-05 23:07:34','2025-08-05 23:07:34'),
 (92,59,3,'A',2025,'2025-08-07 01:21:35','2025-08-07 01:21:35'),
 (93,59,6,'B',2025,'2025-08-07 01:21:35','2025-08-07 01:21:35'),
-(96,68,3,'A',2025,'2025-08-09 19:25:50','2025-08-09 19:25:50');
+(96,68,3,'A',2025,'2025-08-09 19:25:50','2025-08-09 19:25:50'),
+(97,70,3,'A',2025,'2025-08-09 20:59:12','2025-08-09 20:59:12');
 /*!40000 ALTER TABLE `education_al` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +327,7 @@ CREATE TABLE `education_information` (
   PRIMARY KEY (`educationInfoId`),
   KEY `patientId` (`patientId`),
   CONSTRAINT `education_information_ibfk_1` FOREIGN KEY (`patientId`) REFERENCES `patient_registration` (`patientId`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +356,9 @@ INSERT INTO `education_information` VALUES
 (59,42,'2025-08-07 00:30:31','2025-08-09 18:37:30'),
 (60,31,'2025-08-07 04:57:26','2025-08-07 11:38:47'),
 (61,43,'2025-08-07 12:10:31','2025-08-09 18:01:54'),
-(68,44,'2025-08-09 19:08:18','2025-08-09 19:28:55');
+(68,44,'2025-08-09 19:08:18','2025-08-09 19:28:55'),
+(69,45,'2025-08-09 19:36:24','2025-08-09 19:36:30'),
+(70,46,'2025-08-09 20:59:12','2025-08-09 20:59:26');
 /*!40000 ALTER TABLE `education_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +417,8 @@ INSERT INTO `education_information_family` VALUES
 (56,12,'','\0',NULL,'','\0',NULL,'Qualified for university entrance',53,NULL,'','\0',0,NULL,'\0',NULL,'\0','\0',NULL,NULL,NULL,NULL,'\0','\0'),
 (58,3,'','','\0','','','ooo','ljk',51,'','','',0,'\0','\0','\0','\0','\0',NULL,NULL,NULL,NULL,'\0','\0'),
 (60,12,'\0','\0',NULL,'','\0',NULL,'Qualified for university entrance',53,NULL,'','\0',0,NULL,'\0',NULL,'\0','\0',NULL,NULL,NULL,NULL,'\0','\0'),
-(61,16,'\0','','','','','jlj','jljkljikj',50,'Advanced Level Qualifications Mathematics and English Literature, demonstrating strong analytical thinking and communication skills.','','',12,NULL,'','','','','oooo','joooooooooooooooooo',51,'Bachelor of Information Technology – University of Colombo, School of Computing, Sri Lanka\n','','');
+(61,16,'\0','','','','','jlj','jljkljikj',50,'Advanced Level Qualifications Mathematics and English Literature, demonstrating strong analytical thinking and communication skills.','','',12,NULL,'','','','','oooo','joooooooooooooooooo',51,'Bachelor of Information Technology – University of Colombo, School of Computing, Sri Lanka\n','',''),
+(69,13,'\0','','','','','kj','jl',51,'jlkj','','',13,NULL,'','\0','','','','jlkjl',51,'kj','',NULL);
 /*!40000 ALTER TABLE `education_information_family` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,7 +462,8 @@ INSERT INTO `education_information_single` VALUES
 (55,3,'','','','','jjkljkjjjjj\njjllllloj\njj\njkj','jjj\njlkjl',50,'jjjljlk\nljljk\njlkjlkj','\0','\0'),
 (57,8,'','','','','lllllll','oooooooooooooooooooooooooooooooooooo\nooo',51,'jkljljlj','\0',''),
 (59,2,'','','','','oo\njjk\nnkk\njoljlkjkj','jhgj\nkhj',50,'jljkjjjkj','','\0'),
-(68,13,'','','','','jlkjljj','kjkl',50,'jkjkl','','');
+(68,13,'','','','','jlkjljj','kjkl',50,'jkjkl','',''),
+(70,9,'','','','','jlj','klj',51,'jlkjjljl4lj\nljk','','');
 /*!40000 ALTER TABLE `education_information_single` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,7 +487,7 @@ CREATE TABLE `education_ol` (
   KEY `subjectId` (`subjectId`),
   CONSTRAINT `education_ol_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information` (`educationInfoId`),
   CONSTRAINT `education_ol_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `ol_subjects` (`subjectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,7 +533,9 @@ INSERT INTO `education_ol` VALUES
 (164,57,5,'B',2025,'2025-08-06 00:14:25','2025-08-06 00:14:25'),
 (168,59,2,'A',2025,'2025-08-07 01:20:26','2025-08-07 01:20:26'),
 (169,59,3,'B',2025,'2025-08-07 01:20:26','2025-08-07 01:20:26'),
-(172,68,3,'A',2025,'2025-08-09 19:28:36','2025-08-09 19:28:36');
+(172,68,3,'A',2025,'2025-08-09 19:28:36','2025-08-09 19:28:36'),
+(173,70,2,'A',2025,'2025-08-09 20:59:12','2025-08-09 20:59:12'),
+(174,70,4,'B',2025,'2025-08-09 20:59:26','2025-08-09 20:59:26');
 /*!40000 ALTER TABLE `education_ol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -551,7 +558,7 @@ CREATE TABLE `education_scholarship` (
   PRIMARY KEY (`scholarshipId`),
   KEY `educationInfoId` (`educationInfoId`),
   CONSTRAINT `education_scholarship_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information` (`educationInfoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -574,7 +581,8 @@ INSERT INTO `education_scholarship` VALUES
 (50,57,185,'Royal College, Colombo',NULL,'k;lk;l','2025-08-03 18:30:21','2025-08-07 00:23:50'),
 (51,58,185,'Royal College, Colombo',NULL,'','2025-08-05 23:06:20','2025-08-05 23:07:34'),
 (54,59,85,'Royal College, Colombo','','hh','2025-08-07 01:14:24','2025-08-09 18:37:30'),
-(61,68,185,'Ananda College, Colombo','','oj\njk\nt','2025-08-09 19:08:18','2025-08-09 19:28:55');
+(61,68,185,'Ananda College, Colombo','','oj\njk\nt','2025-08-09 19:08:18','2025-08-09 19:28:55'),
+(62,70,85,'Ananda College, Colombo','\0','jlkjk\nlkj','2025-08-09 20:59:12','2025-08-09 20:59:26');
 /*!40000 ALTER TABLE `education_scholarship` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -601,7 +609,7 @@ CREATE TABLE `education_university` (
   CONSTRAINT `education_university_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information` (`educationInfoId`),
   CONSTRAINT `education_university_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `university_subjects` (`subjectId`),
   CONSTRAINT `education_university_institutions_FK` FOREIGN KEY (`institutionId`) REFERENCES `institutions` (`institutionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,7 +644,8 @@ INSERT INTO `education_university` VALUES
 (54,58,4,'A',2025,'2025-08-05 23:07:18','2025-08-05 23:07:18',1),
 (57,59,1,'A',2025,'2025-08-07 02:23:20','2025-08-07 02:23:20',2),
 (58,59,4,'C',2025,'2025-08-07 03:21:45','2025-08-07 03:21:53',1),
-(60,68,5,'A',2025,'2025-08-09 19:20:41','2025-08-09 19:20:41',2);
+(60,68,5,'A',2025,'2025-08-09 19:20:41','2025-08-09 19:20:41',2),
+(61,70,4,'A',2025,'2025-08-09 20:59:12','2025-08-09 20:59:12',5);
 /*!40000 ALTER TABLE `education_university` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,7 +672,7 @@ CREATE TABLE `education_university_husband` (
   CONSTRAINT `education_university_husband_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information_family` (`educationInfoId`) ON DELETE CASCADE,
   CONSTRAINT `education_university_husband_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `university_subjects` (`subjectId`),
   CONSTRAINT `education_university_husband_institutions_fk` FOREIGN KEY (`institutionId`) REFERENCES `institutions` (`institutionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,7 +683,9 @@ LOCK TABLES `education_university_husband` WRITE;
 /*!40000 ALTER TABLE `education_university_husband` DISABLE KEYS */;
 INSERT INTO `education_university_husband` VALUES
 (19,61,6,'1',2025,21,'2025-08-08 18:40:43','2025-08-08 18:40:43'),
-(22,61,4,'1',2025,21,'2025-08-09 17:42:58','2025-08-09 17:42:58');
+(22,61,4,'1',2025,21,'2025-08-09 17:42:58','2025-08-09 17:42:58'),
+(23,69,7,'1',2025,21,'2025-08-09 19:36:24','2025-08-09 19:36:24'),
+(24,69,5,'1',2025,21,'2025-08-09 19:36:24','2025-08-09 19:36:24');
 /*!40000 ALTER TABLE `education_university_husband` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -701,7 +712,7 @@ CREATE TABLE `education_university_wife` (
   CONSTRAINT `education_university_wife_ibfk_1` FOREIGN KEY (`educationInfoId`) REFERENCES `education_information_family` (`educationInfoId`) ON DELETE CASCADE,
   CONSTRAINT `education_university_wife_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `university_subjects` (`subjectId`) ON DELETE SET NULL,
   CONSTRAINT `education_university_wife_institutions_fk` FOREIGN KEY (`institutionId`) REFERENCES `institutions` (`institutionId`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -712,7 +723,8 @@ LOCK TABLES `education_university_wife` WRITE;
 /*!40000 ALTER TABLE `education_university_wife` DISABLE KEYS */;
 INSERT INTO `education_university_wife` VALUES
 (12,61,2,'1',2025,21,'2025-08-09 16:48:12','2025-08-09 16:48:12'),
-(13,61,5,'1',2025,21,'2025-08-09 17:27:30','2025-08-09 17:27:30');
+(13,61,5,'1',2025,21,'2025-08-09 17:27:30','2025-08-09 17:27:30'),
+(14,69,4,'1',2025,21,'2025-08-09 19:36:24','2025-08-09 19:36:24');
 /*!40000 ALTER TABLE `education_university_wife` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -826,7 +838,7 @@ CREATE TABLE `familypatients` (
   PRIMARY KEY (`familyPatientId`),
   KEY `familypatients_patient_FK` (`patientId`),
   CONSTRAINT `familypatients_patient_FK` FOREIGN KEY (`patientId`) REFERENCES `patient_registration` (`patientId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -854,7 +866,8 @@ INSERT INTO `familypatients` VALUES
 (20,31,'hjkh','jhkjh','uou9','2000-07-24',25,'Male','spmuyskperera@gmail.com','0771147484','0771147484','3/64 Kurunduwatta Road,\nMirihana Kotte.','Johnt','Perera','Peter','2000-07-02',25,'Female','spmskpuoierera@gmail.com','0771147484','0771147484','123 Main St',NULL,NULL,NULL,'2025-07-31','2025-07-31 14:04:12'),
 (21,33,'Nimal oo','Fernando','K.','1990-07-22',34,'Male','nimal.fernaokjndo@example.com','+94772233445','+94112349876','456 Kandy Road, Kurunegala, Sri Lanka','Sriyani','Perera','M.','1992-03-15',33,'Female','sriyani.pererkjka@example.com','+94771234567','+94113456789','456 Kandy Road, Kurunegala, Sri Lanka',NULL,NULL,NULL,'2025-07-31','2025-08-02 13:33:08'),
 (22,41,'kklo','perera','hus midd','1990-08-02',35,'Male','spmskperkkera@gmail.com','0771147484','0771147484','3/64 Kurunduwatta Road,','Sriyani','Perera','wife midd.','2000-08-01',25,'Female','spmskpeoorera@gmail.com','0771147484','0771147484','Mirihana Kotte.',NULL,NULL,NULL,'2025-08-05','2025-08-05 23:05:34'),
-(23,43,'Geroge','Beggera','kj','2000-07-29',25,'Male','spmkkskperera@gmail.com','0771147484','0771147484','jlkjlk','Madena','Kouno','kj','2000-07-30',25,'Female','spmskpejjrera@gmail.com','0771147484','0771147484','jkljk',NULL,NULL,NULL,'2025-08-07','2025-08-07 12:09:27');
+(23,43,'Geroge','Beggera','kj','2000-07-29',25,'Male','spmkkskperera@gmail.com','0771147484','0771147484','jlkjlk','Madena','Kouno','kj','2000-07-30',25,'Female','spmskpejjrera@gmail.com','0771147484','0771147484','jkljk',NULL,NULL,NULL,'2025-08-07','2025-08-07 12:09:27'),
+(24,45,'John','Fernando','89ujj','2000-08-22',24,'Male','spmskper889era@gmail.com','0771147484','0771147484','123 Main St','iiio','Perera','jjjj','2000-08-07',25,'Female','spms89kperera@gmail.com','0771147484','0771147484','ljkj',NULL,NULL,NULL,'2025-08-09','2025-08-09 19:34:52');
 /*!40000 ALTER TABLE `familypatients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -950,7 +963,7 @@ CREATE TABLE `medical_information` (
   PRIMARY KEY (`medicalInfoId`),
   KEY `patientId` (`patientId`),
   CONSTRAINT `medical_information_ibfk_1` FOREIGN KEY (`patientId`) REFERENCES `patient_registration` (`patientId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -974,7 +987,9 @@ INSERT INTO `medical_information` VALUES
 (13,26,'2025-07-28 00:09:42','2025-07-28 12:29:59'),
 (14,39,'2025-07-31 16:49:53','2025-07-31 16:49:53'),
 (16,33,'2025-08-02 07:43:06','2025-08-02 14:27:21'),
-(19,44,'2025-08-09 19:00:19','2025-08-09 19:00:19');
+(19,44,'2025-08-09 19:00:19','2025-08-09 19:00:19'),
+(20,45,'2025-08-09 19:35:41','2025-08-09 19:35:41'),
+(21,46,'2025-08-09 20:52:23','2025-08-09 20:52:23');
 /*!40000 ALTER TABLE `medical_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1011,7 +1026,7 @@ CREATE TABLE `medical_information_family` (
   PRIMARY KEY (`familyMedicalInfoId`),
   KEY `medicalInfoId` (`medicalInfoId`),
   CONSTRAINT `medical_information_family_ibfk_1` FOREIGN KEY (`medicalInfoId`) REFERENCES `medical_information` (`medicalInfoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1021,7 +1036,8 @@ CREATE TABLE `medical_information_family` (
 LOCK TABLES `medical_information_family` WRITE;
 /*!40000 ALTER TABLE `medical_information_family` DISABLE KEYS */;
 INSERT INTO `medical_information_family` VALUES
-(8,16,'Chronic back pain, hypertension ooouuu\nhkjhjk','Migraines, asthma','Persistent lower back pain, occasional headaches','Frequent migraines, shortness of breath','Symptoms worsen with prolonged sitting or stress','Symptoms worsen with cold weather or stress','Symptoms improve with physical therapy and rest','Symptoms improve with medication and relaxation techniques','','\0','\0','','Depression diagnosed in 2018 ooo','None','None','Alcohol dependency in 2015, recovered','Sometimesoooooooooo;;Sexual;;Emotional negligence','Sometimes -  impatient;;Physical negligence','Family history of hypertension','Allergic to pollen');
+(8,16,'Chronic back pain, hypertension ooouuu\nhkjhjk','Migraines, asthma','Persistent lower back pain, occasional headaches','Frequent migraines, shortness of breath','Symptoms worsen with prolonged sitting or stress','Symptoms worsen with cold weather or stress','Symptoms improve with physical therapy and rest','Symptoms improve with medication and relaxation techniques','','\0','\0','','Depression diagnosed in 2018 ooo','None','None','Alcohol dependency in 2015, recovered','Sometimesoooooooooo;;Sexual;;Emotional negligence','Sometimes -  impatient;;Physical negligence','Family history of hypertension','Allergic to pollen'),
+(9,20,'jlkj','jklj','jkj','j','jlkj','jkj','jkj','jkl','','\0','\0','','jklj','jkj','jkj','jkl','Sexual','Emotional negligence;;Incarcerated Relative (Household)','jklj','jl');
 /*!40000 ALTER TABLE `medical_information_family` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1052,7 +1068,7 @@ CREATE TABLE `medical_information_single` (
   PRIMARY KEY (`singleMedicalInfoId`),
   KEY `medicalInfoId` (`medicalInfoId`),
   CONSTRAINT `medical_information_single_ibfk_1` FOREIGN KEY (`medicalInfoId`) REFERENCES `medical_information` (`medicalInfoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1068,7 +1084,8 @@ INSERT INTO `medical_information_single` VALUES
 (18,12,'jlkjklj','jklj','jklj','jklj','jklj',4,4,4,4,4,'Yes',4,'hjkhkoooooooooooooooooooooo','lkjlkjk'),
 (19,13,'kljlkj\njljk','jlkjlk\njlkjk','jkljlk\njlkj','jlkjlk\njlkj','jljklj\njlkj',4,NULL,NULL,NULL,1,'Yes',NULL,'kljll\njlkjlk','jlkjlkj\njlkjl'),
 (20,14,'jllk ooo','jlkjl','jlkj ljkj kljlklj','jklj','jlkjk',4,NULL,NULL,NULL,5,'Yes',NULL,NULL,'4njknhjkh'),
-(22,19,'joijlkl\nlkj\n\n00000000000u','-jlkjl\nljkjljj','ljkljj','jljj','jkjlk',2,NULL,NULL,NULL,2,'Yes',NULL,NULL,'ooooooooooooooo');
+(22,19,'joijlkl\nlkj\n\n00000000000u','-jlkjl\nljkjljj','ljkljj','jljj','jkjlk',2,NULL,NULL,NULL,2,'Yes',NULL,NULL,'ooooooooooooooo'),
+(23,21,'jlkjlkl\n\nlkj','jkljk\njlkj','jkljlljlj\nljkj','jkljl','ljjj;l\nljl',4,NULL,NULL,NULL,4,'No',NULL,NULL,'lkjll');
 /*!40000 ALTER TABLE `medical_information_single` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1189,7 +1206,7 @@ CREATE TABLE `patient_registration` (
   PRIMARY KEY (`patientId`),
   KEY `patient_registration_patient_type_FK` (`patientTypeId`),
   CONSTRAINT `patient_registration_patient_type_FK` FOREIGN KEY (`patientTypeId`) REFERENCES `patient_type` (`patientTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1237,7 +1254,9 @@ INSERT INTO `patient_registration` VALUES
 (41,'P0041',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','\0','2025-08-05','2025-08-05 23:05:34',3,'2025-08-05 23:05:34','2025-08-05 23:05:34'),
 (42,'P0042',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'self','','','2025-08-07','2025-08-07 00:25:32',2,'2025-08-07 00:25:32','2025-08-07 00:25:32'),
 (43,'P0043',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','\0','2025-08-07','2025-08-07 12:09:27',3,'2025-08-07 12:09:27','2025-08-07 12:09:27'),
-(44,'P0044',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'self','','','2025-08-09','2025-08-09 18:47:34',2,'2025-08-09 18:47:24','2025-08-09 18:47:34');
+(44,'P0044',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'self','','','2025-08-09','2025-08-09 18:47:34',2,'2025-08-09 18:47:24','2025-08-09 18:47:34'),
+(45,'P0045',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'','','\0','2025-08-09','2025-08-09 19:34:52',3,'2025-08-09 19:34:52','2025-08-09 19:34:52'),
+(46,'P0046',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'self','','','2025-08-09','2025-08-09 19:40:31',1,'2025-08-09 19:40:31','2025-08-09 19:40:31');
 /*!40000 ALTER TABLE `patient_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1294,7 +1313,7 @@ CREATE TABLE `personal_information` (
   PRIMARY KEY (`personalInfoId`),
   KEY `patientId` (`patientId`),
   CONSTRAINT `personal_information_ibfk_1` FOREIGN KEY (`patientId`) REFERENCES `patient_registration` (`patientId`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1326,7 +1345,9 @@ INSERT INTO `personal_information` VALUES
 (22,40,NULL,NULL,NULL,'jkjl','Adaptable : I can adjust to new environments, teams, or technologies easily.;;Team player : I communicate well and collaborate effectively with others.','Shyness','Behaving assertively (e.g. expressing disagreement or rejecting a request).',NULL,'jkjljk','jklj','jklj','2025-07-31 16:51:06','2025-07-31 16:51:06'),
 (23,33,'5,8','3',NULL,NULL,'','','','Communication issues with partner',NULL,'Start own business, support children\'s education','Improve work-life balance, exercise more','2025-07-31 17:12:58','2025-08-02 13:16:37'),
 (24,29,'4,5,6','4,7',NULL,NULL,'','','','kjk',NULL,'jkj\n oooooooooooooooo','jkljlklj','2025-07-31 17:59:26','2025-07-31 18:01:59'),
-(25,44,NULL,NULL,NULL,'ooui\nkoooo','Quick learner : I can pick up new tools and frameworks rapidly.;;Adaptable : I can adjust to new environments, teams, or technologies easily.','Shyness;;Perfectionism','Telephoning someone (especially people they do not know well).',NULL,'ljoiuio\njoi','kj\njlkjkllljljk\nlj','joiuion\nljklj;ioujijijiji\njljkji','2025-08-09 18:48:02','2025-08-09 18:48:12');
+(25,44,NULL,NULL,NULL,'ooui\nkoooo','Quick learner : I can pick up new tools and frameworks rapidly.;;Adaptable : I can adjust to new environments, teams, or technologies easily.','Shyness;;Perfectionism','Telephoning someone (especially people they do not know well).',NULL,'ljoiuio\njoi','kj\njlkjkllljljk\nlj','joiuion\nljklj;ioujijijiji\njljkji','2025-08-09 18:48:02','2025-08-09 18:48:12'),
+(26,45,'2,10,20','2,6,20',NULL,NULL,'','','','jkljl',NULL,'jklj','jlkj','2025-08-09 19:35:14','2025-08-09 19:35:14'),
+(27,46,'2,10,20','2,6,20',8,'jklj','Quick learner : I can pick up new tools and frameworks rapidly.;;Adaptable : I can adjust to new environments, teams, or technologies easily.','Procrastination','Going to a party.;;Talking with authority figures.;;Returning goods to a store.','jkjlj','jkjkjk\njlkj','jklj','jkj','2025-08-09 20:47:53','2025-08-09 20:50:16');
 /*!40000 ALTER TABLE `personal_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1363,7 +1384,7 @@ CREATE TABLE `personal_information_family` (
   CONSTRAINT `personal_information_family_occupations_FK_1_wife` FOREIGN KEY (`occupationTrainedIdWife`) REFERENCES `occupations` (`occupationId`),
   CONSTRAINT `personal_information_family_occupations_FK_husband` FOREIGN KEY (`occupationIdHusband`) REFERENCES `occupations` (`occupationId`),
   CONSTRAINT `personal_information_family_occupations_FK_wife` FOREIGN KEY (`occupationIdWife`) REFERENCES `occupations` (`occupationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1385,7 +1406,8 @@ INSERT INTO `personal_information_family` VALUES
 (10,17,'never_married',NULL,'full-time',15,12,NULL,NULL,NULL,NULL,NULL,'2025-07-31 13:09:34','2025-07-31 13:09:34'),
 (16,18,'Married',10.0,'Yes',5,5,'Married',8.0,'Yes',12,12,'2025-07-31 14:43:20','2025-07-31 14:43:20'),
 (17,23,'married',10.0,'full-time',15,11,'married',8.0,'part-time',14,14,'2025-07-31 17:12:58','2025-08-02 13:23:27'),
-(18,24,'married',4.0,'full-time',13,16,'married',5.0,'part-time',16,18,'2025-07-31 17:59:26','2025-07-31 18:02:03');
+(18,24,'married',4.0,'full-time',13,16,'married',5.0,'part-time',16,18,'2025-07-31 17:59:26','2025-07-31 18:02:03'),
+(19,26,'divorced',NULL,'full-time',17,14,'divorced',NULL,'part-time',17,13,'2025-08-09 19:35:14','2025-08-09 19:35:14');
 /*!40000 ALTER TABLE `personal_information_family` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1413,7 +1435,7 @@ CREATE TABLE `personal_information_single` (
   CONSTRAINT `personal_information_single_ibfk_1` FOREIGN KEY (`personalInfoId`) REFERENCES `personal_information` (`personalInfoId`),
   CONSTRAINT `personal_information_single_occupations_FK` FOREIGN KEY (`occupationId`) REFERENCES `occupations` (`occupationId`),
   CONSTRAINT `personal_information_single_occupations_FK_1` FOREIGN KEY (`occupationTrainedId`) REFERENCES `occupations` (`occupationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1432,7 +1454,8 @@ INSERT INTO `personal_information_single` VALUES
 (8,20,NULL,NULL,NULL,NULL,NULL,'2025-07-31 15:51:41','2025-07-31 15:54:57'),
 (9,21,NULL,NULL,NULL,NULL,NULL,'2025-07-31 16:32:54','2025-07-31 16:47:17'),
 (10,22,NULL,NULL,NULL,NULL,NULL,'2025-07-31 16:51:06','2025-07-31 16:51:11'),
-(11,25,NULL,NULL,NULL,NULL,NULL,'2025-08-09 18:48:02','2025-08-09 18:48:12');
+(11,25,NULL,NULL,NULL,NULL,NULL,'2025-08-09 18:48:02','2025-08-09 18:48:12'),
+(12,27,'never_married',NULL,'full-time',17,15,'2025-08-09 20:47:53','2025-08-09 20:50:16');
 /*!40000 ALTER TABLE `personal_information_single` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1537,7 +1560,7 @@ CREATE TABLE `singlepatients` (
   PRIMARY KEY (`singlePatientId`),
   KEY `singlePatients_patient_FK` (`patientId`),
   CONSTRAINT `singlePatients_patient_FK` FOREIGN KEY (`patientId`) REFERENCES `patient_registration` (`patientId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1566,7 +1589,8 @@ INSERT INTO `singlepatients` VALUES
 (48,39,'jk','jjjjjjjjjjjjjj','oooooooo','2000-07-03',NULL,'Male','spmskkkperera@gmail.com','0771147484','0771147484',NULL,'3/64 Kurunduwatta Road, Pita Kotte',NULL,NULL,NULL,NULL,NULL),
 (49,40,'John','Perera','Peter','2025-07-16',NULL,'Male','spmjjjskperera@gmail.com','0771147484','0771147484',NULL,'123 Main St',NULL,NULL,NULL,NULL,NULL),
 (50,42,'llllllll','ffffff','mmmmmm','2000-08-01',NULL,'Male','spmhhhhskperera@gmail.com','0771147484','0771147484',NULL,'3/64 Kurunduwatta Road,\nMirihana Kotte.',NULL,NULL,NULL,NULL,NULL),
-(51,44,'child1','child last n','child name','2010-08-06',NULL,'Male','spmsooiukperera@gmail.comii','0771147484','0771147484',NULL,'3/64 Kurunduwatta Road,\nMirihana Kotte.lkjk',NULL,NULL,NULL,NULL,NULL);
+(51,44,'child1','child last n','child name','2010-08-06',NULL,'Male','spmsooiukperera@gmail.comii','0771147484','0771147484',NULL,'3/64 Kurunduwatta Road,\nMirihana Kotte.lkjk',NULL,NULL,NULL,NULL,NULL),
+(52,46,'Perera','SUSANTHA','individual','2000-08-19',NULL,'Male','spmskphhhjkerera@gmail.com','0771147484','0771147484',NULL,'3/64 Kurunduwatta Road,\nMirihana Kotte.',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `singlepatients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -9756,4 +9780,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-09 19:29:40
+-- Dump completed on 2025-08-09 21:00:50
