@@ -59,7 +59,8 @@ const {
   medical_information_family_add_ctrl,
   getPatientInternationalCurriculum_ctrl,
   education_Add_family_ctrl,
-  education_Update_family_ctrl
+  education_Update_family_ctrl,
+  getMentalStatusExam_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -422,6 +423,15 @@ router.get(
   '/dropdown/aces',
   getACES_drp_ctrl
 );
+
+
+router.get(
+  '/patient/mentalStatusExam/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getMentalStatusExam_ctrl
+);
+
 
 
 module.exports = router;

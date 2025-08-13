@@ -52,7 +52,8 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      drp_aces_sql,
      medical_information_family_insert_update_sql,
      getPatientInternationalCurriculumByPatientId_sql,
-     education_insert_update_family} = require('../sql/patientProfile');
+     education_insert_update_family,
+     getMentalStatusExamByPatientId_sql} = require('../sql/patientProfile');
 
 
 
@@ -2045,7 +2046,7 @@ if(result.error){
 
 exports.patientRegistration_Search_ctrl =async (req, res) => {
    console.log('products_Select',req.body);
-  const {   patientNo, homePhone, businessPhone,email, firstName, lastName, skip, limit} = req.body;
+  const {   patientNo, homePhone, businessPhone,email,patientName, firstName, lastName, skip, limit} = req.body;
   const utcOffset='5:30';
   const userLogId=1;//req.authUser.userLogId;
   const pageName='p';
@@ -2055,6 +2056,7 @@ exports.patientRegistration_Search_ctrl =async (req, res) => {
       homePhone,
       businessPhone,
       email,
+      patientName,
       firstName,
       lastName,
       skip,
@@ -2629,6 +2631,34 @@ exports.getACES_drp_ctrl = async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+        stack: err.stack
+      }
+    });
+  }
+};
+
+
+exports.getMentalStatusExam_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = '5:30';
+  const userLogId = 1; // Replace with req.authUser.userLogId in production
+  const pageName = 'mse';
+
+  try {
+    const result = await getMentalStatusExamByPatientId_sql(
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
     return res.status(400).json({
       error: {
         message: err.message,

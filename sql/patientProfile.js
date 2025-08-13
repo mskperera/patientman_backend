@@ -1061,6 +1061,7 @@ exports.patientRegistration_Search_sql = async (
       homePhone,
       businessPhone,
       email,
+      patientName,
       firstName,
       lastName,
       skip,
@@ -1075,6 +1076,7 @@ exports.patientRegistration_Search_sql = async (
       homePhone,
       businessPhone,
       email,
+      patientName,
       firstName,
       lastName,
       skip,
@@ -1959,6 +1961,93 @@ exports.drp_aces_sql = async (
 
     return result;
   } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+
+exports.getMentalStatusExamByPatientId_sql = async (
+  patientId,
+  userLogId,
+  utcOffset,
+  pageName
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage"
+    ];
+    const procedureName = "getMentalStatusExamByPatientId"; // Updated to match your stored procedure name
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === 'invalid') {
+      return { responseStatus, outputMessage };
+    }
+
+    const data = result.results[0][0] || {};
+    
+    // List of JSON columns to parse
+    const jsonColumns = [
+      'appearance',
+      'affectiveExpression',
+      'behavior',
+      'speech',
+      'attitudeToExaminer',
+      'moodAndAffect',
+      'appropriateness',
+      'hallucinations',
+      'disassociation',
+      'agnosia',
+      'contentOfThought',
+      'delusions0',
+      'thoughtForm',
+      'consciousness',
+      'orientation',
+      'concentration',
+      'memory',
+      'informationAndIntelligence',
+      'judgment',
+      'insight',
+      'reliability',
+      'summary',
+      'generalObservations',
+      'cognition',
+      'thoughts'
+    ];
+
+    // Parse JSON columns
+    const parsedData = { ...data };
+    jsonColumns.forEach(column => {
+      if (data[column]) {
+        try {
+          parsedData[column] = JSON.parse(data[column]);
+        } catch (error) {
+          console.error(`Error parsing JSON for column ${column}:`, error.message);
+          parsedData[column] = {}; // Fallback to empty object to prevent breaking the frontend
+        }
+      } else {
+        parsedData[column] = {}; // Fallback for null or undefined values
+      }
+    });
+
+    return parsedData;
+  } catch (error) {
+    console.error('Error in getMentalStatusExamByPatientId_sql:', error);
     throw error;
   }
 };
