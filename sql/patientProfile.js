@@ -7,7 +7,7 @@ exports.getProfileTabDetailsByPatientId_sql = async (patientId,userLogID,utcOffs
   try {
 
     const procedureParameters = [patientId,userLogID,utcOffset,pageName];
-    const procedureOutputParameters = ["isBasicInfo","isPersonalInfo","isFamilyInfo","isMedicalInfo","isEducationInfo","ResponseStatus","OutputMessage"];
+    const procedureOutputParameters = ["isBasicInfo","isPersonalInfo","isFamilyInfo","isMedicalInfo","isEducationInfo","isMentalStatusExam","ResponseStatus","OutputMessage"];
     const procedureName = "getProfileTabDetailsByPatientId";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
@@ -1985,7 +1985,8 @@ exports.getMentalStatusExamByPatientId_sql = async (
     ];
     const procedureOutputParameters = [
       "responseStatus",
-      "outputMessage"
+      "outputMessage",
+      "patientTypeId"
     ];
     const procedureName = "getMentalStatusExamByPatientId"; // Updated to match your stored procedure name
     const result = await executeStoredProcedureWithOutputParamsByPool(
@@ -1994,15 +1995,73 @@ exports.getMentalStatusExamByPatientId_sql = async (
       procedureOutputParameters
     );
 
-    const { responseStatus, outputMessage } = result.outputValues;
+    const { responseStatus, outputMessage,patientTypeId } = result.outputValues;
     if (responseStatus === 'invalid') {
       return { responseStatus, outputMessage };
     }
 
     const data = result.results[0][0] || {};
     
-    // List of JSON columns to parse
-    const jsonColumns = [
+    let jsonColumns;
+
+ if(patientTypeId==3){
+
+ jsonColumns = [
+  'appearanceHusband',
+  'appearanceWife',
+  'affectiveExpressionHusband',
+  'affectiveExpressionWife',
+  'behaviorHusband',
+  'behaviorWife',
+  'speechHusband',
+  'speechWife',
+  'attitudeToExaminerHusband',
+  'attitudeToExaminerWife',
+  'moodAndAffectHusband',
+  'moodAndAffectWife',
+  'appropriatenessHusband',
+  'appropriatenessWife',
+  'hallucinationsHusband',
+  'hallucinationsWife',
+  'disassociationHusband',
+  'disassociationWife',
+  'agnosiaHusband',
+  'agnosiaWife',
+  'contentOfThoughtHusband',
+  'contentOfThoughtWife',
+  'delusions0Husband',
+  'delusions0Wife',
+  'thoughtFormHusband',
+  'thoughtFormWife',
+  'consciousnessHusband',
+  'consciousnessWife',
+  'orientationHusband',
+  'orientationWife',
+  'concentrationHusband',
+  'concentrationWife',
+  'memoryHusband',
+  'memoryWife',
+  'informationAndIntelligenceHusband',
+  'informationAndIntelligenceWife',
+  'judgmentHusband',
+  'judgmentWife',
+  'insightHusband',
+  'insightWife',
+  'reliabilityHusband',
+  'reliabilityWife',
+  'summaryHusband',
+  'summaryWife',
+  'generalObservationsHusband',
+  'generalObservationsWife',
+  'cognitionHusband',
+  'cognitionWife',
+  'thoughtsHusband',
+  'thoughtsWife'
+];
+
+ }
+ else{
+   jsonColumns = [
       'appearance',
       'affectiveExpression',
       'behavior',
@@ -2029,6 +2088,7 @@ exports.getMentalStatusExamByPatientId_sql = async (
       'cognition',
       'thoughts'
     ];
+  }
 
     // Parse JSON columns
     const parsedData = { ...data };
@@ -2048,6 +2108,250 @@ exports.getMentalStatusExamByPatientId_sql = async (
     return parsedData;
   } catch (error) {
     console.error('Error in getMentalStatusExamByPatientId_sql:', error);
+    throw error;
+  }
+};
+
+exports.mental_status_exam_insert_update_sql = async (
+  patientId,
+  circumstanceOfPresentation,
+  indicationsAndRecommendations,
+  appearance,
+  affectiveExpression,
+  behavior,
+  speech,
+  attitudeToExaminer,
+  moodAndAffect,
+  appropriateness,
+  hallucinations,
+  disassociation,
+  agnosia,
+  contentOfThought,
+  delusions0,
+  thoughtForm,
+  consciousness,
+  orientation,
+  concentration,
+  memory,
+  informationAndIntelligence,
+  judgment,
+  insight,
+  reliability,
+  summary,
+  generalObservations,
+  cognition,
+  thoughts,
+  saveType,
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm
+) => {
+  try {
+    // Define procedure parameters matching the SP
+    const procedureParameters = [
+      patientId,
+      circumstanceOfPresentation,
+      indicationsAndRecommendations,
+      JSON.stringify(appearance),
+      JSON.stringify(affectiveExpression),
+      JSON.stringify(behavior),
+      JSON.stringify(speech),
+      JSON.stringify(attitudeToExaminer),
+      JSON.stringify(moodAndAffect),
+      JSON.stringify(appropriateness),
+      JSON.stringify(hallucinations),
+      JSON.stringify(disassociation),
+      JSON.stringify(agnosia),
+      JSON.stringify(contentOfThought),
+      JSON.stringify(delusions0),
+      JSON.stringify(thoughtForm),
+      JSON.stringify(consciousness),
+      JSON.stringify(orientation),
+      JSON.stringify(concentration),
+      JSON.stringify(memory),
+      JSON.stringify(informationAndIntelligence),
+      JSON.stringify(judgment),
+      JSON.stringify(insight),
+      JSON.stringify(reliability),
+      JSON.stringify(summary),
+      JSON.stringify(generalObservations),
+      JSON.stringify(cognition),
+      JSON.stringify(thoughts),
+      saveType,
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm,
+    ];
+
+    // Define output parameters matching the SP
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "outputMseId",
+    ];
+
+    const procedureName = "mental_status_exam_insert_update";
+
+    // Execute the stored procedure
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.mental_status_exam_family_insert_update_sql = async (
+  patientId,
+  circumstanceOfPresentationHusband,
+  circumstanceOfPresentationWife,
+  indicationsAndRecommendations,
+  appearanceHusband,
+  appearanceWife,
+  affectiveExpressionHusband,
+  affectiveExpressionWife,
+  behaviorHusband,
+  behaviorWife,
+  speechHusband,
+  speechWife,
+  attitudeToExaminerHusband,
+  attitudeToExaminerWife,
+  moodAndAffectHusband,
+  moodAndAffectWife,
+  appropriatenessHusband,
+  appropriatenessWife,
+  hallucinationsHusband,
+  hallucinationsWife,
+  disassociationHusband,
+  disassociationWife,
+  agnosiaHusband,
+  agnosiaWife,
+  contentOfThoughtHusband,
+  contentOfThoughtWife,
+  delusions0Husband,
+  delusions0Wife,
+  thoughtFormHusband,
+  thoughtFormWife,
+  consciousnessHusband,
+  consciousnessWife,
+  orientationHusband,
+  orientationWife,
+  concentrationHusband,
+  concentrationWife,
+  memoryHusband,
+  memoryWife,
+  informationAndIntelligenceHusband,
+  informationAndIntelligenceWife,
+  judgmentHusband,
+  judgmentWife,
+  insightHusband,
+  insightWife,
+  reliabilityHusband,
+  reliabilityWife,
+  summaryHusband,
+  summaryWife,
+  generalObservationsHusband,
+  generalObservationsWife,
+  cognitionHusband,
+  cognitionWife,
+  thoughtsHusband,
+  thoughtsWife,
+  saveType,
+  userLogId,
+  utcOffset,
+  pageName,
+  isConfirm
+) => {
+  try {
+
+    console.log('appearanceHusband',      JSON.stringify(appearanceHusband))
+    // Define procedure parameters matching the SP
+    const procedureParameters = [
+      patientId,
+      circumstanceOfPresentationHusband,
+      circumstanceOfPresentationWife,
+      indicationsAndRecommendations,
+      JSON.stringify(appearanceHusband),
+      JSON.stringify(appearanceWife),
+      JSON.stringify(affectiveExpressionHusband),
+      JSON.stringify(affectiveExpressionWife),
+      JSON.stringify(behaviorHusband),
+      JSON.stringify(behaviorWife),
+      JSON.stringify(speechHusband),
+      JSON.stringify(speechWife),
+      JSON.stringify(attitudeToExaminerHusband),
+      JSON.stringify(attitudeToExaminerWife),
+      JSON.stringify(moodAndAffectHusband),
+      JSON.stringify(moodAndAffectWife),
+      JSON.stringify(appropriatenessHusband),
+      JSON.stringify(appropriatenessWife),
+      JSON.stringify(hallucinationsHusband),
+      JSON.stringify(hallucinationsWife),
+      JSON.stringify(disassociationHusband),
+      JSON.stringify(disassociationWife),
+      JSON.stringify(agnosiaHusband),
+      JSON.stringify(agnosiaWife),
+      JSON.stringify(contentOfThoughtHusband),
+      JSON.stringify(contentOfThoughtWife),
+      JSON.stringify(delusions0Husband),
+      JSON.stringify(delusions0Wife),
+      JSON.stringify(thoughtFormHusband),
+      JSON.stringify(thoughtFormWife),
+      JSON.stringify(consciousnessHusband),
+      JSON.stringify(consciousnessWife),
+      JSON.stringify(orientationHusband),
+      JSON.stringify(orientationWife),
+      JSON.stringify(concentrationHusband),
+      JSON.stringify(concentrationWife),
+      JSON.stringify(memoryHusband),
+      JSON.stringify(memoryWife),
+      JSON.stringify(informationAndIntelligenceHusband),
+      JSON.stringify(informationAndIntelligenceWife),
+      JSON.stringify(judgmentHusband),
+      JSON.stringify(judgmentWife),
+      JSON.stringify(insightHusband),
+      JSON.stringify(insightWife),
+      JSON.stringify(reliabilityHusband),
+      JSON.stringify(reliabilityWife),
+      JSON.stringify(summaryHusband),
+      JSON.stringify(summaryWife),
+      JSON.stringify(generalObservationsHusband),
+      JSON.stringify(generalObservationsWife),
+      JSON.stringify(cognitionHusband),
+      JSON.stringify(cognitionWife),
+      JSON.stringify(thoughtsHusband),
+      JSON.stringify(thoughtsWife),
+      saveType,
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm,
+    ];
+
+    // Define output parameters matching the SP
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "outputMseId",
+    ];
+
+    const procedureName = "mental_status_exam_family_insert_update";
+
+    // Execute the stored procedure
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
     throw error;
   }
 };

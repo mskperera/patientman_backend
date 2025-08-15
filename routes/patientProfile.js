@@ -60,7 +60,12 @@ const {
   getPatientInternationalCurriculum_ctrl,
   education_Add_family_ctrl,
   education_Update_family_ctrl,
-  getMentalStatusExam_ctrl
+  getMentalStatusExam_ctrl,
+  mentalStatusExam_Add_Update_ctrl,
+  mentalStatusExam_Add_ctrl,
+  mentalStatusExam_Update_ctrl,
+  mentalStatusExamFamily_Add_ctrl,
+  mentalStatusExamFamily_Update_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -432,7 +437,13 @@ router.get(
   getMentalStatusExam_ctrl
 );
 
+router.post('/patient/mental-status-exam', mentalStatusExam_Add_ctrl);
 
+router.put('/patient/mental-status-exam/:patientId', mentalStatusExam_Update_ctrl);
+
+router.post('/patient/mental-status-exam-family', mentalStatusExamFamily_Add_ctrl);
+
+router.put('/patient/mental-status-exam-family/:patientId', mentalStatusExamFamily_Update_ctrl);
 
 module.exports = router;
 

@@ -53,7 +53,9 @@ const { product_delete,getProductTypes_drp_sql, product_select_extraDetails_sql,
      medical_information_family_insert_update_sql,
      getPatientInternationalCurriculumByPatientId_sql,
      education_insert_update_family,
-     getMentalStatusExamByPatientId_sql} = require('../sql/patientProfile');
+     getMentalStatusExamByPatientId_sql,
+     mental_status_exam_insert_update_sql,
+     mental_status_exam_family_insert_update_sql} = require('../sql/patientProfile');
 
 
 
@@ -2665,6 +2667,488 @@ exports.getMentalStatusExam_ctrl = async (req, res) => {
         name: err.name,
         stack: err.stack
       }
+    });
+  }
+};
+
+exports.mentalStatusExam_Add_ctrl = async (req, res) => {
+  const {
+    patientId,
+    circumstanceOfPresentation,
+    indicationsAndRecommendations,
+    appearance,
+    affectiveExpression,
+    behavior,
+    speech,
+    attitudeToExaminer,
+    moodAndAffect,
+    appropriateness,
+    hallucinations,
+    disassociation,
+    agnosia,
+    contentOfThought,
+    delusions0,
+    thoughtForm,
+    consciousness,
+    orientation,
+    concentration,
+    memory,
+    informationAndIntelligence,
+    judgment,
+    insight,
+    reliability,
+    summary,
+    generalObservations,
+    cognition,
+    thoughts,
+    isConfirm,
+  } = req.body;
+
+  const userLogId = 1; // Hardcoded as per provided example
+  const utcOffset='5:30';
+  const pageName='p';
+
+  try {
+    const result = await mental_status_exam_insert_update_sql(
+      patientId,
+      circumstanceOfPresentation,
+      indicationsAndRecommendations,
+      appearance,
+      affectiveExpression,
+      behavior,
+      speech,
+      attitudeToExaminer,
+      moodAndAffect,
+      appropriateness,
+      hallucinations,
+      disassociation,
+      agnosia,
+      contentOfThought,
+      delusions0,
+      thoughtForm,
+      consciousness,
+      orientation,
+      concentration,
+      memory,
+      informationAndIntelligence,
+      judgment,
+      insight,
+      reliability,
+      summary,
+      generalObservations,
+      cognition,
+      thoughts,
+      "I",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error,
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+exports.mentalStatusExam_Update_ctrl = async (req, res) => {
+
+  const { patientId}=req.params;
+
+  const {
+    circumstanceOfPresentation,
+    indicationsAndRecommendations,
+    appearance,
+    affectiveExpression,
+    behavior,
+    speech,
+    attitudeToExaminer,
+    moodAndAffect,
+    appropriateness,
+    hallucinations,
+    disassociation,
+    agnosia,
+    contentOfThought,
+    delusions0,
+    thoughtForm,
+    consciousness,
+    orientation,
+    concentration,
+    memory,
+    informationAndIntelligence,
+    judgment,
+    insight,
+    reliability,
+    summary,
+    generalObservations,
+    cognition,
+    thoughts,
+    isConfirm,
+  } = req.body;
+
+  const userLogId = 1; // Hardcoded as per provided example
+  const utcOffset='5:30';
+  const pageName='p';
+
+  try {
+    const result = await mental_status_exam_insert_update_sql(
+      patientId,
+      circumstanceOfPresentation,
+      indicationsAndRecommendations,
+      appearance,
+      affectiveExpression,
+      behavior,
+      speech,
+      attitudeToExaminer,
+      moodAndAffect,
+      appropriateness,
+      hallucinations,
+      disassociation,
+      agnosia,
+      contentOfThought,
+      delusions0,
+      thoughtForm,
+      consciousness,
+      orientation,
+      concentration,
+      memory,
+      informationAndIntelligence,
+      judgment,
+      insight,
+      reliability,
+      summary,
+      generalObservations,
+      cognition,
+      thoughts,
+      "U",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error,
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+
+
+
+// Add controller for family mental status exam
+exports.mentalStatusExamFamily_Add_ctrl = async (req, res) => {
+  const {
+    patientId,
+    circumstanceOfPresentationHusband,
+    circumstanceOfPresentationWife,
+    indicationsAndRecommendations,
+    appearanceHusband,
+    appearanceWife,
+    affectiveExpressionHusband,
+    affectiveExpressionWife,
+    behaviorHusband,
+    behaviorWife,
+    speechHusband,
+    speechWife,
+    attitudeToExaminerHusband,
+    attitudeToExaminerWife,
+    moodAndAffectHusband,
+    moodAndAffectWife,
+    appropriatenessHusband,
+    appropriatenessWife,
+    hallucinationsHusband,
+    hallucinationsWife,
+    disassociationHusband,
+    disassociationWife,
+    agnosiaHusband,
+    agnosiaWife,
+    contentOfThoughtHusband,
+    contentOfThoughtWife,
+    delusions0Husband,
+    delusions0Wife,
+    thoughtFormHusband,
+    thoughtFormWife,
+    consciousnessHusband,
+    consciousnessWife,
+    orientationHusband,
+    orientationWife,
+    concentrationHusband,
+    concentrationWife,
+    memoryHusband,
+    memoryWife,
+    informationAndIntelligenceHusband,
+    informationAndIntelligenceWife,
+    judgmentHusband,
+    judgmentWife,
+    insightHusband,
+    insightWife,
+    reliabilityHusband,
+    reliabilityWife,
+    summaryHusband,
+    summaryWife,
+    generalObservationsHusband,
+    generalObservationsWife,
+    cognitionHusband,
+    cognitionWife,
+    thoughtsHusband,
+    thoughtsWife,
+    isConfirm,
+  } = req.body;
+
+  const userLogId = 1; // Hardcoded as per provided example
+  const utcOffset = '5:30';
+  const pageName = 'p';
+
+  try {
+    const result = await mental_status_exam_family_insert_update_sql(
+      patientId,
+      circumstanceOfPresentationHusband,
+      circumstanceOfPresentationWife,
+      indicationsAndRecommendations,
+      appearanceHusband,
+      appearanceWife,
+      affectiveExpressionHusband,
+      affectiveExpressionWife,
+      behaviorHusband,
+      behaviorWife,
+      speechHusband,
+      speechWife,
+      attitudeToExaminerHusband,
+      attitudeToExaminerWife,
+      moodAndAffectHusband,
+      moodAndAffectWife,
+      appropriatenessHusband,
+      appropriatenessWife,
+      hallucinationsHusband,
+      hallucinationsWife,
+      disassociationHusband,
+      disassociationWife,
+      agnosiaHusband,
+      agnosiaWife,
+      contentOfThoughtHusband,
+      contentOfThoughtWife,
+      delusions0Husband,
+      delusions0Wife,
+      thoughtFormHusband,
+      thoughtFormWife,
+      consciousnessHusband,
+      consciousnessWife,
+      orientationHusband,
+      orientationWife,
+      concentrationHusband,
+      concentrationWife,
+      memoryHusband,
+      memoryWife,
+      informationAndIntelligenceHusband,
+      informationAndIntelligenceWife,
+      judgmentHusband,
+      judgmentWife,
+      insightHusband,
+      insightWife,
+      reliabilityHusband,
+      reliabilityWife,
+      summaryHusband,
+      summaryWife,
+      generalObservationsHusband,
+      generalObservationsWife,
+      cognitionHusband,
+      cognitionWife,
+      thoughtsHusband,
+      thoughtsWife,
+      "I",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error,
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+// Update controller for family mental status exam
+exports.mentalStatusExamFamily_Update_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+
+  const {
+    circumstanceOfPresentationHusband,
+    circumstanceOfPresentationWife,
+    indicationsAndRecommendations,
+    appearanceHusband,
+    appearanceWife,
+    affectiveExpressionHusband,
+    affectiveExpressionWife,
+    behaviorHusband,
+    behaviorWife,
+    speechHusband,
+    speechWife,
+    attitudeToExaminerHusband,
+    attitudeToExaminerWife,
+    moodAndAffectHusband,
+    moodAndAffectWife,
+    appropriatenessHusband,
+    appropriatenessWife,
+    hallucinationsHusband,
+    hallucinationsWife,
+    disassociationHusband,
+    disassociationWife,
+    agnosiaHusband,
+    agnosiaWife,
+    contentOfThoughtHusband,
+    contentOfThoughtWife,
+    delusions0Husband,
+    delusions0Wife,
+    thoughtFormHusband,
+    thoughtFormWife,
+    consciousnessHusband,
+    consciousnessWife,
+    orientationHusband,
+    orientationWife,
+    concentrationHusband,
+    concentrationWife,
+    memoryHusband,
+    memoryWife,
+    informationAndIntelligenceHusband,
+    informationAndIntelligenceWife,
+    judgmentHusband,
+    judgmentWife,
+    insightHusband,
+    insightWife,
+    reliabilityHusband,
+    reliabilityWife,
+    summaryHusband,
+    summaryWife,
+    generalObservationsHusband,
+    generalObservationsWife,
+    cognitionHusband,
+    cognitionWife,
+    thoughtsHusband,
+    thoughtsWife,
+    isConfirm,
+  } = req.body;
+
+  const userLogId = 1; // Hardcoded as per provided example
+  const utcOffset = '5:30';
+  const pageName = 'p';
+
+  try {
+    const result = await mental_status_exam_family_insert_update_sql(
+      patientId,
+      circumstanceOfPresentationHusband,
+      circumstanceOfPresentationWife,
+      indicationsAndRecommendations,
+      appearanceHusband,
+      appearanceWife,
+      affectiveExpressionHusband,
+      affectiveExpressionWife,
+      behaviorHusband,
+      behaviorWife,
+      speechHusband,
+      speechWife,
+      attitudeToExaminerHusband,
+      attitudeToExaminerWife,
+      moodAndAffectHusband,
+      moodAndAffectWife,
+      appropriatenessHusband,
+      appropriatenessWife,
+      hallucinationsHusband,
+      hallucinationsWife,
+      disassociationHusband,
+      disassociationWife,
+      agnosiaHusband,
+      agnosiaWife,
+      contentOfThoughtHusband,
+      contentOfThoughtWife,
+      delusions0Husband,
+      delusions0Wife,
+      thoughtFormHusband,
+      thoughtFormWife,
+      consciousnessHusband,
+      consciousnessWife,
+      orientationHusband,
+      orientationWife,
+      concentrationHusband,
+      concentrationWife,
+      memoryHusband,
+      memoryWife,
+      informationAndIntelligenceHusband,
+      informationAndIntelligenceWife,
+      judgmentHusband,
+      judgmentWife,
+      insightHusband,
+      insightWife,
+      reliabilityHusband,
+      reliabilityWife,
+      summaryHusband,
+      summaryWife,
+      generalObservationsHusband,
+      generalObservationsWife,
+      cognitionHusband,
+      cognitionWife,
+      thoughtsHusband,
+      thoughtsWife,
+      "U",
+      userLogId,
+      utcOffset,
+      pageName,
+      isConfirm
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error,
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
     });
   }
 };
