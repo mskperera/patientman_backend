@@ -177,7 +177,7 @@ exports.family_patient_registration_insert_update_sql = async (
       "patientId"
     ];
     
-    const procedureName = "family_patient_registration_insert_update";
+    const procedureName = "patient_registration_family_insert_update";
     
     // Execute the stored procedure
     const result = await executeStoredProcedureWithOutputParamsByPool(
