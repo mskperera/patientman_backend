@@ -177,8 +177,8 @@ router.post(
 
 router.put(
   '/patient/patientRegistration/:patientId',
- // requireSignin,
- roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
+  requireSignin,
+// roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   patientRegistration_Update_ctrl
 );
 
