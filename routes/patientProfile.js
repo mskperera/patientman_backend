@@ -69,32 +69,12 @@ const {
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
+const { login_ctrl } = require('../controllers/patientProfile');
+const { user_Add_ctrl } = require('../controllers/patientProfile');
+const { user_Update_ctrl } = require('../controllers/patientProfile');
+const { getUsers_ctrl } = require('../controllers/patientProfile');
+const { getUserAccountByUsername_ctrl } = require('../controllers/patientProfile');
 
-
-// router.post(
-//   '/products',
-//   setTenant,
-//  requireSignin,
-//  roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
-//   product_Add
-// ); // Add Product
-
-// router.put(
-//   '/products/:productId',
-//   setTenant,
-//   requireSignin,
-//   roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
-//   product_Update
-// ); // Update Product
-
-
-// router.delete(
-//   '/products',
-//   setTenant,
-//   requireSignin,
-//   roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
-//   product_delete
-// );
 
 router.get(
   '/patient/profileTabDetails/:patientId',
@@ -105,8 +85,8 @@ router.get(
 
 router.post(
   '/patientRegistrations/get',
-// requireSignin,
- //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+ requireSignin,
+// roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   patientRegistration_Search_ctrl
 );
 
@@ -115,28 +95,28 @@ router.post(
 
 router.get(
   '/patient/basicInfo/:patientId',
- //requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   getPatientBasicInfo_ctrl
 );
 
 router.get(
   '/patient/personalInfo/:patientId',
- //requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   getPatientPersonalInfo_ctrl
 );
 
 router.get(
   '/patient/familyInfo/:patientId',
- //requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   getPatientFamilyInfo_ctrl
 );
 
 router.get(
   '/patient/medicalInfo/:patientId',
- //requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   getPatientMedicalInfo_ctrl
 );
@@ -144,7 +124,7 @@ router.get(
 
 router.get(
   '/patient/educationInfo/:patientId',
- //requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   getPatientEducationInfo_ctrl
 );
@@ -190,7 +170,7 @@ router.get(
 
 router.post(
   '/patient/patientRegistration',
- // requireSignin,
+ requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   patientRegistration_Add_ctrl
 );
@@ -198,34 +178,34 @@ router.post(
 router.put(
   '/patient/patientRegistration/:patientId',
  // requireSignin,
- // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
+ roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   patientRegistration_Update_ctrl
 );
 
 router.post(
   '/patient/familyPatientRegistration',
-  // requireSignin,
+   requireSignin,
   // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
   familyPatientRegistration_Add_ctrl
 );
 
 router.put(
   '/patient/familyPatientRegistration/:patientId',
-  // requireSignin,
+   requireSignin,
   // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
   familyPatientRegistration_Update_ctrl
 );
 
 router.post(
   '/patient/personalInformation',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   personalInformation_Add_ctrl
 );
 
 router.put(
   '/patient/personalInformation/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   personalInformation_Update_ctrl
 );
@@ -233,14 +213,14 @@ router.put(
 
 router.post(
   '/patient/personalInformationChild',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   personalInformationChild_Add_ctrl
 );
 
 router.put(
   '/patient/personalInformationChild/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   personalInformationChild_Update_ctrl
 );
@@ -248,28 +228,28 @@ router.put(
 
 router.post(
   '/patient/personalInformationFamily',
-  // requireSignin,
+   requireSignin,
   // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
   personalInformationFamily_Add_ctrl
 );
 
 router.put(
   '/patient/personalInformationFamily/:patientId',
-  // requireSignin,
+   requireSignin,
   // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
   personalInformationFamily_Update_ctrl
 );
 
 router.post(
   '/patient/familyInformation',
- // requireSignin,
+ requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   familyInformation_Add_ctrl
 );
 
 router.put(
   '/patient/familyInformation/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   familyInformation_Update_ctrl
 );
@@ -278,14 +258,14 @@ router.put(
 
 router.post(
   '/patient/medicalInformation',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   medicalInformation_Add_ctrl
 );
 
 router.put(
   '/patient/medicalInformation/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   medicalInformation_Update_ctrl
 );
@@ -293,14 +273,14 @@ router.put(
 
 router.post(
   '/patient/medicalInformation_family',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   medical_information_family_add_ctrl
 );
 
 router.put(
   '/patient/medicalInformation_family/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   medical_information_family_update_ctrl
 );
@@ -309,7 +289,7 @@ router.put(
 
 router.post(
   '/patient/education',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   education_Add_ctrl
 );
@@ -317,7 +297,7 @@ router.post(
 
 router.put(
   '/patient/education/:patientId',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   education_Update_ctrl
 );
@@ -325,7 +305,7 @@ router.put(
 
 router.post(
   '/patient/education_family',
- // requireSignin,
+  requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   education_Add_family_ctrl
 );
@@ -333,7 +313,7 @@ router.post(
 
 router.put(
   '/patient/education_family/:patientId',
- // requireSignin,
+ requireSignin,
  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER,USER_ROLE.CASHIER]),
   education_Update_family_ctrl
 );
@@ -341,7 +321,7 @@ router.put(
 
 router.post(
   '/patientAppointments/get',
-// requireSignin,
+ requireSignin,
  //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   patientAppointments_Search_ctrl
 );
@@ -444,6 +424,26 @@ router.put('/patient/mental-status-exam/:patientId', mentalStatusExam_Update_ctr
 router.post('/patient/mental-status-exam-family', mentalStatusExamFamily_Add_ctrl);
 
 router.put('/patient/mental-status-exam-family/:patientId', mentalStatusExamFamily_Update_ctrl);
+
+ router.post("/auth/login", login_ctrl);
+
+ router.post("/user/add", user_Add_ctrl);
+
+  router.put("/user/update/:userId", user_Update_ctrl);
+  
+  router.post("/user/list", getUsers_ctrl);
+
+router.get(
+  '/user/getUserAccountByUsername/:patientId',
+  // requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  getUserAccountByUsername_ctrl
+);
+
+
+
+
+
 
 module.exports = router;
 

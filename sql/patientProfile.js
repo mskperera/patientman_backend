@@ -2355,3 +2355,168 @@ exports.mental_status_exam_family_insert_update_sql = async (
     throw error;
   }
 };
+
+
+
+
+
+exports.getUserAccountByUsername_sql = async (
+  loginUserName
+) => {
+  try {
+       const procedureParameters = [loginUserName];
+      const procedureOutputParameters = [];
+    const procedureName = "getUserAccountByUsername";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result.results[0][0];
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.userRegistration_insert_update_sql = async (
+   tableID,
+      userRoleId,
+      loginUserName,
+      passwordHash,
+      passwordSalt,
+      email,
+      displayName,
+      profilePic,
+      isActive,
+      isUpdateCredentials,
+      SaveType,
+      userLogID,
+    utcOffset
+) => {
+
+  try {
+    const procedureParameters = [
+      tableID,
+      userRoleId,
+      loginUserName,
+      passwordHash,
+      passwordSalt,
+      email,
+      displayName,
+      profilePic,
+      isActive,
+      isUpdateCredentials,
+      SaveType,
+      userLogID,
+    utcOffset
+    ];
+
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage","userId"];
+    const procedureName = "userRegistration_insert_update";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+   return result;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.userRegistration_select_sql = async (
+  userId,
+  userRoleIds,
+  loginUserName,
+  email,
+  skip,
+  limit,
+  userLogId
+) => {
+  try {
+
+    const userRoleIdsString = userRoleIds ? userRoleIds.join(",") : null;
+
+    const procedureParameters = [
+      userId,
+      userRoleIdsString,
+      loginUserName,
+      email,
+      skip,
+      limit,
+      userLogId
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "totalRows",
+    ];
+
+    const procedureName = "userRegistration_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+exports.userPassword_update_sql = async (
+  tenant,
+  userName,
+  passwordHash,
+  passwordSalt
+) => {
+
+  try {
+    const procedureParameters = [userName, passwordHash, passwordSalt];
+    const procedureOutputParameters = ["responseStatus", "outputMessage"];
+    const procedureName = "userPassword_update";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+exports.userLogInsertUpdate_sql = async (userId,loginStatus,ipAddress,userAgent,sessionId,additionalInfo,utcOffset,pageName) => {
+
+    try {
+
+      const procedureParameters = [userId,loginStatus,ipAddress,userAgent,sessionId,additionalInfo,utcOffset,pageName];
+      const procedureOutputParameters = ["responseStatus","outputMessage","userLogId"];
+      const procedureName = "userLog_Insert_Update";
+      const result = await executeStoredProcedureWithOutputParamsByPool(
+        procedureName,
+        procedureParameters,
+        procedureOutputParameters
+      );
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  };

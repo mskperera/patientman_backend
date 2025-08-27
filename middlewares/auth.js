@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { USER_ROLE } = require("../utils/constants");
 
 exports.requireSignin = async (req, res, next) => {
-  const { jwtSecret } = req.tenant;
+  const jwtSecret = process.env.JWT_SECRET;
 
   //const token = req.cookies.accessToken;
   const authHeader = req.headers["authorization"];

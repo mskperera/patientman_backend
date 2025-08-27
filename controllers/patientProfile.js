@@ -1,4 +1,5 @@
 
+const { login_srv } = require('../services/userAuth');
 const {
      patientRegistration_Search_sql,
      getPatientBasicInfoByPatientId_sql,
@@ -41,9 +42,16 @@ const {
      education_insert_update_family,
      getMentalStatusExamByPatientId_sql,
      mental_status_exam_insert_update_sql,
-     mental_status_exam_family_insert_update_sql} = require('../sql/patientProfile');
+     mental_status_exam_family_insert_update_sql,
+     userRegistration_insert_update_sql,
+     getUserAccountByUsername_sql,
+     userRegistration_select_sql} = require('../sql/patientProfile');
 
+const bcrypt = require("bcrypt");
 
+const {hashPassword} =require('../utils/bcryptHash');
+
+const UAParser = require("ua-parser-js");
 
      exports.getProfileTabDetailsByPatientId_ctrl =async (req, res) => {
 
@@ -3128,6 +3136,256 @@ exports.mentalStatusExamFamily_Update_ctrl = async (req, res) => {
     }
 
     res.json(result);
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+exports.login_ctrl = async (req, res) => {
+  const { loginUsername, password } = req.body;
+
+    let clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+    // If multiple IPs are forwarded, take the first one
+    if (clientIp.includes(",")) {
+      clientIp = clientIp.split(",")[0].trim();
+    }
+  
+  // Get Client Platform Information
+  const userAgent = req.headers["user-agent"];
+  const parser = new UAParser(userAgent);
+  const clientPlatform = {
+    os: parser.getOS().name + " " + parser.getOS().version,
+    browser: parser.getBrowser().name + " " + parser.getBrowser().version,
+    device: parser.getDevice().model || "Unknown Device",
+  };
+
+  console.log("Client IP:", clientIp);
+  console.log("Client Platform:", clientPlatform);
+  
+  const clientPlatform_str=JSON.stringify(clientPlatform);
+
+  // return res.json({
+  //   req
+  // });
+
+  try {
+    if (!loginUsername) {
+      return res.status(422).json({
+        error: "Login User Name is Required",
+      });
+    }
+
+    if (!password) {
+      return res.status(422).json({
+        error: "Password is Required",
+      });
+    }
+
+    const loginRes = await login_srv(loginUsername, password ,clientIp,clientPlatform_str,330,'pageName');
+
+    console.log('loginRes',loginRes);
+    if (loginRes.exception) {
+      return res.status(401).json(loginRes);
+    }
+
+    res.cookie("accessToken", loginRes.accessToken, {
+      httpOnly: true,
+      expiresIn: "1d",
+    });
+
+  const {uName,email,displayName,profilePic}=  loginRes;
+    res.status(200).json({ accessToken: loginRes.accessToken,uName,email,displayName,profilePic });
+
+    //res.status(200).json(loginRes );
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+exports.user_Add_ctrl = async (req, res) => {
+  const {
+ loginUserName,loginPassword, email,
+      displayName,profilePic, isActive,isUpdateCredentials
+  } = req.body;
+
+  const userLogId = 1;
+  const utcOffset="5:30";
+  
+    const passwordSalt = bcrypt.genSaltSync(10);
+    const passwordHash =await hashPassword(loginPassword);
+    console.log('loginPassword---------oooo',loginPassword)
+    console.log('passwordHash---------oooo',passwordHash)
+
+  try {
+    const result = await userRegistration_insert_update_sql(
+    null,
+      1,
+      loginUserName,
+      passwordHash,
+      passwordSalt,
+      email,
+      displayName,
+      profilePic,
+      isActive,
+      isUpdateCredentials,
+     "I",
+      userLogId,
+    utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  }  catch (err) {
+    console.error('Error in userAddCtrl:', err); // Use console.error for errors
+    return res.status(500).json({ // Use 500 for server errors
+      error: {
+        message: 'Internal server error',
+        // Only include detailed error in development
+        ...(process.env.NODE_ENV === 'development' && { details: err.message })
+      }
+    });
+  }
+};
+
+
+exports.getUserAccountByUsername_ctrl = async (req, res) => {
+  const {
+ loginUserName,
+  } = req.params;
+
+
+  try {
+    const result = await getUserAccountByUsername_sql(loginUserName);
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+
+
+exports.user_Update_ctrl = async (req, res) => {
+  const {
+loginUserName,loginPassword, email,
+      displayName,profilePic, isActive,isUpdateCredentials
+  } = req.body;
+
+  const {userId}=req.params;
+
+  const userLogId = 1;
+  const utcOffset="5:30";
+  
+    const passwordSalt = bcrypt.genSaltSync(10);
+    const passwordHash =await hashPassword(loginPassword);
+
+
+  try {
+    const result = await userRegistration_insert_update_sql(
+    userId,
+      1,
+      loginUserName,
+      passwordHash,
+      passwordSalt,
+      email,
+      displayName,
+      profilePic,
+      isActive,
+      isUpdateCredentials,
+     "U",
+      userLogId,
+    utcOffset
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.log('Error:', err);
+    return res.status(400).json({
+      error: {
+        message: err.message,
+        name: err.name,
+      },
+    });
+  }
+};
+
+
+
+exports.getUsers_ctrl = async (req, res) => {
+  const {
+  userId,
+  userRoleIds,
+  loginUserName,
+  email,
+  skip,
+  limit
+  } = req.body;
+
+  const userLogId = 1;
+  const utcOffset="5:30";
+  
+
+  try {
+    const result = await userRegistration_select_sql(
+     userId,
+  userRoleIds,
+  loginUserName,
+  email,
+  skip,
+  limit,
+  userLogId
+    );
+
+    if (result.error) {
+      return res.status(422).json({
+        error: result.error
+      });
+    }
+
+    res.json(result);
+
   } catch (err) {
     console.log('Error:', err);
     return res.status(400).json({
