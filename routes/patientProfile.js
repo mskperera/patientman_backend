@@ -65,7 +65,15 @@ const {
   mentalStatusExam_Add_ctrl,
   mentalStatusExam_Update_ctrl,
   mentalStatusExamFamily_Add_ctrl,
-  mentalStatusExamFamily_Update_ctrl
+  mentalStatusExamFamily_Update_ctrl,
+  notes_Add_ctrl,
+  notes_Update_ctrl,
+  notes_get_ctrl,
+  notes_Delete_ctrl,
+  apPatient_Search_ctrl,
+  apPatientAdd_ctrl,
+  getDoctors_drp_ctrl,
+  appointmentsUpdate_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -88,6 +96,14 @@ router.post(
  requireSignin,
 // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
   patientRegistration_Search_ctrl
+);
+
+
+router.post(
+  '/apPatient/get',
+ requireSignin,
+// roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  apPatient_Search_ctrl
 );
 
 
@@ -356,6 +372,13 @@ router.post(
   appointmentsAdd_ctrl
 );
 
+router.put(
+  '/appointment/:appointmentId',
+// requireSignin,
+ //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  appointmentsUpdate_ctrl
+);
+
 router.post(
   '/subject',
   // requireSignin,
@@ -440,8 +463,38 @@ router.get(
   getUserAccountByUsername_ctrl
 );
 
+  // Node.js Backend Code
+// Assume in a file like notesModel.js for sql exports
+// Also assume executeStoredProcedureWithOutputParamsByPool is defined as in examples
+// For attachments, using direct queries. Assume pool or connection for query
+// Assume const pool = ... for mysql
+const multer = require('multer');
+ const fs = require('fs');
+ const path = require('path');
+ const upload = multer({ dest: 'public/uploads/notes/' }); // Create folder if not exists
+// app.use('/uploads/notes', express.static(path.join(__dirname, 'public/uploads/notes'))); in main app
 
 
+router.post("/notes/add", upload.array("newFiles"), notes_Add_ctrl);
+router.post("/notes/update/:noteId", upload.array("newFiles"), notes_Update_ctrl);
+router.post("/notes/get", notes_get_ctrl);
+router.post("/notes/delete/:noteId", notes_Delete_ctrl);
+
+
+
+
+
+router.post(
+  '/apPatient',
+  requireSignin,
+  // roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER, USER_ROLE.CASHIER]),
+  apPatientAdd_ctrl
+);
+
+router.get(
+  '/dropdown/doctors',
+  getDoctors_drp_ctrl
+);
 
 
 

@@ -1,4 +1,5 @@
 const {SP_STATUS}=require('../constants/constants');
+const { pool } = require('../mysql/dbConnection');
 const { executeStoredProcedureWithOutputParamsByPool } = require("../mysql/sql_executer");
 
 
@@ -1000,7 +1001,9 @@ exports.drp_ol_subjects_sql = async (
 
 
 exports.appointments_Insert_sql = async (
+  appointmentId,
   patientId,
+  doctorId,
     appointmentDate,
     statusId,
     userLogId,
@@ -1009,7 +1012,9 @@ exports.appointments_Insert_sql = async (
   try {
     // Define procedure parameters matching the stored procedure input
     const procedureParameters = [
+      appointmentId,
       patientId,
+      doctorId,
     appointmentDate,
     statusId,
     userLogId,
@@ -1020,6 +1025,7 @@ exports.appointments_Insert_sql = async (
     const procedureOutputParameters = [
       "responseStatus",
       "outputMessage",
+      "referenceNo",
       "appointmentNo"
     ];
 
@@ -1034,11 +1040,6 @@ exports.appointments_Insert_sql = async (
 
     console.log("result:", result);
 
-    const { responseStatus, outputMessage } = result.outputValues;
-
-    if (responseStatus === "failed") {
-      return { responseStatus, outputMessage };
-    }
 
     return result;
   } catch (error) {
@@ -1047,6 +1048,52 @@ exports.appointments_Insert_sql = async (
 };
 
 
+exports.apPatient_Search_sql = async (
+    patientNo,
+      homePhone,
+      email,
+      patientName,
+      skip,
+      limit,
+      userLogId,
+      utcOffset,
+      pageName
+) => {
+  try { 
+
+    const procedureParameters = [
+      patientNo,
+      homePhone,
+      email,
+      patientName,
+      skip,
+      limit,
+      userLogId,
+      utcOffset,
+      pageName,
+    ];
+    const procedureOutputParameters = [
+      "responseStatus",
+      "outputMessage",
+      "totalRows",
+    ];
+    const procedureName = "apPatient_Search";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+    );
+
+    const { responseStatus, outputMessage,totalRows } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      throw { message: outputMessage };
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 
@@ -1518,6 +1565,7 @@ if(row){
 
 exports.patientAppointments_Search_sql = async (
     patientId,
+    doctorId,
     appointmentNo,
       appointmentDateStart,
       appointmentDateEnd,
@@ -1535,6 +1583,7 @@ exports.patientAppointments_Search_sql = async (
       appointmentDateStart,
       appointmentDateEnd,
       patientId,
+      doctorId,
       statusId,
       skip,
       limit,
@@ -1547,7 +1596,7 @@ exports.patientAppointments_Search_sql = async (
       "outputMessage",
       "totalRows",
     ];
-    const procedureName = "Appointments_Search";
+    const procedureName = "appointments_Search";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
       procedureParameters,
@@ -1566,41 +1615,6 @@ exports.patientAppointments_Search_sql = async (
 };
 
 
-exports.getProductTypes_drp_sql = async (
-  tenant,
-  userLogId,
-  utcOffset,
-  pageName
-) => {
-  const { pool } = tenant;
-  try {
-    const procedureParameters = [
-      userLogId,
-      utcOffset,
-      pageName,
-    ];
-    const procedureOutputParameters = [
-      "responseStatus",
-      "outputMessage"
-    ];
-    const procedureName = "getProductTypes_drp";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters,
-      pool
-    );
-
-    const { responseStatus, outputMessage } = result.outputValues;
-    if (responseStatus === SP_STATUS.failed) {
-      throw { message: outputMessage };
-    }
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
 
 exports.insert_subject_sql = async (
  subjectName,
@@ -2520,3 +2534,191 @@ exports.userLogInsertUpdate_sql = async (userId,loginStatus,ipAddress,userAgent,
       throw error;
     }
   };
+
+
+
+
+
+
+
+
+
+exports.notes_insert_update_sql = async (
+  noteId,
+  note,
+  patientId,
+  userId,
+  saveType,
+  utcOffset
+) => {
+  try {
+    const procedureParameters = [
+      noteId,
+      note,
+      patientId,
+      userId,
+      saveType,
+      utcOffset
+    ];
+
+    const procedureOutputParameters = ["ResponseStatus", "OutputMessage", "noteId_out"];
+    const procedureName = "notes_insert_update";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.notes_select_sql = async (
+  patientId,
+  skip,
+  limit
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      skip,
+      limit
+    ];
+    const procedureOutputParameters = [
+      "ResponseStatus",
+      "OutputMessage",
+      "totalRows",
+    ];
+
+    const procedureName = "notes_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// In notesModel.js
+exports.note_attachments_select_sql = async (noteId) => {
+  try {
+    const procedureParameters = [noteId];
+    const procedureOutputParameters = [
+      "ResponseStatus",
+      "OutputMessage",
+      "totalRows"
+    ];
+    const procedureName = "note_attachments_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// In notesModel.js
+exports.notes_delete_sql = async (noteId) => {
+  try {
+    const procedureParameters = [noteId];
+    const procedureOutputParameters = ["ResponseStatus", "OutputMessage"];
+    const procedureName = "notes_delete";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+exports.ap_patient_insert_sql = async (
+  firstName,
+  lastName,
+  email,
+  phone,
+  userLogId,
+  utcOffset,
+  pageName
+) => {
+  try {
+    const procedureParameters = [
+      firstName,
+      lastName,
+      email,
+      phone,
+      userLogId,
+      utcOffset,
+      pageName
+    ];
+
+    const procedureOutputParameters = [
+      'responseStatus',
+      'outputMessage',
+      'patientNo',
+      'outputPatientId'
+    ];
+
+    const procedureName = 'ap_patient_insert';
+
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.getDoctors_drp_sql = async (
+  tenant,
+  userLogId
+) => {
+  const { pool } = tenant;
+  try {
+    const procedureParameters = [
+      userLogId
+    ];
+    const procedureOutputParameters = [
+   
+    ];
+    const procedureName = "drp_doctors_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters,
+      pool
+    );
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      throw { message: outputMessage };
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
