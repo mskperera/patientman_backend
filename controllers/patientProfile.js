@@ -52,7 +52,13 @@ const {
      notes_delete_sql,
      apPatient_Search_sql,
      ap_patient_insert_sql,
-     getDoctors_drp_sql} = require('../sql/patientProfile');
+     getDoctors_drp_sql,
+     summaryNote_Insert_sql,
+     getSummaryNote_sql,
+     psy_notes_insert_update_sql,
+     psy_notes_select_sql,
+     psy_notes_delete_sql,
+     psy_note_attachments_select_sql} = require('../sql/patientProfile');
 
 const bcrypt = require("bcrypt");
 
@@ -1428,6 +1434,68 @@ if(result.error){
     error: {
       message: err.message,
       name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+
+
+
+
+exports.saveSummaryNote_ctrl =async (req, res) => {
+  const {
+  note
+  } = req.body;
+
+  const {patientId,doctorId}=req.query;
+
+
+  try {
+  const result=  await summaryNote_Insert_sql(
+    patientId,doctorId,
+   note);
+
+
+if(result.error){
+    return res.status(422).json({
+      error:result.error
+    });
+}
+
+      res.json(result);
+ 
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name, // include other properties if needed
+      stack: err.stack
+    }
+  });
+}
+};
+
+
+
+exports.getSummaryNote_ctrl =async (req, res) => {
+const {patientId,doctorId}=req.query;
+console.log('patientId,',patientId)
+  try {
+  const result= await getSummaryNote_sql(patientId,doctorId);
+
+      res.json(result);
+
+} catch (err) {
+  console.log('Errori: ',err)
+  return res.status(400).json({ 
+    error: {
+      message: err.message,
+      name: err.name,
       stack: err.stack
     }
   });
@@ -3530,6 +3598,42 @@ exports.notes_Add_ctrl = async (req, res) => {
   }
 };
 
+
+exports.notes_Update_ctrl = async (req, res) => {
+  const { note, patientId, userId } = req.body;
+  const { noteId } = req.params;
+  const utcOffset = "5:30";
+
+  try {
+    const result = await notes_insert_update_sql(
+      noteId,
+      note,
+      patientId,
+      userId,
+      "U",
+      utcOffset
+    );
+
+    if (result.error || result.outputValues.ResponseStatus === 'failed') {
+      return res.status(422).json({
+        error: result.outputValues.OutputMessage || result.error
+      });
+    }
+
+    // Handle attachments with delete
+    await handleAttachments(req, noteId, true); // true for update, delete first
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Update_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
 // Helper function for attachments
 async function handleAttachments(req, noteId, isUpdate) {
   if (isUpdate) {
@@ -3578,40 +3682,6 @@ async function handleAttachments(req, noteId, isUpdate) {
 }
 
 
-exports.notes_Update_ctrl = async (req, res) => {
-  const { note, patientId, userId } = req.body;
-  const { noteId } = req.params;
-  const utcOffset = "5:30";
-
-  try {
-    const result = await notes_insert_update_sql(
-      noteId,
-      note,
-      patientId,
-      userId,
-      "U",
-      utcOffset
-    );
-
-    if (result.error || result.outputValues.ResponseStatus === 'failed') {
-      return res.status(422).json({
-        error: result.outputValues.OutputMessage || result.error
-      });
-    }
-
-    // Handle attachments with delete
-    await handleAttachments(req, noteId, true); // true for update, delete first
-
-    res.json(result);
-  } catch (err) {
-    console.error('Error in notes_Update_ctrl:', err);
-    return res.status(500).json({
-      error: {
-        message: 'Internal server error',
-      }
-    });
-  }
-};
 
 exports.notes_get_ctrl = async (req, res) => {
   const { patientId, skip = 0, limit = 100 } = req.body;
@@ -3653,6 +3723,7 @@ exports.notes_get_ctrl = async (req, res) => {
   }
 };
 
+
 // In notesController.js
 exports.notes_Delete_ctrl = async (req, res) => {
   const { noteId } = req.params;
@@ -3686,7 +3757,6 @@ exports.notes_Delete_ctrl = async (req, res) => {
     });
   }
 };
-
 
 
 
@@ -3756,4 +3826,236 @@ exports.getDoctors_drp_ctrl =async (req, res) => {
     }
   });
 }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.psy_notes_Add_ctrl = async (req, res) => {
+  const { note, patientId, doctorId } = req.body;
+  const utcOffset = "5:30"; // As in examples
+
+  try {
+    const result = await psy_notes_insert_update_sql(
+      null,
+      note,
+      patientId,
+      doctorId,
+      "I",
+      utcOffset
+    );
+
+    if (result.error || result.outputValues.ResponseStatus === 'failed') {
+      return res.status(422).json({
+        error: result.outputValues.OutputMessage || result.error
+      });
+    }
+
+    const noteId = result.outputValues.noteId_out;
+
+    // Handle attachments
+    await psy_handleAttachments(req, noteId, false); // false for add, no delete
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Add_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+
+exports.psy_notes_Update_ctrl = async (req, res) => {
+  const { note, patientId, doctorId } = req.body;
+  const { noteId } = req.params;
+  const utcOffset = "5:30";
+
+  try {
+    const result = await psy_notes_insert_update_sql(
+      noteId,
+      note,
+      patientId,
+      doctorId,
+      "U",
+      utcOffset
+    );
+
+    if (result.error || result.outputValues.ResponseStatus === 'failed') {
+      return res.status(422).json({
+        error: result.outputValues.OutputMessage || result.error
+      });
+    }
+
+    // Handle attachments with delete
+    await psy_handleAttachments(req, noteId, true); // true for update, delete first
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Update_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+// Helper function for attachments
+async function psy_handleAttachments(req, noteId, isUpdate) {
+  if (isUpdate) {
+    // Delete existing attachments and unlink files
+    const [attachments] = await pool.query('SELECT attachmentPath FROM psy_note_attachments WHERE noteId = ?', [noteId]);
+    attachments.forEach(att => {
+      const filePath = path.join('public/uploads/notes/', att.attachmentPath);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    });
+    await pool.query('DELETE FROM psy_note_attachments WHERE noteId = ?', [noteId]);
+  }
+
+  // Old attachments (if any)
+  let oldPaths = req.body.oldPaths ? (Array.isArray(req.body.oldPaths) ? req.body.oldPaths : [req.body.oldPaths]) : [];
+  let oldTypes = req.body.oldTypes ? (Array.isArray(req.body.oldTypes) ? req.body.oldTypes : [req.body.oldTypes]) : [];
+  let oldNames = req.body.oldNames ? (Array.isArray(req.body.oldNames) ? req.body.oldNames : [req.body.oldNames]) : [];
+  let oldDescriptions = req.body.oldDescriptions ? (Array.isArray(req.body.oldDescriptions) ? req.body.oldDescriptions : [req.body.oldDescriptions]) : [];
+
+  for (let i = 0; i < oldPaths.length; i++) {
+    await pool.query(
+      'INSERT INTO psy_note_attachments (noteId, attachmentType, attachmentName, attachmentPath, description) VALUES (?, ?, ?, ?, ?)',
+      [noteId, oldTypes[i], oldNames[i], oldPaths[i], oldDescriptions[i]]
+    );
+  }
+
+  // New attachments
+  const newFiles = req.files || [];
+  let newTypes = req.body.newTypes ? (Array.isArray(req.body.newTypes) ? req.body.newTypes : [req.body.newTypes]) : [];
+  let newNames = req.body.newNames ? (Array.isArray(req.body.newNames) ? req.body.newNames : [req.body.newNames]) : [];
+  let newDescriptions = req.body.newDescriptions ? (Array.isArray(req.body.newDescriptions) ? req.body.newDescriptions : [req.body.newDescriptions]) : [];
+
+  if (newFiles.length !== newTypes.length) {
+    throw new Error('Mismatch in new attachments data');
+  }
+
+  for (let i = 0; i < newFiles.length; i++) {
+    const file = newFiles[i];
+    const attachmentPath = file.filename; // Multer generated name
+    await pool.query(
+      'INSERT INTO psy_note_attachments (noteId, attachmentType, attachmentName, attachmentPath, description) VALUES (?, ?, ?, ?, ?)',
+      [noteId, newTypes[i], newNames[i], attachmentPath, newDescriptions[i]]
+    );
+  }
+}
+
+
+
+exports.psy_notes_get_ctrl = async (req, res) => {
+  const { patientId, skip = 0, limit = 100 } = req.body;
+
+  try {
+    const result = await psy_notes_select_sql(
+      patientId,
+      skip,
+      limit
+    );
+
+    if (result.error || result.outputValues.ResponseStatus === 'failed') {
+      return res.status(422).json({
+        error: result.outputValues.OutputMessage || result.error
+      });
+    }
+
+    const notes = result.results[0]; 
+    // Assume the list from proc
+// Fetch attachments for each note using note_attachments_select_sql
+    for (let note of notes) {
+      const attachmentResult = await psy_note_attachments_select_sql(note.noteId);
+      if (attachmentResult.error || attachmentResult.outputValues.ResponseStatus === 'failed') {
+        note.attachments = []; // Fallback to empty array on error
+        console.error(`Failed to fetch attachments for note ${note.noteId}:`, attachmentResult.outputValues.OutputMessage || attachmentResult.error);
+      } else {
+        note.attachments = attachmentResult.results[0] || []; // Assign attachments from stored procedure result
+      }
+    }
+
+    res.json(notes);
+  } catch (err) {
+    console.error('Error in notes_get_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+
+// In notesController.js
+exports.psy_notes_Delete_ctrl = async (req, res) => {
+  const { noteId } = req.params;
+
+  try {
+    const result = await psy_notes_delete_sql(noteId);
+
+    if (result.error || result.outputValues.ResponseStatus === 'failed') {
+      return res.status(422).json({
+        error: result.outputValues.OutputMessage || result.error
+      });
+    }
+
+    // Unlink physical files from attachment paths returned by the stored procedure
+    const attachments = result.results[0] || []; // attachmentPath rows
+    attachments.forEach(att => {
+      const filePath = path.join('public/uploads/notes/', att.attachmentPath);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    });
+
+    res.json({ success: true, message: result.outputValues.OutputMessage });
+  } catch (err) {
+    console.error('Error in notes_Delete_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+        ...(process.env.NODE_ENV === 'development' && { details: err.message })
+      }
+    });
+  }
 };

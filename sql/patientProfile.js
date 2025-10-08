@@ -2543,6 +2543,31 @@ exports.userLogInsertUpdate_sql = async (userId,loginStatus,ipAddress,userAgent,
 
 
 
+
+
+// In notesModel.js
+exports.note_attachments_select_sql = async (noteId) => {
+  try {
+    const procedureParameters = [noteId];
+    const procedureOutputParameters = [
+      "ResponseStatus",
+      "OutputMessage",
+      "totalRows"
+    ];
+    const procedureName = "note_attachments_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 exports.notes_insert_update_sql = async (
   noteId,
   note,
@@ -2593,29 +2618,6 @@ exports.notes_select_sql = async (
     ];
 
     const procedureName = "notes_select";
-    const result = await executeStoredProcedureWithOutputParamsByPool(
-      procedureName,
-      procedureParameters,
-      procedureOutputParameters
-    );
-
-    return result;
-  } catch (error) {
-    throw error;
-  }
-};
-
-
-// In notesModel.js
-exports.note_attachments_select_sql = async (noteId) => {
-  try {
-    const procedureParameters = [noteId];
-    const procedureOutputParameters = [
-      "ResponseStatus",
-      "OutputMessage",
-      "totalRows"
-    ];
-    const procedureName = "note_attachments_select";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
       procedureParameters,
@@ -2716,6 +2718,212 @@ exports.getDoctors_drp_sql = async (
     if (responseStatus === SP_STATUS.failed) {
       throw { message: outputMessage };
     }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+exports.summaryNote_Insert_sql = async (patientId,doctorId,notes) => {
+  try {
+    const procedureParameters = [patientId,doctorId,notes];
+
+    const procedureOutputParameters = [
+      'responseStatus',
+      'outputMessage'
+    ];
+
+    const procedureName = 'summaryNote_Insert';
+
+     const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.getSummaryNote_sql = async (
+  patientId,
+      doctorId
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      doctorId
+    ];
+    const procedureOutputParameters = [
+   "responseStatus",
+   "outputMessage"
+    ];
+    const procedureName = "getSummaryNote";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+
+    const { responseStatus, outputMessage } = result.outputValues;
+    if (responseStatus === SP_STATUS.failed) {
+      throw { message: outputMessage };
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.psy_notes_insert_update_sql = async (
+  noteId,
+  note,
+  patientId,
+  doctorId,
+  saveType,
+  utcOffset
+) => {
+  try {
+    const procedureParameters = [
+      noteId,
+      note,
+      patientId,
+      doctorId,
+      saveType,
+      utcOffset
+    ];
+
+    const procedureOutputParameters = ["ResponseStatus", "OutputMessage", "noteId_out"];
+    const procedureName = "psy_notes_insert_update";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.psy_notes_select_sql = async (
+  patientId,
+  skip,
+  limit
+) => {
+  try {
+    const procedureParameters = [
+      patientId,
+      skip,
+      limit
+    ];
+    const procedureOutputParameters = [
+      "ResponseStatus",
+      "OutputMessage",
+      "totalRows",
+    ];
+
+    const procedureName = "psy_notes_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// In notesModel.js
+exports.psy_notes_delete_sql = async (noteId) => {
+  try {
+    const procedureParameters = [noteId];
+    const procedureOutputParameters = ["ResponseStatus", "OutputMessage"];
+    const procedureName = "psy_notes_delete";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.psy_note_attachments_select_sql = async (noteId) => {
+  try {
+    const procedureParameters = [noteId];
+    const procedureOutputParameters = [
+      "ResponseStatus",
+      "OutputMessage",
+      "totalRows"
+    ];
+    const procedureName = "psy_note_attachments_select";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
 
     return result;
   } catch (error) {

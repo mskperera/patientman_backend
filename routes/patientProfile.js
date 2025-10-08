@@ -73,7 +73,13 @@ const {
   apPatient_Search_ctrl,
   apPatientAdd_ctrl,
   getDoctors_drp_ctrl,
-  appointmentsUpdate_ctrl
+  appointmentsUpdate_ctrl,
+  saveSummaryNote_ctrl,
+  getSummaryNote_ctrl,
+  psy_notes_Add_ctrl,
+  psy_notes_Update_ctrl,
+  psy_notes_get_ctrl,
+  psy_notes_Delete_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -495,6 +501,27 @@ router.get(
   '/dropdown/doctors',
   getDoctors_drp_ctrl
 );
+
+
+router.put(
+  '/saveSummaryNote',
+// requireSignin,
+ //roleMiddleware([USER_ROLE.ADMIN, USER_ROLE.MANAGER]),
+  saveSummaryNote_ctrl
+);
+
+router.get(
+  '/summaryNote/get',
+  getSummaryNote_ctrl
+);
+
+
+
+
+router.post("/psy_notes/add", upload.array("newFiles"), psy_notes_Add_ctrl);
+router.post("/psy_notes/update/:noteId", upload.array("newFiles"), psy_notes_Update_ctrl);
+router.post("/psy_notes/get", psy_notes_get_ctrl);
+router.post("/psy_notes/delete/:noteId", psy_notes_Delete_ctrl);
 
 
 
