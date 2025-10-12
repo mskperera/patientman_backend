@@ -1002,9 +1002,11 @@ exports.drp_ol_subjects_sql = async (
 
 exports.appointments_Insert_sql = async (
   appointmentId,
+      appointmentNo,
   patientId,
   doctorId,
     appointmentDate,
+    duration,
     statusId,
     userLogId,
     utcOffset
@@ -1013,22 +1015,26 @@ exports.appointments_Insert_sql = async (
     // Define procedure parameters matching the stored procedure input
     const procedureParameters = [
       appointmentId,
+      appointmentNo,
       patientId,
       doctorId,
     appointmentDate,
+    duration,
     statusId,
     userLogId,
     utcOffset
     ];
 
+    
     // Output parameters as defined in the procedure
     const procedureOutputParameters = [
       "responseStatus",
       "outputMessage",
-      "referenceNo",
-      "appointmentNo"
+      "referenceNo"
     ];
 
+        console.log('prodddd params:',procedureParameters)
+        
     const procedureName = "appointments_Insert";
 
     // Execute the stored procedure
@@ -1591,6 +1597,7 @@ exports.patientAppointments_Search_sql = async (
       utcOffset,
       pageName,
     ];
+    console.log('prodddd params:',procedureParameters)
     const procedureOutputParameters = [
       "responseStatus",
       "outputMessage",

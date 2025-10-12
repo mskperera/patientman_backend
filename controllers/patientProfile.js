@@ -2069,9 +2069,11 @@ exports.getOLSubjects_drp_ctrl =async (req, res) => {
 
 exports.appointmentsAdd_ctrl =async (req, res) => {
   const {
+        appointmentNo,
    patientId,
    doctorId,
     appointmentDate,
+    duration,
     statusId
   } = req.body;
 
@@ -2082,9 +2084,11 @@ console.log('body:',req.body);
   try {
   const result=  await appointments_Insert_sql(
     null,
+       appointmentNo,
    patientId,
    doctorId,
     appointmentDate,
+    duration,
     statusId,
     userLogId,
     utcOffset);
@@ -2113,9 +2117,11 @@ if(result.error){
 
 exports.appointmentsUpdate_ctrl =async (req, res) => {
   const {
+        appointmentNo,
    patientId,
    doctorId,
     appointmentDate,
+    duration,
     statusId
   } = req.body;
 
@@ -2128,9 +2134,11 @@ console.log('body:',req.body);
   try {
   const result=  await appointments_Insert_sql(
     appointmentId,
+        appointmentNo,
    patientId,
    doctorId,
     appointmentDate,
+    duration,
     statusId,
     userLogId,
     utcOffset);
