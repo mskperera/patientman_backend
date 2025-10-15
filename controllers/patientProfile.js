@@ -2513,7 +2513,7 @@ exports.getPatientUniversity_ctrl = async (req, res) => {
 
 
 exports.patientAppointments_Search_ctrl =async (req, res) => {
-   console.log('products_Select',req.body);
+
   const {    patientId,
     doctorId,
     appointmentNo,
@@ -2523,6 +2523,8 @@ exports.patientAppointments_Search_ctrl =async (req, res) => {
       skip,
       limit
     } = req.body;
+
+   
   const utcOffset='5:30';
   const userLogId=1;//req.authUser.userLogId;
   const pageName='p';
@@ -3571,13 +3573,16 @@ exports.getUsers_ctrl = async (req, res) => {
 // In controllers, e.g., notesController.js
 
 exports.notes_Add_ctrl = async (req, res) => {
-  const { note, patientId, userId } = req.body;
+  const { notes, patientId, userId,attachments } = req.body;
   const utcOffset = "5:30"; // As in examples
+console.log('patientId ccc',patientId);
+
 
   try {
     const result = await notes_insert_update_sql(
       null,
-      note,
+      notes,
+      attachments,
       patientId,
       userId,
       "I",
@@ -3591,9 +3596,6 @@ exports.notes_Add_ctrl = async (req, res) => {
     }
 
     const noteId = result.outputValues.noteId_out;
-
-    // Handle attachments
-    await handleAttachments(req, noteId, false); // false for add, no delete
 
     res.json(result);
   } catch (err) {
@@ -3708,17 +3710,6 @@ exports.notes_get_ctrl = async (req, res) => {
     }
 
     const notes = result.results[0]; 
-    // Assume the list from proc
-// Fetch attachments for each note using note_attachments_select_sql
-    for (let note of notes) {
-      const attachmentResult = await note_attachments_select_sql(note.noteId);
-      if (attachmentResult.error || attachmentResult.outputValues.ResponseStatus === 'failed') {
-        note.attachments = []; // Fallback to empty array on error
-        console.error(`Failed to fetch attachments for note ${note.noteId}:`, attachmentResult.outputValues.OutputMessage || attachmentResult.error);
-      } else {
-        note.attachments = attachmentResult.results[0] || []; // Assign attachments from stored procedure result
-      }
-    }
 
     res.json(notes);
   } catch (err) {

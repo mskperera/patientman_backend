@@ -2578,15 +2578,22 @@ exports.note_attachments_select_sql = async (noteId) => {
 exports.notes_insert_update_sql = async (
   noteId,
   note,
+  attachments,
   patientId,
   userId,
   saveType,
   utcOffset
 ) => {
   try {
+
+const attachments_json=JSON.stringify(attachments);
+
+console.log('attachments_json_str',attachments_json);
+
     const procedureParameters = [
       noteId,
       note,
+      attachments_json,
       patientId,
       userId,
       saveType,
