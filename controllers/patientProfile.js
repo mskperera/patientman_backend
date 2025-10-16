@@ -3644,52 +3644,6 @@ exports.notes_Update_ctrl = async (req, res) => {
   }
 };
 
-// Helper function for attachments
-async function handleAttachments(req, noteId, isUpdate) {
-  if (isUpdate) {
-    // Delete existing attachments and unlink files
-    const [attachments] = await pool.query('SELECT attachmentPath FROM note_attachments WHERE noteId = ?', [noteId]);
-    attachments.forEach(att => {
-      const filePath = path.join('public/uploads/notes/', att.attachmentPath);
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
-    });
-    await pool.query('DELETE FROM note_attachments WHERE noteId = ?', [noteId]);
-  }
-
-  // Old attachments (if any)
-  let oldPaths = req.body.oldPaths ? (Array.isArray(req.body.oldPaths) ? req.body.oldPaths : [req.body.oldPaths]) : [];
-  let oldTypes = req.body.oldTypes ? (Array.isArray(req.body.oldTypes) ? req.body.oldTypes : [req.body.oldTypes]) : [];
-  let oldNames = req.body.oldNames ? (Array.isArray(req.body.oldNames) ? req.body.oldNames : [req.body.oldNames]) : [];
-  let oldDescriptions = req.body.oldDescriptions ? (Array.isArray(req.body.oldDescriptions) ? req.body.oldDescriptions : [req.body.oldDescriptions]) : [];
-
-  for (let i = 0; i < oldPaths.length; i++) {
-    await pool.query(
-      'INSERT INTO note_attachments (noteId, attachmentType, attachmentName, attachmentPath, description) VALUES (?, ?, ?, ?, ?)',
-      [noteId, oldTypes[i], oldNames[i], oldPaths[i], oldDescriptions[i]]
-    );
-  }
-
-  // New attachments
-  const newFiles = req.files || [];
-  let newTypes = req.body.newTypes ? (Array.isArray(req.body.newTypes) ? req.body.newTypes : [req.body.newTypes]) : [];
-  let newNames = req.body.newNames ? (Array.isArray(req.body.newNames) ? req.body.newNames : [req.body.newNames]) : [];
-  let newDescriptions = req.body.newDescriptions ? (Array.isArray(req.body.newDescriptions) ? req.body.newDescriptions : [req.body.newDescriptions]) : [];
-
-  if (newFiles.length !== newTypes.length) {
-    throw new Error('Mismatch in new attachments data');
-  }
-
-  for (let i = 0; i < newFiles.length; i++) {
-    const file = newFiles[i];
-    const attachmentPath = file.filename; // Multer generated name
-    await pool.query(
-      'INSERT INTO note_attachments (noteId, attachmentType, attachmentName, attachmentPath, description) VALUES (?, ?, ?, ?, ?)',
-      [noteId, newTypes[i], newNames[i], attachmentPath, newDescriptions[i]]
-    );
-  }
-}
 
 
 
