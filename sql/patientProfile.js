@@ -2840,22 +2840,27 @@ exports.getSummaryNote_sql = async (
 
 
 
-
-
 exports.psy_notes_insert_update_sql = async (
   noteId,
   note,
+  attachments,
   patientId,
-  doctorId,
+  userId,
   saveType,
   utcOffset
 ) => {
   try {
+
+const attachments_json=JSON.stringify(attachments);
+
+console.log('attachments_json_str',attachments_json);
+
     const procedureParameters = [
       noteId,
       note,
+      attachments_json,
       patientId,
-      doctorId,
+      userId,
       saveType,
       utcOffset
     ];
@@ -2873,6 +2878,9 @@ exports.psy_notes_insert_update_sql = async (
     throw error;
   }
 };
+
+
+
 
 exports.psy_notes_select_sql = async (
   patientId,
