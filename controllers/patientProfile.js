@@ -3390,7 +3390,7 @@ exports.login_ctrl = async (req, res) => {
 exports.user_Add_ctrl = async (req, res) => {
   const {
  loginUserName,loginPassword, email,
-      displayName,profilePic, isActive,isUpdateCredentials
+      displayName,profilePic, isActive,isUpdateCredentials,userRoleId
   } = req.body;
 
   const userLogId = 1;
@@ -3404,7 +3404,7 @@ exports.user_Add_ctrl = async (req, res) => {
   try {
     const result = await userRegistration_insert_update_sql(
     null,
-      1,
+      userRoleId,
       loginUserName,
       passwordHash,
       passwordSalt,
@@ -3473,7 +3473,7 @@ exports.getUserAccountByUsername_ctrl = async (req, res) => {
 exports.user_Update_ctrl = async (req, res) => {
   const {
 loginUserName,loginPassword, email,
-      displayName,profilePic, isActive,isUpdateCredentials
+      displayName,profilePic, isActive,isUpdateCredentials,userRoleId
   } = req.body;
 
   const {userId}=req.params;
@@ -3488,7 +3488,7 @@ loginUserName,loginPassword, email,
   try {
     const result = await userRegistration_insert_update_sql(
     userId,
-      1,
+      userRoleId,
       loginUserName,
       passwordHash,
       passwordSalt,
