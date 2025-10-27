@@ -20,7 +20,8 @@ const jwt = require("jsonwebtoken");
         displayName,
         profilePic,
         isActive,
-        userRoleId
+        userRoleId,
+        userRoleName
       } = userRes;
     
       if (!isActive) {
@@ -38,7 +39,7 @@ const jwt = require("jsonwebtoken");
       }
 
       const accessToken = jwt.sign(
-        { displayName, email, userId, loginUserName,userRoleId,
+        { displayName, email, userId, loginUserName,userRoleId,userRoleName,
           userLogId:userLog.outputValues.userLogId,timeZoneId:1,utcOffset:330 },
        process.env.JWT_SECRET,
         {

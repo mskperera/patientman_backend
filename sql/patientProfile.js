@@ -619,11 +619,10 @@ exports.medical_information_insert_update_sql = async (
   pastComplaints,
   worseConditions,
   improvedConditions,
-  individualTherapyHours,
+  pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
   groupTherapyHours,
-  psychiatricHospitalizationMonths,
   currentTreatment,
   antidepressantsCount,
   psychotherapyType,
@@ -642,11 +641,10 @@ exports.medical_information_insert_update_sql = async (
       pastComplaints,
       worseConditions,
       improvedConditions,
-      individualTherapyHours,
+      pastHistoryOfPsyTeatment,
       individualTherapyYears,
       individualTherapyEndYears,
       groupTherapyHours,
-      psychiatricHospitalizationMonths,
       currentTreatment,
       antidepressantsCount,
       psychotherapyType,
@@ -2948,6 +2946,106 @@ exports.psy_note_attachments_select_sql = async (noteId) => {
     );
 
     return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+
+
+exports.deletePatientByPatientId_sql = async (
+   patientId
+) => {
+
+  try {
+    const procedureParameters = [patientId];
+
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage"];
+    const procedureName = "deletePatientByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+   return result;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.getNoteAttachmentDetailsByPatientId_sql = async (
+   patientId
+) => {
+
+  try {
+    const procedureParameters = [patientId];
+
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage"];
+    const procedureName = "getNoteAttachmentDetailsByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+   return result;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.getPsyNoteAttachmentDetailsByPatientId_sql = async (
+   patientId
+) => {
+
+  try {
+    const procedureParameters = [patientId];
+
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage"];
+    const procedureName = "getPsyNoteAttachmentDetailsByPatientId";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+   return result;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+exports.appointment_delete_sql = async (
+   appoinmentId
+) => {
+
+  try {
+    const procedureParameters = [appoinmentId];
+
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage"];
+    const procedureName = "appointment_delete";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+   return result;
+
   } catch (error) {
     throw error;
   }

@@ -58,7 +58,11 @@ const {
      psy_notes_insert_update_sql,
      psy_notes_select_sql,
      psy_notes_delete_sql,
-     psy_note_attachments_select_sql} = require('../sql/patientProfile');
+     psy_note_attachments_select_sql,
+     deletePatientByPatientId_sql,
+     getNoteAttachmentDetailsByPatientId_sql,
+     getPsyNoteAttachmentDetailsByPatientId_sql,
+     appointment_delete_sql} = require('../sql/patientProfile');
 
 const bcrypt = require("bcrypt");
 
@@ -66,6 +70,7 @@ const {hashPassword} =require('../utils/bcryptHash');
 
 const UAParser = require("ua-parser-js");
 const { pool } = require('../mysql/dbConnection');
+const { markFileAsTobeDeleted } = require('../services/assets');
 
      exports.getProfileTabDetailsByPatientId_ctrl =async (req, res) => {
 
@@ -1306,11 +1311,10 @@ exports.medicalInformation_Add_ctrl =async (req, res) => {
   pastComplaints,
   worseConditions,
   improvedConditions,
-  individualTherapyHours,
+  pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
   groupTherapyHours,
-  psychiatricHospitalizationMonths,
   currentTreatment,
   antidepressantsCount,
   psychotherapyType,
@@ -1331,11 +1335,10 @@ console.log('body:',req.body);
   pastComplaints,
   worseConditions,
   improvedConditions,
-  individualTherapyHours,
+  pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
   groupTherapyHours,
-  psychiatricHospitalizationMonths,
   currentTreatment,
   antidepressantsCount,
   psychotherapyType,
@@ -1379,11 +1382,10 @@ exports.medicalInformation_Update_ctrl =async (req, res) => {
   pastComplaints,
   worseConditions,
   improvedConditions,
-  individualTherapyHours,
+  pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
   groupTherapyHours,
-  psychiatricHospitalizationMonths,
   currentTreatment,
   antidepressantsCount,
   psychotherapyType,
@@ -1403,11 +1405,10 @@ const utcOffset= '5:30';
   pastComplaints,
   worseConditions,
   improvedConditions,
-  individualTherapyHours,
+  pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
   groupTherapyHours,
-  psychiatricHospitalizationMonths,
   currentTreatment,
   antidepressantsCount,
   psychotherapyType,
@@ -3963,3 +3964,129 @@ exports.psy_notes_Delete_ctrl = async (req, res) => {
   }
 };
 
+
+
+
+exports.deletePatientByPatientId_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = "5:30";
+
+  try {
+
+    const allNotesAttachDetailsRes=await getNoteAttachmentDetailsByPatientId_sql(patientId);
+const attachNoteRes=allNotesAttachDetailsRes.results[0];
+
+    const allPsyNotesAttachDetailsRes=await getPsyNoteAttachmentDetailsByPatientId_sql(patientId);
+const attachPsyNoteRes=allPsyNotesAttachDetailsRes.results[0];
+
+      console.log('allPsyNotesAttachDetailsRes e',allPsyNotesAttachDetailsRes);
+try{
+
+
+  attachNoteRes?.forEach(async e=>{
+      console.log('allNotesAttachDetailsRes e',e.hash);
+const markFileAsTobeDeletedRes=await markFileAsTobeDeleted(e.hash);
+ console.log('markFileAsTobeDeletedRes e',markFileAsTobeDeletedRes);
+  })
+
+
+    attachPsyNoteRes?.forEach(async e=>{
+      console.log('allPsyNotesAttachDetailsRes e',e.hash);
+const markFileAsTobeDeletedRes=await markFileAsTobeDeleted(e.hash);
+ console.log('markFileAsTobeDeletedRes Psy',markFileAsTobeDeletedRes);
+  })
+
+
+}
+catch(err){
+ console.log('Error:',err);
+}
+  
+   const result = await deletePatientByPatientId_sql(
+      patientId
+     );
+
+    // Handle attachments with delete
+    //await handleAttachments(req, noteId, true); // true for update, delete first
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Update_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+
+exports.getNoteAttachmentDetailsByPatientId_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = "5:30";
+
+  try {
+    const result = await getNoteAttachmentDetailsByPatientId_sql(
+      patientId
+    );
+
+    // Handle attachments with delete
+    //await handleAttachments(req, noteId, true); // true for update, delete first
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Update_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+
+
+
+exports.getPsyNoteAttachmentDetailsByPatientId_ctrl = async (req, res) => {
+  const { patientId } = req.params;
+  const utcOffset = "5:30";
+
+  try {
+    const result = await getPsyNoteAttachmentDetailsByPatientId_sql(
+      patientId
+    );
+
+    // Handle attachments with delete
+    //await handleAttachments(req, noteId, true); // true for update, delete first
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Update_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+      }
+    });
+  }
+};
+
+
+
+
+// In notesController.js
+exports.appointmentDelete_ctrl = async (req, res) => {
+  const { appointmentId } = req.params;
+
+  try {
+    const result = await appointment_delete_sql(appointmentId);
+
+    res.json(result);
+  } catch (err) {
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
+        ...(process.env.NODE_ENV === 'development' && { details: err.message })
+      }
+    });
+  }
+};
