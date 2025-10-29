@@ -1451,12 +1451,12 @@ exports.saveSummaryNote_ctrl =async (req, res) => {
   note
   } = req.body;
 
-  const {patientId,doctorId}=req.query;
+  const {patientId,userId}=req.query;
 
 
   try {
   const result=  await summaryNote_Insert_sql(
-    patientId,doctorId,
+    patientId,userId,
    note);
 
 
@@ -1484,10 +1484,10 @@ if(result.error){
 
 
 exports.getSummaryNote_ctrl =async (req, res) => {
-const {patientId,doctorId}=req.query;
+const {patientId}=req.query;
 console.log('patientId,',patientId)
   try {
-  const result= await getSummaryNote_sql(patientId,doctorId);
+  const result= await getSummaryNote_sql(patientId);
 
       res.json(result);
 
@@ -3842,13 +3842,6 @@ console.log('patientId ccc',patientId);
       utcOffset
     );
 
-    if (result.error || result.outputValues.ResponseStatus === 'failed') {
-      return res.status(422).json({
-        error: result.outputValues.OutputMessage || result.error
-      });
-    }
-
-    const noteId = result.outputValues.noteId_out;
 
     res.json(result);
   } catch (err) {

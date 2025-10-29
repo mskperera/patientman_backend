@@ -2741,9 +2741,9 @@ exports.getDoctors_drp_sql = async (
 
 
 
-exports.summaryNote_Insert_sql = async (patientId,doctorId,notes) => {
+exports.summaryNote_Insert_sql = async (patientId,userId,notes) => {
   try {
-    const procedureParameters = [patientId,doctorId,notes];
+    const procedureParameters = [patientId,userId,notes];
 
     const procedureOutputParameters = [
       'responseStatus',
@@ -2767,13 +2767,11 @@ exports.summaryNote_Insert_sql = async (patientId,doctorId,notes) => {
 
 
 exports.getSummaryNote_sql = async (
-  patientId,
-      doctorId
+  patientId
 ) => {
   try {
     const procedureParameters = [
-      patientId,
-      doctorId
+      patientId
     ];
     const procedureOutputParameters = [
    "responseStatus",
@@ -2863,7 +2861,7 @@ console.log('attachments_json_str',attachments_json);
       utcOffset
     ];
 
-    const procedureOutputParameters = ["ResponseStatus", "OutputMessage", "noteId_out"];
+    const procedureOutputParameters = ["responseStatus", "outputMessage", "noteId_out"];
     const procedureName = "psy_notes_insert_update";
     const result = await executeStoredProcedureWithOutputParamsByPool(
       procedureName,
