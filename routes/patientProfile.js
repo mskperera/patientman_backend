@@ -82,7 +82,8 @@ const {
   psy_notes_Delete_ctrl,
   deletePatientByPatientId_ctrl,
   getNoteAttachmentDetailsByPatientId_ctrl,
-  appointmentDelete_ctrl
+  appointmentDelete_ctrl,
+  occupationAdd_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -532,6 +533,8 @@ router.delete("/patient/:patientId", deletePatientByPatientId_ctrl);
 router.get("/note/attachmentDetailsByPatientId/:patientId", getNoteAttachmentDetailsByPatientId_ctrl);
 
 router.delete("/appointment/:appointmentId", appointmentDelete_ctrl);
+
+router.post("/occupation", occupationAdd_ctrl);
 
 
 module.exports = router;

@@ -3048,3 +3048,28 @@ exports.appointment_delete_sql = async (
     throw error;
   }
 };
+
+
+
+exports.occupationAdd_sql = async (
+occupationName
+) => {
+  try {
+
+    const procedureParameters = [
+      occupationName
+    ];
+
+    const procedureOutputParameters = ["responseStatus", "outputMessage", "occupationId"];
+    const procedureName = "occupation_insert_update";
+    const result = await executeStoredProcedureWithOutputParamsByPool(
+      procedureName,
+      procedureParameters,
+      procedureOutputParameters
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};

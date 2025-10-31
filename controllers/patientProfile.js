@@ -62,7 +62,8 @@ const {
      deletePatientByPatientId_sql,
      getNoteAttachmentDetailsByPatientId_sql,
      getPsyNoteAttachmentDetailsByPatientId_sql,
-     appointment_delete_sql} = require('../sql/patientProfile');
+     appointment_delete_sql,
+     occupationAdd_sql} = require('../sql/patientProfile');
 
 const bcrypt = require("bcrypt");
 
@@ -3611,17 +3612,20 @@ console.log('patientId ccc',patientId);
 
 
 exports.notes_Update_ctrl = async (req, res) => {
-  const { note, patientId, userId } = req.body;
+  const { notes, patientId, userId,attachments } = req.body;
   const { noteId } = req.params;
   const utcOffset = "5:30";
 
   try {
-    const result = await notes_insert_update_sql(
+
+    
+      const result = await notes_insert_update_sql(
       noteId,
-      note,
+      notes,
+      attachments,
       patientId,
       userId,
-      "U",
+           "U",
       utcOffset
     );
 
@@ -3632,7 +3636,7 @@ exports.notes_Update_ctrl = async (req, res) => {
     }
 
     // Handle attachments with delete
-    await handleAttachments(req, noteId, true); // true for update, delete first
+   // await handleAttachments(req, noteId, true); // true for update, delete first
 
     res.json(result);
   } catch (err) {
@@ -3856,14 +3860,15 @@ console.log('patientId ccc',patientId);
 
 
 exports.psy_notes_Update_ctrl = async (req, res) => {
-  const { note, patientId, userId } = req.body;
+  const { notes, patientId, userId,attachments } = req.body;
   const { noteId } = req.params;
   const utcOffset = "5:30";
 
   try {
     const result = await psy_notes_insert_update_sql(
       noteId,
-      note,
+     notes,
+      attachments,
       patientId,
       userId,
       "U",
@@ -3875,9 +3880,6 @@ exports.psy_notes_Update_ctrl = async (req, res) => {
         error: result.outputValues.OutputMessage || result.error
       });
     }
-
-    // Handle attachments with delete
-    await handleAttachments(req, noteId, true); // true for update, delete first
 
     res.json(result);
   } catch (err) {
@@ -4079,6 +4081,32 @@ exports.appointmentDelete_ctrl = async (req, res) => {
       error: {
         message: 'Internal server error',
         ...(process.env.NODE_ENV === 'development' && { details: err.message })
+      }
+    });
+  }
+};
+
+
+
+
+
+
+
+exports.occupationAdd_ctrl = async (req, res) => {
+  const { occupationName } = req.body;
+
+  try {
+    const result = await occupationAdd_sql(
+   occupationName
+    );
+
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error in notes_Add_ctrl:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Internal server error',
       }
     });
   }
