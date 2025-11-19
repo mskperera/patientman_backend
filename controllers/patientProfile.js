@@ -420,8 +420,13 @@ exports.familyPatientRegistration_Update_ctrl = async (req, res) => {
 exports.medical_information_family_add_ctrl = async (req, res) => {
   const {
     patientId,
-  physicalAilmentsHusband,
-  physicalAilmentsWife,
+presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
   mainComplaintsHusband,
   mainComplaintsWife,
   worseConditionsHusband,
@@ -451,8 +456,13 @@ exports.medical_information_family_add_ctrl = async (req, res) => {
   try {
     const result = await medical_information_family_insert_update_sql(
       patientId,
-  physicalAilmentsHusband,
-  physicalAilmentsWife,
+presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
   mainComplaintsHusband,
   mainComplaintsWife,
   worseConditionsHusband,
@@ -501,8 +511,13 @@ exports.medical_information_family_add_ctrl = async (req, res) => {
 exports.medical_information_family_update_ctrl = async (req, res) => {
   const { patientId } = req.params;
   const {
-  physicalAilmentsHusband,
-  physicalAilmentsWife,
+presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
   mainComplaintsHusband,
   mainComplaintsWife,
   worseConditionsHusband,
@@ -532,8 +547,13 @@ exports.medical_information_family_update_ctrl = async (req, res) => {
   try {
     const result = await medical_information_family_insert_update_sql(
   patientId,
-  physicalAilmentsHusband,
-  physicalAilmentsWife,
+presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
   mainComplaintsHusband,
   mainComplaintsWife,
   worseConditionsHusband,
@@ -1307,7 +1327,9 @@ if(result.error){
 exports.medicalInformation_Add_ctrl =async (req, res) => {
   const {
   patientId,
-  physicalAilments,
+  presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
   mainComplaints,
   pastComplaints,
   worseConditions,
@@ -1331,7 +1353,9 @@ console.log('body:',req.body);
   try {
   const result=  await medical_information_insert_update_sql(
     patientId,
-  physicalAilments,
+  presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
   mainComplaints,
   pastComplaints,
   worseConditions,
@@ -1378,7 +1402,9 @@ exports.medicalInformation_Update_ctrl =async (req, res) => {
     const {patientId}=req.params;
 
   const {
-  physicalAilments,
+  presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
   mainComplaints,
   pastComplaints,
   worseConditions,
@@ -1401,7 +1427,9 @@ const utcOffset= '5:30';
   try {
   const result=  await medical_information_insert_update_sql(
     patientId,
-  physicalAilments,
+ presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
   mainComplaints,
   pastComplaints,
   worseConditions,

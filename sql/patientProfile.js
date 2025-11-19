@@ -532,8 +532,15 @@ exports.family_information_insert_update_sql = async (
 
 exports.medical_information_family_insert_update_sql = async (
   patientId,
-  physicalAilmentsHusband,
-  physicalAilmentsWife,
+
+presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
+
   mainComplaintsHusband,
   mainComplaintsWife,
   worseConditionsHusband,
@@ -561,8 +568,13 @@ exports.medical_information_family_insert_update_sql = async (
   try {
     const procedureParameters = [
       patientId,
-      physicalAilmentsHusband,
-      physicalAilmentsWife,
+   presentComplaintsHusband,
+presentComplaintsWife,
+historyOfPresentComplaintsHusband,
+historyOfPresentComplaintsWife,
+passMedicalHistoryHusband,
+passMedicalHistoryWife,
+
       mainComplaintsHusband,
       mainComplaintsWife,
       worseConditionsHusband,
@@ -614,7 +626,9 @@ exports.medical_information_family_insert_update_sql = async (
 
 exports.medical_information_insert_update_sql = async (
   patientId,
-  physicalAilments,
+  presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
   mainComplaints,
   pastComplaints,
   worseConditions,
@@ -636,7 +650,9 @@ exports.medical_information_insert_update_sql = async (
   try {
     const procedureParameters = [
       patientId,
-      physicalAilments,
+     presentComplaints,
+  historyOfPresentComplaints,
+  passMedicalHistory,
       mainComplaints,
       pastComplaints,
       worseConditions,
