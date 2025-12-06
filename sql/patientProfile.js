@@ -283,10 +283,17 @@ exports.personal_information_family_insert_update_sql = async (
   assets,
   badPoints,
   socialDifficulties,
-  loveSexDifficulties,
+
+  loveSexDifficultiesHusband,
+    loveSexDifficultiesWife,
+
   schoolWorkDifficulties,
-  lifeGoals,
-  thingsToChange,
+
+  lifeGoalsHusband,
+      lifeGoalsWife,
+  thingsToChangeHusband,
+  thingsToChangeWife,
+
   occupationTrainedHusband,
   occupationHusband,
   occupationFullTimeHusband,
@@ -301,7 +308,7 @@ exports.personal_information_family_insert_update_sql = async (
 ) => {
   try {
     // Define procedure parameters matching the stored procedure input
-    console.log('assets:', assets);
+    console.log('saveType:', saveType);
     const procedureParameters = [
       patientId,
       maritalStatusHusband,
@@ -315,10 +322,18 @@ exports.personal_information_family_insert_update_sql = async (
       assets ? JSON.stringify(assets) : null,
       badPoints ? JSON.stringify(badPoints) : null,
       socialDifficulties ? JSON.stringify(socialDifficulties) : null,
-      loveSexDifficulties,
+
+        loveSexDifficultiesHusband,
+    loveSexDifficultiesWife,
+
       schoolWorkDifficulties,
-      lifeGoals,
-      thingsToChange,
+
+    lifeGoalsHusband,
+      lifeGoalsWife,
+      
+  thingsToChangeHusband,
+  thingsToChangeWife,
+
       occupationTrainedHusband,
       occupationHusband,
       occupationFullTimeHusband,
@@ -541,20 +556,18 @@ passMedicalHistoryHusband,
 passMedicalHistoryWife,
 
 
-  mainComplaintsHusband,
-  mainComplaintsWife,
-  worseConditionsHusband,
-  worseConditionsWife,
-  improvedConditionsHusband,
-  improvedConditionsWife,
+   historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+
+  psychiatricFamilyHistoryHusband,
+  psychiatricFamilyHistoryWife,
+
   isHistoryOfPsychiatricTreatmentsHusband,
   isHistoryOfPsychiatricTreatmentsWife,
   isPsychiatricHospitalizationHusband,
   isPsychiatricHospitalizationWife,
   historyOfMentalIllnessHusband,
   historyOfMentalIllnessWife,
-  historyOfSubstanceAbuseHusband,
-  historyOfSubstanceAbuseWife,
   historyOfACESHusband,
    historyOfACESWife ,
   additionalInfoHusband,
@@ -575,20 +588,19 @@ historyOfPresentComplaintsWife,
 passMedicalHistoryHusband,
 passMedicalHistoryWife,
 
-      mainComplaintsHusband,
-      mainComplaintsWife,
-      worseConditionsHusband,
-      worseConditionsWife,
-      improvedConditionsHusband,
-      improvedConditionsWife,
+     historyOfSubstanceAbuseHusband,
+  historyOfSubstanceAbuseWife,
+
+  psychiatricFamilyHistoryHusband,
+  psychiatricFamilyHistoryWife,
+
       isHistoryOfPsychiatricTreatmentsHusband,
       isHistoryOfPsychiatricTreatmentsWife,
       isPsychiatricHospitalizationHusband,
       isPsychiatricHospitalizationWife,
       historyOfMentalIllnessHusband,
       historyOfMentalIllnessWife,
-      historyOfSubstanceAbuseHusband,
-      historyOfSubstanceAbuseWife,
+
       historyOfACESHusband ? JSON.stringify(historyOfACESHusband):null,
    historyOfACESWife ? JSON.stringify(historyOfACESWife):null, 
       additionalInfoHusband,
@@ -629,10 +641,12 @@ exports.medical_information_insert_update_sql = async (
   presentComplaints,
   historyOfPresentComplaints,
   passMedicalHistory,
-  mainComplaints,
+  historyOfSubstanceAbuse,
+
   pastComplaints,
-  worseConditions,
-  improvedConditions,
+  
+  psychiatricFamilyHistory,
+
   pastHistoryOfPsyTeatment,
   individualTherapyYears,
   individualTherapyEndYears,
@@ -653,10 +667,11 @@ exports.medical_information_insert_update_sql = async (
      presentComplaints,
   historyOfPresentComplaints,
   passMedicalHistory,
-      mainComplaints,
-      pastComplaints,
-      worseConditions,
-      improvedConditions,
+      historyOfSubstanceAbuse,
+
+  pastComplaints,
+  
+  psychiatricFamilyHistory,
       pastHistoryOfPsyTeatment,
       individualTherapyYears,
       individualTherapyEndYears,
