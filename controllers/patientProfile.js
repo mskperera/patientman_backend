@@ -3698,6 +3698,7 @@ exports.notes_Update_ctrl = async (req, res) => {
 
 
 
+
 exports.notes_get_ctrl = async (req, res) => {
   const { patientId, skip = 0, limit = 100 } = req.body;
 
