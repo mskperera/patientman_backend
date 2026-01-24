@@ -50,8 +50,8 @@ exports.patient_registration_insert_update_sql = async (
     // Define procedure parameters matching the SP
     const procedureParameters = [
       patientId,
+     firstName,
       lastName,
-      firstName,
       middleName,
       dateOfBirth,
       age,
