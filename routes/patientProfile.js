@@ -83,7 +83,8 @@ const {
   deletePatientByPatientId_ctrl,
   getNoteAttachmentDetailsByPatientId_ctrl,
   appointmentDelete_ctrl,
-  occupationAdd_ctrl
+  occupationAdd_ctrl,
+  getUserAccountByUsername_ctrl
 } = require('../controllers/patientProfile');
 const { requireSignin, roleMiddleware} = require('../middlewares/auth');
 const { USER_ROLE } = require('../utils/constants');
@@ -91,7 +92,16 @@ const { login_ctrl } = require('../controllers/patientProfile');
 const { user_Add_ctrl } = require('../controllers/patientProfile');
 const { user_Update_ctrl } = require('../controllers/patientProfile');
 const { getUsers_ctrl } = require('../controllers/patientProfile');
-const { getUserAccountByUsername_ctrl } = require('../controllers/patientProfile');
+
+/**
+ * Add a new occupation
+ * @route POST /occupation
+ * @group Occupations - Operations about occupations
+ * @param {string} name.body.required - Occupation name
+ * @param {string} description.body - Occupation details
+ * @returns {object} 201 - Occupation created
+ * @returns {Error} 400 - Invalid input
+ */
 
 
 router.get(

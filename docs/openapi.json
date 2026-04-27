@@ -1,0 +1,4251 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "My Node.js API",
+    "version": "1.0.0",
+    "description": "API with auto-generated Swagger documentation"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/patient/profileTabDetails/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patientRegistrations/get": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientNo": {
+                  "example": "any"
+                },
+                "homePhone": {
+                  "example": "any"
+                },
+                "businessPhone": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "patientName": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/apPatient/get": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientNo": {
+                  "example": "any"
+                },
+                "homePhone": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "patientName": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/basicInfo/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/personalInfo/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/familyInfo/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/medicalInfo/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/educationInfo/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patient/educationYears/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/scholarship/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/ol/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/al/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/university/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/patientRegistration": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "middleName": {
+                  "example": "any"
+                },
+                "dateOfBirth": {
+                  "example": "any"
+                },
+                "age": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "homePhone": {
+                  "example": "any"
+                },
+                "businessPhone": {
+                  "example": "any"
+                },
+                "permanentAddress": {
+                  "example": "any"
+                },
+                "referralSource": {
+                  "example": "any"
+                },
+                "referralSourceOther": {
+                  "example": "any"
+                },
+                "referralPartyPresent": {
+                  "example": "any"
+                },
+                "patientTypeId": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/patientRegistration/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "middleName": {
+                  "example": "any"
+                },
+                "dateOfBirth": {
+                  "example": "any"
+                },
+                "age": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "homePhone": {
+                  "example": "any"
+                },
+                "businessPhone": {
+                  "example": "any"
+                },
+                "permanentAddress": {
+                  "example": "any"
+                },
+                "referralSource": {
+                  "example": "any"
+                },
+                "referralSourceOther": {
+                  "example": "any"
+                },
+                "referralPartyPresent": {
+                  "example": "any"
+                },
+                "patientTypeId": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/familyPatientRegistration": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "husbandFirstName": {
+                  "example": "any"
+                },
+                "husbandLastName": {
+                  "example": "any"
+                },
+                "husbandMiddleName": {
+                  "example": "any"
+                },
+                "husbandDateOfBirth": {
+                  "example": "any"
+                },
+                "husbandAge": {
+                  "example": "any"
+                },
+                "husbandGender": {
+                  "example": "any"
+                },
+                "husbandEmail": {
+                  "example": "any"
+                },
+                "husbandHomePhone": {
+                  "example": "any"
+                },
+                "husbandMobilePhone": {
+                  "example": "any"
+                },
+                "husbandPermanentAddress": {
+                  "example": "any"
+                },
+                "wifeFirstName": {
+                  "example": "any"
+                },
+                "wifeLastName": {
+                  "example": "any"
+                },
+                "wifeMiddleName": {
+                  "example": "any"
+                },
+                "wifeDateOfBirth": {
+                  "example": "any"
+                },
+                "wifeAge": {
+                  "example": "any"
+                },
+                "wifeGender": {
+                  "example": "any"
+                },
+                "wifeEmail": {
+                  "example": "any"
+                },
+                "wifeHomePhone": {
+                  "example": "any"
+                },
+                "wifeMobilePhone": {
+                  "example": "any"
+                },
+                "wifePermanentAddress": {
+                  "example": "any"
+                },
+                "referralSource": {
+                  "example": "any"
+                },
+                "referralSourceOther": {
+                  "example": "any"
+                },
+                "referralPartyPresent": {
+                  "example": "any"
+                },
+                "patientTypeId": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/familyPatientRegistration/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "husbandFirstName": {
+                  "example": "any"
+                },
+                "husbandLastName": {
+                  "example": "any"
+                },
+                "husbandMiddleName": {
+                  "example": "any"
+                },
+                "husbandDateOfBirth": {
+                  "example": "any"
+                },
+                "husbandAge": {
+                  "example": "any"
+                },
+                "husbandGender": {
+                  "example": "any"
+                },
+                "husbandEmail": {
+                  "example": "any"
+                },
+                "husbandHomePhone": {
+                  "example": "any"
+                },
+                "husbandMobilePhone": {
+                  "example": "any"
+                },
+                "husbandPermanentAddress": {
+                  "example": "any"
+                },
+                "wifeFirstName": {
+                  "example": "any"
+                },
+                "wifeLastName": {
+                  "example": "any"
+                },
+                "wifeMiddleName": {
+                  "example": "any"
+                },
+                "wifeDateOfBirth": {
+                  "example": "any"
+                },
+                "wifeAge": {
+                  "example": "any"
+                },
+                "wifeGender": {
+                  "example": "any"
+                },
+                "wifeEmail": {
+                  "example": "any"
+                },
+                "wifeHomePhone": {
+                  "example": "any"
+                },
+                "wifeMobilePhone": {
+                  "example": "any"
+                },
+                "wifePermanentAddress": {
+                  "example": "any"
+                },
+                "referralSource": {
+                  "example": "any"
+                },
+                "referralSourceOther": {
+                  "example": "any"
+                },
+                "referralPartyPresent": {
+                  "example": "any"
+                },
+                "patientTypeId": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformation": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "maritalStatus": {
+                  "example": "any"
+                },
+                "yearsMarried": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficulties": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoals": {
+                  "example": "any"
+                },
+                "thingsToChange": {
+                  "example": "any"
+                },
+                "occupationTrained": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "occupationFullTime": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformation/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "maritalStatus": {
+                  "example": "any"
+                },
+                "yearsMarried": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficulties": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoals": {
+                  "example": "any"
+                },
+                "thingsToChange": {
+                  "example": "any"
+                },
+                "occupationTrained": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "occupationFullTime": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformationChild": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "maritalStatus": {
+                  "example": "any"
+                },
+                "yearsMarried": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficulties": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoals": {
+                  "example": "any"
+                },
+                "thingsToChange": {
+                  "example": "any"
+                },
+                "occupationTrained": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "occupationFullTime": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformationChild/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "maritalStatus": {
+                  "example": "any"
+                },
+                "yearsMarried": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficulties": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoals": {
+                  "example": "any"
+                },
+                "thingsToChange": {
+                  "example": "any"
+                },
+                "occupationTrained": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "occupationFullTime": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformationFamily": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "maritalStatusHusband": {
+                  "example": "any"
+                },
+                "yearsMarriedHusband": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficultiesHusband": {
+                  "example": "any"
+                },
+                "loveSexDifficultiesWife": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoalsHusband": {
+                  "example": "any"
+                },
+                "lifeGoalsWife": {
+                  "example": "any"
+                },
+                "thingsToChangeHusband": {
+                  "example": "any"
+                },
+                "thingsToChangeWife": {
+                  "example": "any"
+                },
+                "occupationTrainedHusband": {
+                  "example": "any"
+                },
+                "occupationHusband": {
+                  "example": "any"
+                },
+                "occupationFullTimeHusband": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                },
+                "maritalStatusWife": {
+                  "example": "any"
+                },
+                "yearsMarriedWife": {
+                  "example": "any"
+                },
+                "occupationTrainedWife": {
+                  "example": "any"
+                },
+                "occupationWife": {
+                  "example": "any"
+                },
+                "occupationFullTimeWife": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/personalInformationFamily/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "maritalStatusHusband": {
+                  "example": "any"
+                },
+                "yearsMarriedHusband": {
+                  "example": "any"
+                },
+                "maleChildrenAges": {
+                  "example": "any"
+                },
+                "femaleChildrenAges": {
+                  "example": "any"
+                },
+                "religiosity": {
+                  "example": "any"
+                },
+                "thingsLiked": {
+                  "example": "any"
+                },
+                "assets": {
+                  "example": "any"
+                },
+                "badPoints": {
+                  "example": "any"
+                },
+                "socialDifficulties": {
+                  "example": "any"
+                },
+                "loveSexDifficultiesHusband": {
+                  "example": "any"
+                },
+                "loveSexDifficultiesWife": {
+                  "example": "any"
+                },
+                "schoolWorkDifficulties": {
+                  "example": "any"
+                },
+                "lifeGoalsHusband": {
+                  "example": "any"
+                },
+                "lifeGoalsWife": {
+                  "example": "any"
+                },
+                "thingsToChangeHusband": {
+                  "example": "any"
+                },
+                "thingsToChangeWife": {
+                  "example": "any"
+                },
+                "occupationTrainedHusband": {
+                  "example": "any"
+                },
+                "occupationHusband": {
+                  "example": "any"
+                },
+                "occupationFullTimeHusband": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                },
+                "maritalStatusWife": {
+                  "example": "any"
+                },
+                "yearsMarriedWife": {
+                  "example": "any"
+                },
+                "occupationTrainedWife": {
+                  "example": "any"
+                },
+                "occupationWife": {
+                  "example": "any"
+                },
+                "occupationFullTimeWife": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/familyInformation": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "spouseOccupation": {
+                  "example": "any"
+                },
+                "spouseOccupationFullTime": {
+                  "example": "any"
+                },
+                "motherAge": {
+                  "example": "any"
+                },
+                "ageWhenMotherDied": {
+                  "example": "any"
+                },
+                "fatherAge": {
+                  "example": "any"
+                },
+                "ageWhenFatherDied": {
+                  "example": "any"
+                },
+                "motherOccupation": {
+                  "example": "any"
+                },
+                "fatherOccupation": {
+                  "example": "any"
+                },
+                "motherReligion": {
+                  "example": "any"
+                },
+                "fatherReligion": {
+                  "example": "any"
+                },
+                "raisedBy": {
+                  "example": "any"
+                },
+                "motherDescription": {
+                  "example": "any"
+                },
+                "fatherDescription": {
+                  "example": "any"
+                },
+                "parentalSeparationAge": {
+                  "example": "any"
+                },
+                "parentalDivorceAge": {
+                  "example": "any"
+                },
+                "motherDivorceCount": {
+                  "example": "any"
+                },
+                "fatherDivorceCount": {
+                  "example": "any"
+                },
+                "livingBrothers": {
+                  "example": "any"
+                },
+                "livingSisters": {
+                  "example": "any"
+                },
+                "brothersAges": {
+                  "example": "any"
+                },
+                "sistersAges": {
+                  "example": "any"
+                },
+                "childNumber": {
+                  "example": "any"
+                },
+                "familyChildren": {
+                  "example": "any"
+                },
+                "adopted": {
+                  "example": "any"
+                },
+                "brotherDisturbances": {
+                  "example": "any"
+                },
+                "sisterDisturbances": {
+                  "example": "any"
+                },
+                "maleRelativesDisturbed": {
+                  "example": "any"
+                },
+                "maleRelativesHospitalized": {
+                  "example": "any"
+                },
+                "femaleRelativesDisturbed": {
+                  "example": "any"
+                },
+                "femaleRelativesHospitalized": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/familyInformation/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "spouseOccupation": {
+                  "example": "any"
+                },
+                "spouseOccupationFullTime": {
+                  "example": "any"
+                },
+                "motherAge": {
+                  "example": "any"
+                },
+                "ageWhenMotherDied": {
+                  "example": "any"
+                },
+                "fatherAge": {
+                  "example": "any"
+                },
+                "ageWhenFatherDied": {
+                  "example": "any"
+                },
+                "motherOccupation": {
+                  "example": "any"
+                },
+                "fatherOccupation": {
+                  "example": "any"
+                },
+                "motherReligion": {
+                  "example": "any"
+                },
+                "fatherReligion": {
+                  "example": "any"
+                },
+                "raisedBy": {
+                  "example": "any"
+                },
+                "motherDescription": {
+                  "example": "any"
+                },
+                "fatherDescription": {
+                  "example": "any"
+                },
+                "parentalSeparationAge": {
+                  "example": "any"
+                },
+                "parentalDivorceAge": {
+                  "example": "any"
+                },
+                "motherDivorceCount": {
+                  "example": "any"
+                },
+                "fatherDivorceCount": {
+                  "example": "any"
+                },
+                "livingBrothers": {
+                  "example": "any"
+                },
+                "livingSisters": {
+                  "example": "any"
+                },
+                "brothersAges": {
+                  "example": "any"
+                },
+                "sistersAges": {
+                  "example": "any"
+                },
+                "childNumber": {
+                  "example": "any"
+                },
+                "familyChildren": {
+                  "example": "any"
+                },
+                "adopted": {
+                  "example": "any"
+                },
+                "brotherDisturbances": {
+                  "example": "any"
+                },
+                "sisterDisturbances": {
+                  "example": "any"
+                },
+                "maleRelativesDisturbed": {
+                  "example": "any"
+                },
+                "maleRelativesHospitalized": {
+                  "example": "any"
+                },
+                "femaleRelativesDisturbed": {
+                  "example": "any"
+                },
+                "femaleRelativesHospitalized": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/medicalInformation": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "presentComplaints": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaints": {
+                  "example": "any"
+                },
+                "passMedicalHistory": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuse": {
+                  "example": "any"
+                },
+                "pastComplaints": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistory": {
+                  "example": "any"
+                },
+                "pastHistoryOfPsyTeatment": {
+                  "example": "any"
+                },
+                "individualTherapyYears": {
+                  "example": "any"
+                },
+                "individualTherapyEndYears": {
+                  "example": "any"
+                },
+                "groupTherapyHours": {
+                  "example": "any"
+                },
+                "currentTreatment": {
+                  "example": "any"
+                },
+                "antidepressantsCount": {
+                  "example": "any"
+                },
+                "psychotherapyType": {
+                  "example": "any"
+                },
+                "additionalInfo": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/medicalInformation/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presentComplaints": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaints": {
+                  "example": "any"
+                },
+                "passMedicalHistory": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuse": {
+                  "example": "any"
+                },
+                "pastComplaints": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistory": {
+                  "example": "any"
+                },
+                "pastHistoryOfPsyTeatment": {
+                  "example": "any"
+                },
+                "individualTherapyYears": {
+                  "example": "any"
+                },
+                "individualTherapyEndYears": {
+                  "example": "any"
+                },
+                "groupTherapyHours": {
+                  "example": "any"
+                },
+                "currentTreatment": {
+                  "example": "any"
+                },
+                "antidepressantsCount": {
+                  "example": "any"
+                },
+                "psychotherapyType": {
+                  "example": "any"
+                },
+                "additionalInfo": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/medicalInformation_family": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "presentComplaintsHusband": {
+                  "example": "any"
+                },
+                "presentComplaintsWife": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaintsHusband": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaintsWife": {
+                  "example": "any"
+                },
+                "passMedicalHistoryHusband": {
+                  "example": "any"
+                },
+                "passMedicalHistoryWife": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuseHusband": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuseWife": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistoryHusband": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistoryWife": {
+                  "example": "any"
+                },
+                "isHistoryOfPsychiatricTreatmentsHusband": {
+                  "example": "any"
+                },
+                "isHistoryOfPsychiatricTreatmentsWife": {
+                  "example": "any"
+                },
+                "isPsychiatricHospitalizationHusband": {
+                  "example": "any"
+                },
+                "isPsychiatricHospitalizationWife": {
+                  "example": "any"
+                },
+                "historyOfMentalIllnessHusband": {
+                  "example": "any"
+                },
+                "historyOfMentalIllnessWife": {
+                  "example": "any"
+                },
+                "historyOfACESHusband": {
+                  "example": "any"
+                },
+                "historyOfACESWife": {
+                  "example": "any"
+                },
+                "additionalInfoHusband": {
+                  "example": "any"
+                },
+                "additionalInfoWife": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/medicalInformation_family/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presentComplaintsHusband": {
+                  "example": "any"
+                },
+                "presentComplaintsWife": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaintsHusband": {
+                  "example": "any"
+                },
+                "historyOfPresentComplaintsWife": {
+                  "example": "any"
+                },
+                "passMedicalHistoryHusband": {
+                  "example": "any"
+                },
+                "passMedicalHistoryWife": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuseHusband": {
+                  "example": "any"
+                },
+                "historyOfSubstanceAbuseWife": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistoryHusband": {
+                  "example": "any"
+                },
+                "psychiatricFamilyHistoryWife": {
+                  "example": "any"
+                },
+                "isHistoryOfPsychiatricTreatmentsHusband": {
+                  "example": "any"
+                },
+                "isHistoryOfPsychiatricTreatmentsWife": {
+                  "example": "any"
+                },
+                "isPsychiatricHospitalizationHusband": {
+                  "example": "any"
+                },
+                "isPsychiatricHospitalizationWife": {
+                  "example": "any"
+                },
+                "historyOfMentalIllnessHusband": {
+                  "example": "any"
+                },
+                "historyOfMentalIllnessWife": {
+                  "example": "any"
+                },
+                "historyOfACESHusband": {
+                  "example": "any"
+                },
+                "historyOfACESWife": {
+                  "example": "any"
+                },
+                "additionalInfoHusband": {
+                  "example": "any"
+                },
+                "additionalInfoWife": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/education": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "educationYears": {
+                  "example": "any"
+                },
+                "isScholarship": {
+                  "example": "any"
+                },
+                "scholarshipMarks": {
+                  "example": "any"
+                },
+                "schoolAdmitted": {
+                  "example": "any"
+                },
+                "isScholarshipPassed": {
+                  "example": "any"
+                },
+                "scholarshipRemark": {
+                  "example": "any"
+                },
+                "isOL": {
+                  "example": "any"
+                },
+                "olSubjects": {
+                  "example": "any"
+                },
+                "olRemark": {
+                  "example": "any"
+                },
+                "isAL": {
+                  "example": "any"
+                },
+                "alStreamName": {
+                  "example": "any"
+                },
+                "alSubjects": {
+                  "example": "any"
+                },
+                "alRemark": {
+                  "example": "any"
+                },
+                "isUniversity": {
+                  "example": "any"
+                },
+                "universitySubjects": {
+                  "example": "any"
+                },
+                "universityRemark": {
+                  "example": "any"
+                },
+                "isInternationalCurriculum": {
+                  "example": "any"
+                },
+                "isEdexcel": {
+                  "example": "any"
+                },
+                "isCambridge": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/education/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "educationYears": {
+                  "example": "any"
+                },
+                "isScholarship": {
+                  "example": "any"
+                },
+                "scholarshipMarks": {
+                  "example": "any"
+                },
+                "schoolAdmitted": {
+                  "example": "any"
+                },
+                "isScholarshipPassed": {
+                  "example": "any"
+                },
+                "scholarshipRemark": {
+                  "example": "any"
+                },
+                "isOL": {
+                  "example": "any"
+                },
+                "olSubjects": {
+                  "example": "any"
+                },
+                "olRemark": {
+                  "example": "any"
+                },
+                "isAL": {
+                  "example": "any"
+                },
+                "alStreamName": {
+                  "example": "any"
+                },
+                "alSubjects": {
+                  "example": "any"
+                },
+                "alRemark": {
+                  "example": "any"
+                },
+                "isUniversity": {
+                  "example": "any"
+                },
+                "universitySubjects": {
+                  "example": "any"
+                },
+                "universityRemark": {
+                  "example": "any"
+                },
+                "isInternationalCurriculum": {
+                  "example": "any"
+                },
+                "isEdexcel": {
+                  "example": "any"
+                },
+                "isCambridge": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/education_family": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "educationYearsHusband": {
+                  "example": "any"
+                },
+                "isOLHusband": {
+                  "example": "any"
+                },
+                "isOLPassedHusband": {
+                  "example": "any"
+                },
+                "olRemarkHusband": {
+                  "example": "any"
+                },
+                "isALHusband": {
+                  "example": "any"
+                },
+                "alStreamNameHusband": {
+                  "example": "any"
+                },
+                "alRemarkHusband": {
+                  "example": "any"
+                },
+                "isUniversityHusband": {
+                  "example": "any"
+                },
+                "universitySubjectsHusband": {
+                  "example": "any"
+                },
+                "universityRemarkHusband": {
+                  "example": "any"
+                },
+                "isEdexcelHusband": {
+                  "example": "any"
+                },
+                "isCambridgeHusband": {
+                  "example": "any"
+                },
+                "educationYearsWife": {
+                  "example": "any"
+                },
+                "isScholarshipWife": {
+                  "example": "any"
+                },
+                "isOLWife": {
+                  "example": "any"
+                },
+                "isOLPassedWife": {
+                  "example": "any"
+                },
+                "olRemarkWife": {
+                  "example": "any"
+                },
+                "isALWife": {
+                  "example": "any"
+                },
+                "alStreamNameWife": {
+                  "example": "any"
+                },
+                "alRemarkWife": {
+                  "example": "any"
+                },
+                "isUniversityWife": {
+                  "example": "any"
+                },
+                "universitySubjectsWife": {
+                  "example": "any"
+                },
+                "universityRemarkWife": {
+                  "example": "any"
+                },
+                "isEdexcelWife": {
+                  "example": "any"
+                },
+                "isCambridgeWife": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/education_family/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "educationYearsHusband": {
+                  "example": "any"
+                },
+                "isOLHusband": {
+                  "example": "any"
+                },
+                "isOLPassedHusband": {
+                  "example": "any"
+                },
+                "olRemarkHusband": {
+                  "example": "any"
+                },
+                "isALHusband": {
+                  "example": "any"
+                },
+                "alStreamNameHusband": {
+                  "example": "any"
+                },
+                "alRemarkHusband": {
+                  "example": "any"
+                },
+                "isUniversityHusband": {
+                  "example": "any"
+                },
+                "universitySubjectsHusband": {
+                  "example": "any"
+                },
+                "universityRemarkHusband": {
+                  "example": "any"
+                },
+                "isEdexcelHusband": {
+                  "example": "any"
+                },
+                "isCambridgeHusband": {
+                  "example": "any"
+                },
+                "educationYearsWife": {
+                  "example": "any"
+                },
+                "isScholarshipWife": {
+                  "example": "any"
+                },
+                "isOLWife": {
+                  "example": "any"
+                },
+                "isOLPassedWife": {
+                  "example": "any"
+                },
+                "olRemarkWife": {
+                  "example": "any"
+                },
+                "isALWife": {
+                  "example": "any"
+                },
+                "alStreamNameWife": {
+                  "example": "any"
+                },
+                "alRemarkWife": {
+                  "example": "any"
+                },
+                "isUniversityWife": {
+                  "example": "any"
+                },
+                "universitySubjectsWife": {
+                  "example": "any"
+                },
+                "universityRemarkWife": {
+                  "example": "any"
+                },
+                "isEdexcelWife": {
+                  "example": "any"
+                },
+                "isCambridgeWife": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patientAppointments/get": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "doctorId": {
+                  "example": "any"
+                },
+                "appointmentNo": {
+                  "example": "any"
+                },
+                "appointmentDateStart": {
+                  "example": "any"
+                },
+                "appointmentDateEnd": {
+                  "example": "any"
+                },
+                "statusId": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/dropdown/universitySubjects": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/alStreams": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/alSubjects": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/olSubjects": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/appointment": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "appointmentNo": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "doctorId": {
+                  "example": "any"
+                },
+                "appointmentDate": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "statusId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/appointment/{appointmentId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "appointmentNo": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "doctorId": {
+                  "example": "any"
+                },
+                "appointmentDate": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "statusId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subject": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subjectName": {
+                  "example": "any"
+                },
+                "subjectType": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/dropdown/institutions": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/goodPoints": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/badPoints": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/occupations": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/raisedby": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/religions": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/typesofperson": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/socialdifficulties": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/internationalcurriculum/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dropdown/aces": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/mentalStatusExam/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/patient/mental-status-exam": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "circumstanceOfPresentation": {
+                  "example": "any"
+                },
+                "indicationsAndRecommendations": {
+                  "example": "any"
+                },
+                "appearance": {
+                  "example": "any"
+                },
+                "affectiveExpression": {
+                  "example": "any"
+                },
+                "behavior": {
+                  "example": "any"
+                },
+                "speech": {
+                  "example": "any"
+                },
+                "attitudeToExaminer": {
+                  "example": "any"
+                },
+                "moodAndAffect": {
+                  "example": "any"
+                },
+                "appropriateness": {
+                  "example": "any"
+                },
+                "hallucinations": {
+                  "example": "any"
+                },
+                "disassociation": {
+                  "example": "any"
+                },
+                "agnosia": {
+                  "example": "any"
+                },
+                "contentOfThought": {
+                  "example": "any"
+                },
+                "delusions0": {
+                  "example": "any"
+                },
+                "thoughtForm": {
+                  "example": "any"
+                },
+                "consciousness": {
+                  "example": "any"
+                },
+                "orientation": {
+                  "example": "any"
+                },
+                "concentration": {
+                  "example": "any"
+                },
+                "memory": {
+                  "example": "any"
+                },
+                "informationAndIntelligence": {
+                  "example": "any"
+                },
+                "judgment": {
+                  "example": "any"
+                },
+                "insight": {
+                  "example": "any"
+                },
+                "reliability": {
+                  "example": "any"
+                },
+                "summary": {
+                  "example": "any"
+                },
+                "generalObservations": {
+                  "example": "any"
+                },
+                "cognition": {
+                  "example": "any"
+                },
+                "thoughts": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/mental-status-exam/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "circumstanceOfPresentation": {
+                  "example": "any"
+                },
+                "indicationsAndRecommendations": {
+                  "example": "any"
+                },
+                "appearance": {
+                  "example": "any"
+                },
+                "affectiveExpression": {
+                  "example": "any"
+                },
+                "behavior": {
+                  "example": "any"
+                },
+                "speech": {
+                  "example": "any"
+                },
+                "attitudeToExaminer": {
+                  "example": "any"
+                },
+                "moodAndAffect": {
+                  "example": "any"
+                },
+                "appropriateness": {
+                  "example": "any"
+                },
+                "hallucinations": {
+                  "example": "any"
+                },
+                "disassociation": {
+                  "example": "any"
+                },
+                "agnosia": {
+                  "example": "any"
+                },
+                "contentOfThought": {
+                  "example": "any"
+                },
+                "delusions0": {
+                  "example": "any"
+                },
+                "thoughtForm": {
+                  "example": "any"
+                },
+                "consciousness": {
+                  "example": "any"
+                },
+                "orientation": {
+                  "example": "any"
+                },
+                "concentration": {
+                  "example": "any"
+                },
+                "memory": {
+                  "example": "any"
+                },
+                "informationAndIntelligence": {
+                  "example": "any"
+                },
+                "judgment": {
+                  "example": "any"
+                },
+                "insight": {
+                  "example": "any"
+                },
+                "reliability": {
+                  "example": "any"
+                },
+                "summary": {
+                  "example": "any"
+                },
+                "generalObservations": {
+                  "example": "any"
+                },
+                "cognition": {
+                  "example": "any"
+                },
+                "thoughts": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/mental-status-exam-family": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "circumstanceOfPresentationHusband": {
+                  "example": "any"
+                },
+                "circumstanceOfPresentationWife": {
+                  "example": "any"
+                },
+                "indicationsAndRecommendations": {
+                  "example": "any"
+                },
+                "appearanceHusband": {
+                  "example": "any"
+                },
+                "appearanceWife": {
+                  "example": "any"
+                },
+                "affectiveExpressionHusband": {
+                  "example": "any"
+                },
+                "affectiveExpressionWife": {
+                  "example": "any"
+                },
+                "behaviorHusband": {
+                  "example": "any"
+                },
+                "behaviorWife": {
+                  "example": "any"
+                },
+                "speechHusband": {
+                  "example": "any"
+                },
+                "speechWife": {
+                  "example": "any"
+                },
+                "attitudeToExaminerHusband": {
+                  "example": "any"
+                },
+                "attitudeToExaminerWife": {
+                  "example": "any"
+                },
+                "moodAndAffectHusband": {
+                  "example": "any"
+                },
+                "moodAndAffectWife": {
+                  "example": "any"
+                },
+                "appropriatenessHusband": {
+                  "example": "any"
+                },
+                "appropriatenessWife": {
+                  "example": "any"
+                },
+                "hallucinationsHusband": {
+                  "example": "any"
+                },
+                "hallucinationsWife": {
+                  "example": "any"
+                },
+                "disassociationHusband": {
+                  "example": "any"
+                },
+                "disassociationWife": {
+                  "example": "any"
+                },
+                "agnosiaHusband": {
+                  "example": "any"
+                },
+                "agnosiaWife": {
+                  "example": "any"
+                },
+                "contentOfThoughtHusband": {
+                  "example": "any"
+                },
+                "contentOfThoughtWife": {
+                  "example": "any"
+                },
+                "delusions0Husband": {
+                  "example": "any"
+                },
+                "delusions0Wife": {
+                  "example": "any"
+                },
+                "thoughtFormHusband": {
+                  "example": "any"
+                },
+                "thoughtFormWife": {
+                  "example": "any"
+                },
+                "consciousnessHusband": {
+                  "example": "any"
+                },
+                "consciousnessWife": {
+                  "example": "any"
+                },
+                "orientationHusband": {
+                  "example": "any"
+                },
+                "orientationWife": {
+                  "example": "any"
+                },
+                "concentrationHusband": {
+                  "example": "any"
+                },
+                "concentrationWife": {
+                  "example": "any"
+                },
+                "memoryHusband": {
+                  "example": "any"
+                },
+                "memoryWife": {
+                  "example": "any"
+                },
+                "informationAndIntelligenceHusband": {
+                  "example": "any"
+                },
+                "informationAndIntelligenceWife": {
+                  "example": "any"
+                },
+                "judgmentHusband": {
+                  "example": "any"
+                },
+                "judgmentWife": {
+                  "example": "any"
+                },
+                "insightHusband": {
+                  "example": "any"
+                },
+                "insightWife": {
+                  "example": "any"
+                },
+                "reliabilityHusband": {
+                  "example": "any"
+                },
+                "reliabilityWife": {
+                  "example": "any"
+                },
+                "summaryHusband": {
+                  "example": "any"
+                },
+                "summaryWife": {
+                  "example": "any"
+                },
+                "generalObservationsHusband": {
+                  "example": "any"
+                },
+                "generalObservationsWife": {
+                  "example": "any"
+                },
+                "cognitionHusband": {
+                  "example": "any"
+                },
+                "cognitionWife": {
+                  "example": "any"
+                },
+                "thoughtsHusband": {
+                  "example": "any"
+                },
+                "thoughtsWife": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/patient/mental-status-exam-family/{patientId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "circumstanceOfPresentationHusband": {
+                  "example": "any"
+                },
+                "circumstanceOfPresentationWife": {
+                  "example": "any"
+                },
+                "indicationsAndRecommendations": {
+                  "example": "any"
+                },
+                "appearanceHusband": {
+                  "example": "any"
+                },
+                "appearanceWife": {
+                  "example": "any"
+                },
+                "affectiveExpressionHusband": {
+                  "example": "any"
+                },
+                "affectiveExpressionWife": {
+                  "example": "any"
+                },
+                "behaviorHusband": {
+                  "example": "any"
+                },
+                "behaviorWife": {
+                  "example": "any"
+                },
+                "speechHusband": {
+                  "example": "any"
+                },
+                "speechWife": {
+                  "example": "any"
+                },
+                "attitudeToExaminerHusband": {
+                  "example": "any"
+                },
+                "attitudeToExaminerWife": {
+                  "example": "any"
+                },
+                "moodAndAffectHusband": {
+                  "example": "any"
+                },
+                "moodAndAffectWife": {
+                  "example": "any"
+                },
+                "appropriatenessHusband": {
+                  "example": "any"
+                },
+                "appropriatenessWife": {
+                  "example": "any"
+                },
+                "hallucinationsHusband": {
+                  "example": "any"
+                },
+                "hallucinationsWife": {
+                  "example": "any"
+                },
+                "disassociationHusband": {
+                  "example": "any"
+                },
+                "disassociationWife": {
+                  "example": "any"
+                },
+                "agnosiaHusband": {
+                  "example": "any"
+                },
+                "agnosiaWife": {
+                  "example": "any"
+                },
+                "contentOfThoughtHusband": {
+                  "example": "any"
+                },
+                "contentOfThoughtWife": {
+                  "example": "any"
+                },
+                "delusions0Husband": {
+                  "example": "any"
+                },
+                "delusions0Wife": {
+                  "example": "any"
+                },
+                "thoughtFormHusband": {
+                  "example": "any"
+                },
+                "thoughtFormWife": {
+                  "example": "any"
+                },
+                "consciousnessHusband": {
+                  "example": "any"
+                },
+                "consciousnessWife": {
+                  "example": "any"
+                },
+                "orientationHusband": {
+                  "example": "any"
+                },
+                "orientationWife": {
+                  "example": "any"
+                },
+                "concentrationHusband": {
+                  "example": "any"
+                },
+                "concentrationWife": {
+                  "example": "any"
+                },
+                "memoryHusband": {
+                  "example": "any"
+                },
+                "memoryWife": {
+                  "example": "any"
+                },
+                "informationAndIntelligenceHusband": {
+                  "example": "any"
+                },
+                "informationAndIntelligenceWife": {
+                  "example": "any"
+                },
+                "judgmentHusband": {
+                  "example": "any"
+                },
+                "judgmentWife": {
+                  "example": "any"
+                },
+                "insightHusband": {
+                  "example": "any"
+                },
+                "insightWife": {
+                  "example": "any"
+                },
+                "reliabilityHusband": {
+                  "example": "any"
+                },
+                "reliabilityWife": {
+                  "example": "any"
+                },
+                "summaryHusband": {
+                  "example": "any"
+                },
+                "summaryWife": {
+                  "example": "any"
+                },
+                "generalObservationsHusband": {
+                  "example": "any"
+                },
+                "generalObservationsWife": {
+                  "example": "any"
+                },
+                "cognitionHusband": {
+                  "example": "any"
+                },
+                "cognitionWife": {
+                  "example": "any"
+                },
+                "thoughtsHusband": {
+                  "example": "any"
+                },
+                "thoughtsWife": {
+                  "example": "any"
+                },
+                "isConfirm": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-forwarded-for",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loginUsername": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/user/add": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loginUserName": {
+                  "example": "any"
+                },
+                "loginPassword": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "displayName": {
+                  "example": "any"
+                },
+                "profilePic": {
+                  "example": "any"
+                },
+                "isActive": {
+                  "example": "any"
+                },
+                "isUpdateCredentials": {
+                  "example": "any"
+                },
+                "userRoleId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/update/{userId}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loginUserName": {
+                  "example": "any"
+                },
+                "loginPassword": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "displayName": {
+                  "example": "any"
+                },
+                "profilePic": {
+                  "example": "any"
+                },
+                "isActive": {
+                  "example": "any"
+                },
+                "isUpdateCredentials": {
+                  "example": "any"
+                },
+                "userRoleId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/user/list": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "userRoleIds": {
+                  "example": "any"
+                },
+                "loginUserName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/user/getUserAccountByUsername/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/notes/add": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notes": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "attachments": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/notes/update/{noteId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notes": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "attachments": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/notes/get": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/notes/delete/{noteId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/apPatient": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "utcOffset": {
+                  "example": "any"
+                },
+                "pageName": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/dropdown/doctors": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/saveSummaryNote": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "note": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/summaryNote/get": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/psy_notes/add": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notes": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "attachments": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/psy_notes/update/{noteId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notes": {
+                  "example": "any"
+                },
+                "patientId": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "attachments": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/psy_notes/get": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "example": "any"
+                },
+                "skip": {
+                  "example": "any"
+                },
+                "limit": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/psy_notes/delete/{noteId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/patient/{patientId}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/note/attachmentDetailsByPatientId/{patientId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/occupation": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "occupationName": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

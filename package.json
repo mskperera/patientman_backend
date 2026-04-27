@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "gen": "node docs/swagger.js",
+    "dev": "npm run gen && nodemon server.js",
     "start": "node server.js",
     "test": "mocha test/product.test.js",
     "test:watch": "nodemon --exec mocha 'test/dc_product.test.js'"
@@ -12,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@deepgram/sdk": "^5.0.0",
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
     "body-parser": "^1.19.0",
@@ -32,9 +34,11 @@
     "nodemailer": "^6.5.0",
     "nodemon": "^2.0.20",
     "socket.io-client": "^2.4.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "ua-parser-js": "^2.0.4",
     "validator": "^13.12.0",
-    "ws": "^8.18.0",
+    "ws": "^8.20.0",
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
@@ -42,6 +46,7 @@
     "chai-http": "^4.4.0",
     "cross-env": "^7.0.3",
     "mocha": "^10.7.3",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "swagger-autogen": "^2.23.7"
   }
 }
